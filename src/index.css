@@ -1,0 +1,76 @@
+:root {
+    font-size: 6.25%;
+    overflow-y: overlay;
+
+    --w-black: #252525;
+    --w-gray: #696969;
+    --w-red: #F23535;
+    --w-orange: #FF9900;
+    --w-green: #2FCC5B;
+    --w-background: #FFFFFF;
+    --w-white: #F5F5F5;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    background: transparent;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(173, 173, 173);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(145, 145, 145);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.fr {
+    display: flex;
+    flex-direction: row;
+}
+
+.fc {
+    display: flex;
+    flex-direction: column;
+}
+
+.fcenter {
+    justify-content: center;
+}
+
+.fleft {
+    justify-content: left;
+}
+
+.fright {
+    justify-content: right;
+}
+
+.fsbetween {
+    justify-content: space-between;
+}
+
+.fsevenly {
+    justify-content: space-evenly;
+}
+
+.no-drag {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.no-underline {
+    text-decoration: none;
+}
+  
