@@ -74,7 +74,7 @@ const CardImageWrapper = styled.div `
 
 let mouseoverAfterOneSecond;
 let makeNormalForLastIndexVar;
-let isMakeWideForLastIndexDid = false;
+let isLastIndex = false;
 
 function CardImageWithEvent({posterUrl, bigImageUrl, slideIndex, index, rightOnce, makeWideForLastIndex, makeNormalForLastIndex, datasLength}) {
 
@@ -84,11 +84,12 @@ function CardImageWithEvent({posterUrl, bigImageUrl, slideIndex, index, rightOnc
                 if (index - slideIndex == 6) {      // 반응형은 감지 못함 수정하기
                     mouseoverAfterOneSecond = setTimeout(function() {
                         rightOnce();
+                        isLastIndex = true;
                     }, 1000);
                     if (datasLength == index){
                         makeNormalForLastIndexVar = setTimeout(function() {
                             makeWideForLastIndex();
-                            isMakeWideForLastIndexDid= true;
+                            //isMakeWideForLastIndexDid= true;
                         }, 1000);
                     }
                 }
@@ -100,17 +101,14 @@ function CardImageWithEvent({posterUrl, bigImageUrl, slideIndex, index, rightOnc
                 } catch (error) {
                 }
                 try {
-                    console.log(isMakeWideForLastIndexDid);
-                    if (isMakeWideForLastIndexDid == true) {
-                        console.log('makeNormalForLastIndex')
+                    if (isLastIndex == true) {
                         makeNormalForLastIndex();
-                        isMakeWideForLastIndexDid = false;
+                        isLastIndex = false;
                     }
                 } catch (error) {
                     
                 }
-            }}
-            onClick={makeWideForLastIndex}>
+            }}>
                 <CardImageImg1 src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${posterUrl}`}/>
             </CardImageImg1Wrapper>
             <CardImageImg2Wrapper>
