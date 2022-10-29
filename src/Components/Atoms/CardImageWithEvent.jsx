@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import CardStory from './CardStory'
 
 const CardImageImg1 = styled.img `
     width: 180rem;
@@ -15,6 +16,8 @@ const CardImageImg2 = styled.img `
     width: 400rem;
     height: 270rem;
     object-fit: cover;
+    filter: blur(1px);
+    filter: brightness(0.30);
 `
 
 const CardImageImg1Wrapper = styled.div `
@@ -76,7 +79,7 @@ let mouseoverAfterOneSecond;
 let makeNormalForLastIndexVar;
 let isLastIndex = false;
 
-function CardImageWithEvent({posterUrl, bigImageUrl, slideIndex, index, rightOnce, makeWideForLastIndex, makeNormalForLastIndex, datasLength}) {
+function CardImageWithEvent({posterUrl, bigImageUrl, slideIndex, index, rightOnce, makeWideForLastIndex, makeNormalForLastIndex, datasLength, overview}) {
 
     return (
         <CardImageWrapper>
@@ -113,6 +116,7 @@ function CardImageWithEvent({posterUrl, bigImageUrl, slideIndex, index, rightOnc
             </CardImageImg1Wrapper>
             <CardImageImg2Wrapper>
                 <CardImageImg2 src={`https://www.themoviedb.org/t/p/original/${bigImageUrl}`}/>
+                <CardStory overview={overview}/>
             </CardImageImg2Wrapper>
         </CardImageWrapper>
     )

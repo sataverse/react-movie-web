@@ -20,7 +20,7 @@ function CardTextScore({text}) {
 
     return (
         <CardTextScoreSpan text={text}>
-            {text}
+            {text}%
         </CardTextScoreSpan>
     )
 }

@@ -57,9 +57,6 @@ const SlideWrapper2 = styled.div `
     position: relative;
 `
 
-
-
-
 function ContentSlideSection({sectionTitle, datas, type}) {
     const [slideIndex, setSlideIndex] = useState(0);
 
@@ -95,6 +92,7 @@ function ContentSlideSection({sectionTitle, datas, type}) {
                     <ContentSlideGrid id='contentSlideGrid' className='fr' style={{transform: `translateX(-${slideIndex * 220}px)`}}>
                     {   
                         datas.map((element, index) => {
+                            console.log(element)
                             let rate1 = element.vote_average || '';
                             let rate2 = Math.floor(rate1 * 10)
                             //console.log(element.bigImage)
@@ -145,9 +143,9 @@ function ContentSlideSection({sectionTitle, datas, type}) {
                                 }
                                 return (
                                     <ContentCardWithEvent id={element.id} posterUrl={element.poster_path} bigImageUrl={element.bigImage} title={element.title} desc={desc} 
-                                        key={`card_${element.id}`} score={`${rate2}%`} slideIndex={slideIndex} index={index + 1} 
+                                        key={`card_${element.id}`} score={`${rate2}`} slideIndex={slideIndex} index={index + 1} 
                                         rightOnce={rightOnce} makeWideForLastIndex={makeWideForLastIndex} 
-                                        makeNormalForLastIndex={makeNormalForLastIndex} datasLength={datas.length}/>
+                                        makeNormalForLastIndex={makeNormalForLastIndex} datasLength={datas.length} overview={element.overview}/>
                                 )
                             }
                             else if (type == 'tv') {
@@ -199,7 +197,7 @@ function ContentSlideSection({sectionTitle, datas, type}) {
                                     <ContentCardWithEvent id={element.id} posterUrl={element.poster_path} bigImageUrl={element.bigImage} title={element.name} desc={desc} 
                                         key={`card_${element.id}`} score={`${rate2}%`} slideIndex={slideIndex} index={index + 1} 
                                         rightOnce={rightOnce} makeWideForLastIndex={makeWideForLastIndex} 
-                                        makeNormalForLastIndex={makeNormalForLastIndex} datasLength={datas.length}/>
+                                        makeNormalForLastIndex={makeNormalForLastIndex} datasLength={datas.length} overview={element.overview}/>
                                 )
                             }
                             else if (type == undefined) {
@@ -209,7 +207,7 @@ function ContentSlideSection({sectionTitle, datas, type}) {
                                     <ContentCardWithEvent id={element.id} posterUrl={element.poster_path} bigImageUrl={element.bigImage} title={element.title} desc={year2} 
                                         key={`card_${element.id}`} score={`${rate2}%`} slideIndex={slideIndex} index={index + 1} 
                                         rightOnce={rightOnce} makeWideForLastIndex={makeWideForLastIndex} 
-                                        makeNormalForLastIndex={makeNormalForLastIndex} datasLength={datas.length}/>
+                                        makeNormalForLastIndex={makeNormalForLastIndex} datasLength={datas.length} overview={element.overview}/>
                                 )
                             }
                         })

@@ -45,17 +45,22 @@ function MainPage() {
             let enTVData = await responseTV.json();
             for(const element of enTVData.results) {
                 let elementResult;
-                await fetch(`https://api.themoviedb.org/3/tv/${element.id}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`)
-                .then(response2 => response2.json())
-                .then(response2 => {
-                    elementResult = response2;
-                })
-                await fetch(`https://api.themoviedb.org/3/tv/${element.id}/images?api_key=6199da9940f55ef72ddc1512ea6eca9a`)
-                .then(response2 => response2.json())
-                .then(response2 => {
-                    elementResult.bigImage = response2.backdrops[0].file_path;
-                    koTVData.push(elementResult);
-                })
+                try {
+                    await fetch(`https://api.themoviedb.org/3/tv/${element.id}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`)
+                    .then(response2 => response2.json())
+                    .then(response2 => {
+                        elementResult = response2;
+                    })
+                    await fetch(`https://api.themoviedb.org/3/tv/${element.id}/images?api_key=6199da9940f55ef72ddc1512ea6eca9a`)
+                    .then(response2 => response2.json())
+                    .then(response2 => {
+                        elementResult.bigImage = response2.backdrops[0].file_path;
+                        koTVData.push(elementResult);
+                    })
+                } catch (error) {
+                    
+                }
+                
             }
             setTrendTvs(koTVData)
         }

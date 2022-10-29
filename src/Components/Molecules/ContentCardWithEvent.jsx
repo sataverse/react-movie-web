@@ -16,13 +16,13 @@ const Wrapper1 = styled.div `
     height: 70rem;
 `
 
-function ContentCardWithEvent({title, desc, score, posterUrl, bigImageUrl, slideIndex, index, rightOnce, makeWideForLastIndex,  makeNormalForLastIndex, datasLength}) {
+function ContentCardWithEvent({title, desc, score, posterUrl, bigImageUrl, slideIndex, index, rightOnce, makeWideForLastIndex,  makeNormalForLastIndex, datasLength, overview}) {
     return (
         <ContentCardDiv className='fc'>
             <CardIndex index={index}/>
             <CardImageWithEvent posterUrl={posterUrl} bigImageUrl={bigImageUrl} slideIndex={slideIndex} index={index} rightOnce={rightOnce}
                 makeWideForLastIndex={makeWideForLastIndex} makeNormalForLastIndex={makeNormalForLastIndex}
-                datasLength={datasLength}/>
+                datasLength={datasLength} overview={overview}/>
             <Wrapper1 className='fc fsevenly'>
                 <CardTextTitle text={title}/>
                 <div className='fr fsbetween'>
