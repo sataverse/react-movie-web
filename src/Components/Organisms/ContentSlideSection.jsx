@@ -92,10 +92,8 @@ function ContentSlideSection({sectionTitle, datas, type}) {
                     <ContentSlideGrid id='contentSlideGrid' className='fr' style={{transform: `translateX(-${slideIndex * 220}px)`}}>
                     {   
                         datas.map((element, index) => {
-                            console.log(element)
                             let rate1 = element.vote_average || '';
                             let rate2 = Math.floor(rate1 * 10)
-                            //console.log(element.bigImage)
                             if (type == 'movie') {
                                 let year1 = element.release_date || '';
                                 let year2 = year1?.slice(0, 4);
@@ -195,7 +193,7 @@ function ContentSlideSection({sectionTitle, datas, type}) {
                                 }
                                 return (
                                     <ContentCardWithEvent id={element.id} posterUrl={element.poster_path} bigImageUrl={element.bigImage} title={element.name} desc={desc} 
-                                        key={`card_${element.id}`} score={`${rate2}%`} slideIndex={slideIndex} index={index + 1} 
+                                        key={`card_${element.id}`} score={`${rate2}`} slideIndex={slideIndex} index={index + 1} 
                                         rightOnce={rightOnce} makeWideForLastIndex={makeWideForLastIndex} 
                                         makeNormalForLastIndex={makeNormalForLastIndex} datasLength={datas.length} overview={element.overview}/>
                                 )
@@ -205,7 +203,7 @@ function ContentSlideSection({sectionTitle, datas, type}) {
                                 let year2 = year1?.slice(0, 4);
                                 return (
                                     <ContentCardWithEvent id={element.id} posterUrl={element.poster_path} bigImageUrl={element.bigImage} title={element.title} desc={year2} 
-                                        key={`card_${element.id}`} score={`${rate2}%`} slideIndex={slideIndex} index={index + 1} 
+                                        key={`card_${element.id}`} score={`${rate2}`} slideIndex={slideIndex} index={index + 1} 
                                         rightOnce={rightOnce} makeWideForLastIndex={makeWideForLastIndex} 
                                         makeNormalForLastIndex={makeNormalForLastIndex} datasLength={datas.length} overview={element.overview}/>
                                 )

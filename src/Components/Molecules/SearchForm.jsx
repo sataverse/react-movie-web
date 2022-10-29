@@ -68,18 +68,31 @@ const SearchInputWrapper = styled.input `
         font-size: 14rem;
         color: var(--w-gray);
     }
+
+    &:focus {
+        border-bottom: 1px solid var(--w-red);
+    }
+
+    &:focus + ${SearchIcon} svg circle {
+        stroke: var(--w-red);
+    }
+
+    &:focus + ${SearchIcon} svg rect {
+        fill: var(--w-red);
+    }
 `
 
 
 function SearchForm() {
     return (
         <SearchFormWrapper>
+            <SearchInputWrapper type='text' placeholder='영화, TV 프로그램, 인물을 찾아보세요'/>
             <SearchIcon>
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10.6667 9.33333C11.5632 8.29045 11.8925 7.4191 11.8925 5.94625C11.8925 2.66209 9.23042 0 5.94626 0C2.66209 0 0 2.66209 0 5.94625C0 9.23042 2.66209 11.8925 5.94626 11.8925C7.4191 11.8925 8.29045 11.5632 9.33333 10.6667L14.6369 16L16 14.6369L10.6667 9.33333ZM5.94626 10.0629C3.66838 10.0629 1.82962 8.22413 1.82962 5.94625C1.82962 3.66838 3.66838 1.82962 5.94626 1.82962C8.22413 1.82962 10.0629 3.66838 10.0629 5.94625C10.0629 8.22413 8.22413 10.0629 5.94626 10.0629Z" fill="#8F8F8F"/>
+                <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="8.57145" cy="8.20186" r="5" transform="rotate(-40 8.57145 8.20186)" stroke="#252525"/>
+                    <rect x="11.0811" y="11.9703" width="1" height="7" transform="rotate(-40 11.0811 11.9703)" fill="#252525"/>
                 </svg>
             </SearchIcon>
-            <SearchInputWrapper type='text' placeholder='영화, TV 프로그램, 인물을 찾아보세요'/>
         </SearchFormWrapper>
     )
 }

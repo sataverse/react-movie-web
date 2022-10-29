@@ -17,7 +17,7 @@ const CardImageImg2 = styled.img `
     height: 270rem;
     object-fit: cover;
     filter: blur(1px);
-    filter: brightness(0.30);
+    filter: brightness(0.50);
 `
 
 const CardImageImg1Wrapper = styled.div `
