@@ -52,6 +52,7 @@ const SearchInputWrapper = styled.input `
     border-bottom: 1px solid var(--w-gray);
     background-color: transparent;
     height: 35rem;
+
     &:focus {
         outline: none;
         border-bottom: 1px solid var(--w-gray);
@@ -86,7 +87,7 @@ const SearchInputWrapper = styled.input `
 function SearchForm() {
     return (
         <SearchFormWrapper>
-            <SearchInputWrapper type='text' placeholder='영화, TV 프로그램, 인물을 찾아보세요'/>
+            <SearchInputWrapper spellCheck={false} type='text' placeholder='영화, TV 프로그램, 인물을 찾아보세요'/>
             <SearchIcon>
                 <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="8.57145" cy="8.20186" r="5" transform="rotate(-40 8.57145 8.20186)" stroke="#252525"/>

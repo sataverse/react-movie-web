@@ -11,7 +11,7 @@ const MainNavLogoWrapper = styled.span `
 
 function MainNavLogo() {
     return (
-        <Link to={'./'} className='no-underline'>
+        <Link to={'/'} className='no-underline'>
             <MainNavLogoWrapper>
                 MOVIE
             </MainNavLogoWrapper>

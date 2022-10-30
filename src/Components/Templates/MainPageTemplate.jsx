@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import MovieSlideSection from '../Organisms/ContentSlideSection';
+import ContentSlideSection from '../Organisms/ContentSlideSection';
 import MainHeader from '../Organisms/MainHeader';
 import SubHeader from '../Organisms/SubHeader';
 
@@ -15,13 +15,13 @@ function MainPageTemplate({trendMovies, trendTvs, gbsPick}) {
             <MainHeader/>
             <MainPageTemplateWrapper className='fc fleft'>
                 <div className='fr fcenter'>
-                    <MovieSlideSection sectionTitle={'🍿 인기 영화'} datas={trendMovies} type="movie"></MovieSlideSection>
+                    <ContentSlideSection sectionTitle={'🍿 인기 영화'} datas={trendMovies} type="movie" page={'movie'}/>
                 </div>
                 <div className='fr fcenter'>
-                    <MovieSlideSection sectionTitle={'📺 인기 TV 프로그램'} datas={trendTvs} type="tv"></MovieSlideSection>
+                    <ContentSlideSection sectionTitle={'📺 인기 TV 프로그램'} datas={trendTvs} type="tv" page={'tv'}/>
                 </div>
                 <div className='fr fcenter'>
-                    <MovieSlideSection sectionTitle={'내가 최근에 본거임'} datas={gbsPick} type="movie"></MovieSlideSection>
+                    <ContentSlideSection sectionTitle={'내가 최근에 본거임'} datas={gbsPick} type="movie" page={'movie'}/>
                 </div>
             </MainPageTemplateWrapper>
         </>

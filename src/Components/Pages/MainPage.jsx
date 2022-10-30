@@ -6,11 +6,6 @@ let gbsPlaylistData = [];
 let koMovieData = [];
 let koTVData = [];
 
-let gbsPlaylistDataImage = [];
-let koMovieDataImage = [];
-let koTVDataImage = [];
-
-
 function MainPage() {
     const [trendMovies, setTrendMovies] = useState(new Array(0));
     const [trendTvs, setTrendTvs] = useState(new Array(0));
@@ -77,10 +72,7 @@ function MainPage() {
                         elementResult.bigImage = response2.backdrops[0].file_path;
                         koTVData.push(elementResult);
                     })
-                } catch (error) {
-                    
-                }
-                
+                } catch (error) { }
             }
             setTrendTvs(koTVData)
         }
@@ -94,7 +86,7 @@ function MainPage() {
                 .then(response => response.json())
                 .then(response => {
                     elementResult = response
-                    if (response2.overview == "")
+                    if (response.overview == "")
                         ifNoOverview = true;
                 })
                 if (ifNoOverview == true) {

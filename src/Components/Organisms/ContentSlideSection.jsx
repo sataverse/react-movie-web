@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
 import ContentCardWithEvent from '../Molecules/ContentCardWithEvent';
+import ContentSlideSectionTitle from '../Atoms/ContentSlideSectionTitle';
+import ContentSlideSectionLink from '../Atoms/ContentSlideSectionLink';
 
 const ContentSlideSectionDiv = styled.div `
     height: 420rem;
@@ -11,17 +13,6 @@ const ContentSlideSectionDiv = styled.div `
         }
     }
 `;
-
-const ContentSlideSectionTitle = styled.span `
-    height: 70rem;
-    font-family: 'Noto Sans KR';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 24rem;
-    line-height: 70rem;
-    margin-left: 50rem;
-    color: var(--w-black);
-`
 
 const ContentSlideGrid = styled.div `
     height: 340rem;
@@ -45,6 +36,10 @@ const SlideButton = styled.button `
     background-color: transparent;
 `
 
+const ContentSlideSectionLinkWrapper = styled.div `
+
+`
+
 const SlideWrapper1 = styled.div `
     &:hover > div ${SlideButton} {
         display: block;
@@ -57,8 +52,11 @@ const SlideWrapper2 = styled.div `
     position: relative;
 `
 
-function ContentSlideSection({sectionTitle, datas, type}) {
+
+
+function ContentSlideSection({sectionTitle, datas, type, page}) {
     const [slideIndex, setSlideIndex] = useState(0);
+    const [LinkDisplay, setLinkDisplay] = useState("none");
 
     async function rightOnce() {
         if (slideIndex < datas.length - 6) 
@@ -73,10 +71,18 @@ function ContentSlideSection({sectionTitle, datas, type}) {
     };
 
     return (
-        <ContentSlideSectionDiv className='fc'>
-            <ContentSlideSectionTitle>
-                {sectionTitle}
-            </ContentSlideSectionTitle>
+        <ContentSlideSectionDiv className='fc' onMouseOver={()=>{
+            setLinkDisplay('block')
+        }}
+        onMouseLeave={()=>{
+            setLinkDisplay('none')
+        }}>
+            <div className='fr fsbetween'>
+                <ContentSlideSectionTitle text={sectionTitle}/>
+                <ContentSlideSectionLinkWrapper style={{display: LinkDisplay}}>
+                    <ContentSlideSectionLink page={page}/>
+                </ContentSlideSectionLinkWrapper>
+            </div>
             <SlideWrapper1 className='fr fsevenly'>
                 <div className='fc fcenter'>
                     <SlideButton onClick={() => {
@@ -84,7 +90,7 @@ function ContentSlideSection({sectionTitle, datas, type}) {
                             setSlideIndex(slideIndex - 1)
                     }}>
                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M25 10L15 20L25 30" stroke="#252525"/>
+                            <path d="M25 10L15 20L25 30" stroke="#696969"/>
                         </svg>
                     </SlideButton>
                 </div> 
@@ -140,10 +146,14 @@ function ContentSlideSection({sectionTitle, datas, type}) {
                                     
                                 }
                                 return (
-                                    <ContentCardWithEvent id={element.id} posterUrl={element.poster_path} bigImageUrl={element.bigImage} title={element.title} desc={desc} 
-                                        key={`card_${element.id}`} score={`${rate2}`} slideIndex={slideIndex} index={index + 1} 
+                                    <React.Fragment key={`${element.id}`}>
+                                        <ContentCardWithEvent id={element.id} posterUrl={element.poster_path} bigImageUrl={element.bigImage} title={element.title} desc={desc} 
+                                        score={`${rate2}`} slideIndex={slideIndex} index={index + 1} 
                                         rightOnce={rightOnce} makeWideForLastIndex={makeWideForLastIndex} 
-                                        makeNormalForLastIndex={makeNormalForLastIndex} datasLength={datas.length} overview={element.overview}/>
+                                        makeNormalForLastIndex={makeNormalForLastIndex} datasLength={datas.length} overview={element.overview}
+                                        type={type}/>
+                                    </React.Fragment>
+                                    
                                 )
                             }
                             else if (type == 'tv') {
@@ -192,20 +202,24 @@ function ContentSlideSection({sectionTitle, datas, type}) {
                                     
                                 }
                                 return (
+                                    <React.Fragment key={`${element.id}`}>
                                     <ContentCardWithEvent id={element.id} posterUrl={element.poster_path} bigImageUrl={element.bigImage} title={element.name} desc={desc} 
-                                        key={`card_${element.id}`} score={`${rate2}`} slideIndex={slideIndex} index={index + 1} 
+                                        score={`${rate2}`} slideIndex={slideIndex} index={index + 1} 
                                         rightOnce={rightOnce} makeWideForLastIndex={makeWideForLastIndex} 
                                         makeNormalForLastIndex={makeNormalForLastIndex} datasLength={datas.length} overview={element.overview}/>
+                                    </React.Fragment>
                                 )
                             }
                             else if (type == undefined) {
                                 let year1 = element.release_date || '';
                                 let year2 = year1?.slice(0, 4);
                                 return (
+                                    <React.Fragment key={`${element.id}`}>
                                     <ContentCardWithEvent id={element.id} posterUrl={element.poster_path} bigImageUrl={element.bigImage} title={element.title} desc={year2} 
-                                        key={`card_${element.id}`} score={`${rate2}`} slideIndex={slideIndex} index={index + 1} 
+                                        score={`${rate2}`} slideIndex={slideIndex} index={index + 1} 
                                         rightOnce={rightOnce} makeWideForLastIndex={makeWideForLastIndex} 
                                         makeNormalForLastIndex={makeNormalForLastIndex} datasLength={datas.length} overview={element.overview}/>
+                                    </React.Fragment>
                                 )
                             }
                         })
@@ -218,7 +232,7 @@ function ContentSlideSection({sectionTitle, datas, type}) {
                             setSlideIndex(slideIndex + 1)
                     }}>
                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15 30L25 20L15 10" stroke="#252525"/>
+                            <path d="M15 30L25 20L15 10" stroke="#696969"/>
                         </svg>
                     </SlideButton>
                 </div>
