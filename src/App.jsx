@@ -1,17 +1,17 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainPage from './Components/Pages/MainPage'
-import MoviePageTemplate from './Components/Templates/MoviePageTemplate'
-import MoviePageDetailTemplate from './Components/Templates/MoviePageDetailTemplate'
-import TVPageTemplate from './Components/Templates/TVPageTemplate'
+import MoviePage from './Components/Pages/MoviePage'
+import MoviePageDetail from './Components/Pages/MoviePageDetail'
+import TVPage from './Components/Pages/TVPage'
 
 function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<MainPage />}></Route>
-                <Route path="/movie" element={<MoviePageTemplate />}></Route>
-                <Route path="/movie/:id" element={<MoviePageDetailTemplate />}></Route>
-                <Route path="/tv" element={<TVPageTemplate />}></Route>
+                <Route path="/" element={<MainPage/>}/>
+                <Route path="/movie" element={<MoviePage/>}/>
+                <Route path="/movie/:id" element={<MoviePageDetail/>}/>
+                <Route path="/tv" element={<TVPage/>}/>
             </Routes>
         </BrowserRouter>
     )
