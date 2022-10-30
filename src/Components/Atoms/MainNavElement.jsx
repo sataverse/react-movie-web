@@ -11,7 +11,7 @@ const MainNavElementWrapper = styled.span `
 
 function MainNavElement({text, page}) {
     return (
-        <Link to={`./${page}`} className='no-underline'>
+        <Link to={`/${page}`} className='no-underline'>
             <MainNavElementWrapper>
                 {text}
             </MainNavElementWrapper>

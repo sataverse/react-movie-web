@@ -12,7 +12,7 @@ function MoviePageTemplate() {
             <SubHeader/>
             <MainHeader/>
             <MoviePageTemplateWrapper className='fc fleft'>
-            MoviePageTemplate
+                MoviePageTemplate
             </MoviePageTemplateWrapper>
         </>
     )

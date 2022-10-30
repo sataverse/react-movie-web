@@ -10,7 +10,7 @@ function MainHeaderNav() {
         <MainHeaderNavWrapper className='fr fsbetween'>
             <MainNavElement text={'영화'} page={'movie'}></MainNavElement>
             <MainNavElement text={'TV 프로그램'} page={'tv'}></MainNavElement>
-            <MainNavElement text={'인물'} page={'people'}></MainNavElement>
+            <MainNavElement text={'인물'} page={'person'}></MainNavElement>
         </MainHeaderNavWrapper>
     )
 }
