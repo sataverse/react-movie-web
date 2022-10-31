@@ -3,6 +3,7 @@ import styled from 'styled-components'
 const SearchFormWrapper = styled.div `
     position: relative;
     height: 35rem;
+    margin-right: 18rem;
 
     @media (max-width: 616px) {
         & {
