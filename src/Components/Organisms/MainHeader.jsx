@@ -2,7 +2,9 @@ import styled from 'styled-components'
 
 import MainNavLogo from '../Atoms/MainNavLogo'
 import MainHeaderNav from '../Molecules/MainHeaderNav'
-import SearchForm from '../Molecules/SearchForm';
+import SearchForm from '../Molecules/SearchForm'
+
+import MainNavUser from '../Atoms/MainNavUser';
 
 const MainHeaderWrapper = styled.div `
     position: sticky;
@@ -63,6 +65,12 @@ const MainHeaderContentWrapper = styled.div `
     }
 `;
 
+const MainNavUserWrapper = styled.div `
+    width: 400rem;
+    height: 100%;
+    margin-right: 44rem;
+`;
+
 
 function MainHeader({backgroundColor="auto", borderBottom="auto"}) {
     return (
@@ -76,9 +84,16 @@ function MainHeader({backgroundColor="auto", borderBottom="auto"}) {
                         <MainHeaderNav></MainHeaderNav>
                     </div>
                 </MainNavWrapper>
-                <div className='fc fcenter'>
-                    <SearchForm></SearchForm>
-                </div>
+                
+                <MainNavUserWrapper className='fr fsbetween'>
+                    <div className='fc fcenter'>
+                        <SearchForm></SearchForm>
+                    </div>
+                    <div className='fc fcenter'>
+                        <MainNavUser></MainNavUser>
+                    </div>
+                </MainNavUserWrapper>
+
             </MainHeaderContentWrapper>
         </MainHeaderWrapper>
     )
