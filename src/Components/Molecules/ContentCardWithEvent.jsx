@@ -19,12 +19,12 @@ const Wrapper1 = styled.div `
 
 function ContentCardWithEvent({id, title, desc, score, posterUrl, bigImageUrl, slideIndex, index, rightOnce, makeWideForLastIndex,  makeNormalForLastIndex, datasLength, overview, type}) {
     return (
-        <Link to={`/${type}/${id}`} className='no-underline'>
-            <ContentCardDiv className='fc'>
+        <Link to={`/${type}/${id}`} className='no-underline no-drag'>
+            <ContentCardDiv className='fc no-drag' >
                 <CardIndex index={index}/>
                 <CardImageWithEvent posterUrl={posterUrl} bigImageUrl={bigImageUrl} slideIndex={slideIndex} index={index} rightOnce={rightOnce}
                     makeWideForLastIndex={makeWideForLastIndex} makeNormalForLastIndex={makeNormalForLastIndex}
-                    datasLength={datasLength} overview={overview}/>
+                    datasLength={datasLength} overview={overview} className='no-drag'/>
                 <Wrapper1 className='fc fsevenly'>
                     <CardTextTitle text={title}/>
                     <div className='fr fsbetween'>

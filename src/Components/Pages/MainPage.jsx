@@ -21,23 +21,21 @@ function MainPage() {
                 let elementResult;
                 let ifNoOverview = false;
                 await fetch(`https://api.themoviedb.org/3/movie/${element.id}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`)
-                .then(response2 => response2.json())
-                .then(response2 => {
-                    elementResult = response2;
-                    if (response2.overview == "")
+                .then(response => response.json())
+                .then(data => {
+                    elementResult = data;
+                    if (data.overview == "")
                         ifNoOverview = true;
                 })
                 if (ifNoOverview == true) {
                     await fetch(`https://api.themoviedb.org/3/movie/${element.id}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=en-US`)
-                    .then(response2 => response2.json())
-                    .then(response2 => {
-                        elementResult.overview = response2.overview;
-                    })
+                    .then(response => response.json())
+                    .then(data => elementResult.overview = data.overview)
                 }
                 await fetch(`https://api.themoviedb.org/3/movie/${element.id}/images?api_key=6199da9940f55ef72ddc1512ea6eca9a`)
-                .then(response2 => response2.json())
-                .then(response2 => {
-                    elementResult.bigImage = response2.backdrops[0].file_path;
+                .then(response => response.json())
+                .then(data => {
+                    elementResult.bigImage = data.backdrops[0].file_path;
                     koMovieData.push(elementResult);
                 })
             }
@@ -53,23 +51,21 @@ function MainPage() {
                 let ifNoOverview = false;
                 try {
                     await fetch(`https://api.themoviedb.org/3/tv/${element.id}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`)
-                    .then(response2 => response2.json())
-                    .then(response2 => {
-                        elementResult = response2;
-                        if (response2.overview == "")
+                    .then(response => response.json())
+                    .then(data => {
+                        elementResult = data;
+                        if (data.overview == "")
                             ifNoOverview = true;
                     })
                     if (ifNoOverview == true) {
                         await fetch(`https://api.themoviedb.org/3/tv/${element.id}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=en-US`)
-                        .then(response2 => response2.json())
-                        .then(response2 => {
-                            elementResult.overview = response2.overview;
-                        })
+                        .then(response => response.json())
+                        .then(data => elementResult.overview = data.overview)
                     }
                     await fetch(`https://api.themoviedb.org/3/tv/${element.id}/images?api_key=6199da9940f55ef72ddc1512ea6eca9a`)
-                    .then(response2 => response2.json())
-                    .then(response2 => {
-                        elementResult.bigImage = response2.backdrops[0].file_path;
+                    .then(response => response.json())
+                    .then(data => {
+                        elementResult.bigImage = data.backdrops[0].file_path;
                         koTVData.push(elementResult);
                     })
                 } catch (error) { }
@@ -82,26 +78,26 @@ function MainPage() {
             for(const element of gbsPlaylist) {
                 let elementResult;
                 let ifNoOverview = false;
-                await fetch(`https://api.themoviedb.org/3/movie/${element}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`)
-                .then(response => response.json())
-                .then(response => {
-                    elementResult = response
-                    if (response.overview == "")
-                        ifNoOverview = true;
-                })
-                if (ifNoOverview == true) {
-                    await fetch(`https://api.themoviedb.org/3/movie/${element.id}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=en-US`)
-                    .then(response2 => response2.json())
-                    .then(response2 => {
-                        elementResult.overview = response2.overview;
+                try {
+                    await fetch(`https://api.themoviedb.org/3/movie/${element}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`)
+                    .then(response => response.json())
+                    .then(data => {
+                        elementResult = data;
+                        if (data.overview == "")
+                            ifNoOverview = true;
                     })
-                }
-                await fetch(`https://api.themoviedb.org/3/movie/${element}/images?api_key=6199da9940f55ef72ddc1512ea6eca9a`)
-                .then(response2 => response2.json())
-                .then(response2 => {
-                    elementResult.bigImage = response2.backdrops[0].file_path;
-                    gbsPlaylistData.push(elementResult);
-                })
+                    if (ifNoOverview == true) {
+                        await fetch(`https://api.themoviedb.org/3/movie/${element.id}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=en-US`)
+                        .then(response => response.json())
+                        .then(data => elementResult.overview = data.overview)
+                    }
+                    await fetch(`https://api.themoviedb.org/3/movie/${element}/images?api_key=6199da9940f55ef72ddc1512ea6eca9a`)
+                    .then(response => response.json())
+                    .then(data => {
+                        elementResult.bigImage = data.backdrops[0].file_path;
+                        gbsPlaylistData.push(elementResult);
+                    })
+                } catch (error) { }
             }
             setGbsPick(gbsPlaylistData)
         }

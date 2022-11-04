@@ -82,8 +82,8 @@ let isLastIndex = false;
 function CardImageWithEvent({posterUrl, bigImageUrl, slideIndex, index, rightOnce, makeWideForLastIndex, makeNormalForLastIndex, datasLength, overview}) {
 
     return (
-        <CardImageWrapper>
-            <CardImageImg1Wrapper onMouseOver={()=>{
+        <CardImageWrapper className='no-drag'>
+            <CardImageImg1Wrapper className='no-drag' onMouseOver={()=>{
                 if (index - slideIndex == 6) {      // 반응형은 감지 못함 수정하기
                     mouseoverAfterOneSecond = setTimeout(function() {
                         rightOnce();
@@ -112,11 +112,11 @@ function CardImageWithEvent({posterUrl, bigImageUrl, slideIndex, index, rightOnc
                     
                 }
             }}>
-                <CardImageImg1 src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${posterUrl}`}/>
+                <CardImageImg1 className='no-drag' src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${posterUrl}`}/>
             </CardImageImg1Wrapper>
-            <CardImageImg2Wrapper>
-                <CardImageImg2 src={`https://www.themoviedb.org/t/p/original/${bigImageUrl}`}/>
-                <CardStory overview={overview}/>
+            <CardImageImg2Wrapper className='no-drag'>
+                <CardImageImg2 className='no-drag' src={`https://www.themoviedb.org/t/p/original/${bigImageUrl}`} loading="lazy"/>
+                <CardStory overview={overview} className='no-drag'/>
             </CardImageImg2Wrapper>
         </CardImageWrapper>
     )

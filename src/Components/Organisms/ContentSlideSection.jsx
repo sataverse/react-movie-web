@@ -52,11 +52,10 @@ const SlideWrapper2 = styled.div `
     position: relative;
 `
 
-
-
 function ContentSlideSection({sectionTitle, datas, type, page}) {
     const [slideIndex, setSlideIndex] = useState(0);
     const [LinkDisplay, setLinkDisplay] = useState("none");
+    const [isMouseDown, setMouseDown] = useState(false);
 
     async function rightOnce() {
         if (slideIndex < datas.length - 6) 
@@ -69,6 +68,21 @@ function ContentSlideSection({sectionTitle, datas, type, page}) {
     async function makeNormalForLastIndex() {
         setSlideIndex(slideIndex - 1)
     };
+
+    function slideMouseDown(e) {
+        console.log('down')
+        setMouseDown(true);
+    }
+
+    function slideMouseMove(e) {
+        if (isMouseDown == true)
+            console.log('move')
+    }
+
+    function slideMouseUp(e) {
+        console.log('up')
+        setMouseDown(false);
+    }
 
     return (
         <ContentSlideSectionDiv className='fc' onMouseOver={()=>{
@@ -95,7 +109,9 @@ function ContentSlideSection({sectionTitle, datas, type, page}) {
                     </SlideButton>
                 </div> 
                 <SlideWrapper2>
-                    <ContentSlideGrid id='contentSlideGrid' className='fr' style={{transform: `translateX(-${slideIndex * 220}px)`}}>
+                    <ContentSlideGrid id='contentSlideGrid' className='fr' style={{transform: `translateX(-${slideIndex * 220}px)`}}
+                        onMouseDown={slideMouseDown} onMouseMove={slideMouseMove} onMouseUp={slideMouseUp}
+                    >
                     {   
                         datas.map((element, index) => {
                             let rate1 = element.vote_average || '';
