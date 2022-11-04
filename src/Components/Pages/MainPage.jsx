@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import MainPageTemplate from '../Templates/MainPageTemplate';
+import React, { useState, useEffect } from 'react'
+import MainPageTemplate from '../Templates/MainPageTemplate'
+import CardStore from '../../Modules/CardStore'
 
 const gbsPlaylist = ['53434', '561', '1487', '821153', '187', '705996', '22538', '361743', '241', '8327'];
 let gbsPlaylistData = [];
@@ -10,9 +11,14 @@ function MainPage() {
     const [trendMovies, setTrendMovies] = useState(new Array(0));
     const [trendTvs, setTrendTvs] = useState(new Array(0));
     const [gbsPick, setGbsPick] = useState(new Array(0));
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    async function isImageLoaded() {
+        if (CardStore.isLoaded == true)
+            setIsLoaded(true);
+    };
 
     useEffect(() => {
-        
         async function getMovieData() {
             let responseMovie = await fetch('https://api.themoviedb.org/3/trending/movie/day?api_key=6199da9940f55ef72ddc1512ea6eca9a');
             let enMovieData = await responseMovie.json();
@@ -39,7 +45,8 @@ function MainPage() {
                     koMovieData.push(elementResult);
                 })
             }
-            setTrendMovies(koMovieData)
+            CardStore.increaseMaxCount(koMovieData.length);
+            setTrendMovies(koMovieData);
         }
         getMovieData()
 
@@ -70,6 +77,7 @@ function MainPage() {
                     })
                 } catch (error) { }
             }
+            CardStore.increaseMaxCount(koTVData.length);
             setTrendTvs(koTVData)
         }
         getTVData()
@@ -99,13 +107,14 @@ function MainPage() {
                     })
                 } catch (error) { }
             }
+            CardStore.increaseMaxCount(gbsPlaylistData.length);
             setGbsPick(gbsPlaylistData)
         }
         getGBSPick();
     }, [])
 
     return (
-        <MainPageTemplate trendMovies={trendMovies} trendTvs={trendTvs} gbsPick={gbsPick}></MainPageTemplate>
+        <MainPageTemplate trendMovies={trendMovies} trendTvs={trendTvs} gbsPick={gbsPick} isImageLoaded={isImageLoaded} isLoaded={isLoaded}/>
     )
 }
 

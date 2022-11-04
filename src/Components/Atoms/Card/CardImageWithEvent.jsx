@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import CardStory from './CardStory'
+import CardStore from '../../../Modules/CardStore'
 
 const CardImageImg1 = styled.img `
     width: 180rem;
@@ -39,7 +40,6 @@ const CardImageWrapper = styled.div `
     height: 270rem;
     border-radius: 6rem;
     overflow: hidden;
-
     transition: all 0.3s;
 
     &:hover {
@@ -79,7 +79,7 @@ let mouseoverAfterOneSecond;
 let makeNormalForLastIndexVar;
 let isLastIndex = false;
 
-function CardImageWithEvent({posterUrl, bigImageUrl, slideIndex, index, rightOnce, makeWideForLastIndex, makeNormalForLastIndex, datasLength, overview}) {
+function CardImageWithEvent({posterUrl, bigImageUrl, slideIndex, index, rightOnce, makeWideForLastIndex, makeNormalForLastIndex, datasLength, overview, isImageLoaded}) {
 
     return (
         <CardImageWrapper className='no-drag'>
@@ -92,7 +92,6 @@ function CardImageWithEvent({posterUrl, bigImageUrl, slideIndex, index, rightOnc
                     if (datasLength == index){
                         makeNormalForLastIndexVar = setTimeout(function() {
                             makeWideForLastIndex();
-                            //isMakeWideForLastIndexDid= true;
                         }, 1000);
                     }
                 }
@@ -112,10 +111,14 @@ function CardImageWithEvent({posterUrl, bigImageUrl, slideIndex, index, rightOnc
                     
                 }
             }}>
-                <CardImageImg1 className='no-drag' src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${posterUrl}`}/>
+                <CardImageImg1 className='no-drag' src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${posterUrl}`}
+                    onLoad={() => {
+                        CardStore.increaseLoadingCount();
+                        isImageLoaded();
+                    }}/>
             </CardImageImg1Wrapper>
             <CardImageImg2Wrapper className='no-drag'>
-                <CardImageImg2 className='no-drag' src={`https://www.themoviedb.org/t/p/original/${bigImageUrl}`} loading="lazy"/>
+                <CardImageImg2 className='no-drag' src={`https://www.themoviedb.org/t/p/original/${bigImageUrl}`}/>
                 <CardStory overview={overview} className='no-drag'/>
             </CardImageImg2Wrapper>
         </CardImageWrapper>

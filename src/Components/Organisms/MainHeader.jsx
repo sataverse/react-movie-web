@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import MainNavLogo from '../Atoms/MainNavLogo'
 import MainHeaderNav from '../Molecules/MainHeaderNav'
 import SearchForm from '../Molecules/SearchForm'
-
 import MainNavUser from '../Atoms/MainNavUser';
 
 const MainHeaderWrapper = styled.div `

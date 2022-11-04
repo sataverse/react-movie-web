@@ -20,7 +20,4 @@ function MainNavUser() {
     )
 }
 
-
-
-
 export default MainNavUser

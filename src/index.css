@@ -9,7 +9,8 @@
     --w-green: #2FCC5B;
     --w-background: #FFFFFF;
     --w-white: #F5F5F5;
-    --w-blue: #0094FF
+    --w-blue: #0094FF;
+    --w-graywhite: #D8D8D8;
 }
 
 ::-webkit-scrollbar {
@@ -75,4 +76,3 @@ body {
 .no-underline {
     text-decoration: none;
 }
-  

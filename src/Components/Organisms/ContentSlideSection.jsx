@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components'
 import ContentCardWithEvent from '../Molecules/ContentCardWithEvent';
 import ContentSlideSectionTitle from '../Atoms/ContentSlideSectionTitle';
 import ContentSlideSectionLink from '../Atoms/ContentSlideSectionLink';
+import SkeletonContentSlide from './SkeletonContentSlide';
 
 const ContentSlideSectionDiv = styled.div `
     height: 420rem;
@@ -15,6 +16,8 @@ const ContentSlideSectionDiv = styled.div `
 `;
 
 const ContentSlideGrid = styled.div `
+    position: absolute;
+    top: 0rem;
     height: 340rem;
     column-gap: 40rem;
     transition: all 0.5s;
@@ -41,6 +44,7 @@ const ContentSlideSectionLinkWrapper = styled.div `
 `
 
 const SlideWrapper1 = styled.div `
+    height: 340rem;
     &:hover > div ${SlideButton} {
         display: block;
     }
@@ -52,11 +56,10 @@ const SlideWrapper2 = styled.div `
     position: relative;
 `
 
-function ContentSlideSection({sectionTitle, datas, type, page}) {
+function ContentSlideSection({sectionTitle, datas, type, page, isImageLoaded, isLoaded}) {
     const [slideIndex, setSlideIndex] = useState(0);
     const [LinkDisplay, setLinkDisplay] = useState("none");
-    const [isMouseDown, setMouseDown] = useState(false);
-
+    
     async function rightOnce() {
         if (slideIndex < datas.length - 6) 
             setSlideIndex(slideIndex + 1)
@@ -65,24 +68,10 @@ function ContentSlideSection({sectionTitle, datas, type, page}) {
     async function makeWideForLastIndex() {
         setSlideIndex(slideIndex + 1)
     };
+
     async function makeNormalForLastIndex() {
         setSlideIndex(slideIndex - 1)
     };
-
-    function slideMouseDown(e) {
-        console.log('down')
-        setMouseDown(true);
-    }
-
-    function slideMouseMove(e) {
-        if (isMouseDown == true)
-            console.log('move')
-    }
-
-    function slideMouseUp(e) {
-        console.log('up')
-        setMouseDown(false);
-    }
 
     return (
         <ContentSlideSectionDiv className='fc' onMouseOver={()=>{
@@ -99,7 +88,7 @@ function ContentSlideSection({sectionTitle, datas, type, page}) {
             </div>
             <SlideWrapper1 className='fr fsevenly'>
                 <div className='fc fcenter'>
-                    <SlideButton onClick={() => {
+                    <SlideButton disabled={!isLoaded} onClick={() => {
                         if (slideIndex > 0)
                             setSlideIndex(slideIndex - 1)
                     }}>
@@ -109,9 +98,8 @@ function ContentSlideSection({sectionTitle, datas, type, page}) {
                     </SlideButton>
                 </div> 
                 <SlideWrapper2>
-                    <ContentSlideGrid id='contentSlideGrid' className='fr' style={{transform: `translateX(-${slideIndex * 220}px)`}}
-                        onMouseDown={slideMouseDown} onMouseMove={slideMouseMove} onMouseUp={slideMouseUp}
-                    >
+                    <ContentSlideGrid id='contentSlideGrid' className='fr' style={{transform: `translateX(-${slideIndex * 220}px)`}}>
+                    { isLoaded==false && <SkeletonContentSlide/> }
                     {   
                         datas.map((element, index) => {
                             let rate1 = element.vote_average || '';
@@ -162,14 +150,11 @@ function ContentSlideSection({sectionTitle, datas, type, page}) {
                                     
                                 }
                                 return (
-                                    <React.Fragment key={`${element.id}`}>
-                                        <ContentCardWithEvent id={element.id} posterUrl={element.poster_path} bigImageUrl={element.bigImage} title={element.title} desc={desc} 
-                                        score={`${rate2}`} slideIndex={slideIndex} index={index + 1} 
-                                        rightOnce={rightOnce} makeWideForLastIndex={makeWideForLastIndex} 
-                                        makeNormalForLastIndex={makeNormalForLastIndex} datasLength={datas.length} overview={element.overview}
-                                        type={type}/>
-                                    </React.Fragment>
-                                    
+                                    <ContentCardWithEvent id={element.id} posterUrl={element.poster_path} bigImageUrl={element.bigImage} title={element.title} desc={desc} 
+                                    score={`${rate2}`} slideIndex={slideIndex} index={index + 1} 
+                                    rightOnce={rightOnce} makeWideForLastIndex={makeWideForLastIndex} 
+                                    makeNormalForLastIndex={makeNormalForLastIndex} datasLength={datas.length} overview={element.overview}
+                                    type={type} key={element.id} isImageLoaded={isImageLoaded}/>
                                 )
                             }
                             else if (type == 'tv') {
@@ -218,24 +203,22 @@ function ContentSlideSection({sectionTitle, datas, type, page}) {
                                     
                                 }
                                 return (
-                                    <React.Fragment key={`${element.id}`}>
                                     <ContentCardWithEvent id={element.id} posterUrl={element.poster_path} bigImageUrl={element.bigImage} title={element.name} desc={desc} 
                                         score={`${rate2}`} slideIndex={slideIndex} index={index + 1} 
                                         rightOnce={rightOnce} makeWideForLastIndex={makeWideForLastIndex} 
-                                        makeNormalForLastIndex={makeNormalForLastIndex} datasLength={datas.length} overview={element.overview}/>
-                                    </React.Fragment>
+                                        makeNormalForLastIndex={makeNormalForLastIndex} datasLength={datas.length} overview={element.overview}
+                                        key={element.id} isImageLoaded={isImageLoaded}/>
                                 )
                             }
                             else if (type == undefined) {
                                 let year1 = element.release_date || '';
                                 let year2 = year1?.slice(0, 4);
                                 return (
-                                    <React.Fragment key={`${element.id}`}>
                                     <ContentCardWithEvent id={element.id} posterUrl={element.poster_path} bigImageUrl={element.bigImage} title={element.title} desc={year2} 
                                         score={`${rate2}`} slideIndex={slideIndex} index={index + 1} 
                                         rightOnce={rightOnce} makeWideForLastIndex={makeWideForLastIndex} 
-                                        makeNormalForLastIndex={makeNormalForLastIndex} datasLength={datas.length} overview={element.overview}/>
-                                    </React.Fragment>
+                                        makeNormalForLastIndex={makeNormalForLastIndex} datasLength={datas.length} overview={element.overview}
+                                        key={element.id} isImageLoaded={isImageLoaded}/>
                                 )
                             }
                         })
@@ -243,7 +226,7 @@ function ContentSlideSection({sectionTitle, datas, type, page}) {
                     </ContentSlideGrid>
                 </SlideWrapper2>
                 <div className='fc fcenter'>
-                    <SlideButton onClick={() => {
+                    <SlideButton disabled={!isLoaded} onClick={() => {
                         if (slideIndex < datas.length - 6) 
                             setSlideIndex(slideIndex + 1)
                     }}>
