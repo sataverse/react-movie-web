@@ -4,6 +4,7 @@ const CardStore = observable({
     maxCount: 0,
     loadingCount: 0,
     isLoaded: false,
+    isExist: false,
 
     increaseMaxCount(count) {
         this.maxCount = this.maxCount + count;

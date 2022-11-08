@@ -80,7 +80,6 @@ let makeNormalForLastIndexVar;
 let isLastIndex = false;
 
 function CardImageWithEvent({posterUrl, bigImageUrl, slideIndex, index, rightOnce, makeWideForLastIndex, makeNormalForLastIndex, datasLength, overview, isImageLoaded}) {
-
     return (
         <CardImageWrapper className='no-drag'>
             <CardImageImg1Wrapper className='no-drag' onMouseOver={()=>{
@@ -118,7 +117,7 @@ function CardImageWithEvent({posterUrl, bigImageUrl, slideIndex, index, rightOnc
                     }}/>
             </CardImageImg1Wrapper>
             <CardImageImg2Wrapper className='no-drag'>
-                <CardImageImg2 className='no-drag' src={`https://www.themoviedb.org/t/p/original/${bigImageUrl}`}/>
+                <CardImageImg2 className='no-drag' src={`https://www.themoviedb.org/t/p/w500/${bigImageUrl}`}/>
                 <CardStory overview={overview} className='no-drag'/>
             </CardImageImg2Wrapper>
         </CardImageWrapper>

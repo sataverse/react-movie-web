@@ -7,13 +7,13 @@ const ContentSlideSectionTitleSpan = styled.span `
     font-weight: 700;
     font-size: 24rem;
     line-height: 70rem;
-    margin-left: 50rem;
     color: var(--w-black);
+    margin-left: ${props => `${props.$margin}rem`};
 `
 
-function ContentSlideSectionTitle({text}) {
+function ContentSlideSectionTitle({text, margin = 50}) {
     return (
-        <ContentSlideSectionTitleSpan>
+        <ContentSlideSectionTitleSpan $margin={margin}>
             {text}
         </ContentSlideSectionTitleSpan>
     )

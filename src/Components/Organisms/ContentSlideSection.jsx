@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components'
+import { findCountry } from '../../Modules/FindCountry';
 import ContentCardWithEvent from '../Molecules/ContentCardWithEvent';
 import ContentSlideSectionTitle from '../Atoms/ContentSlideSectionTitle';
 import ContentSlideSectionLink from '../Atoms/ContentSlideSectionLink';
@@ -111,50 +112,14 @@ function ContentSlideSection({sectionTitle, datas, type, page, isImageLoaded, is
                                 let country;
                                 try {
                                     country = element.production_countries[0].iso_3166_1;
-                                    if (country != undefined) {
-                                        if (country == 'US') {
-                                            desc += ` · 미국`;
-                                        } else if (country == 'GB') {
-                                            desc += ` · 영국`;
-                                        } else if (country == 'KR') {
-                                            desc += ` · 한국`;
-                                        } else if (country == 'JP') {
-                                            desc += ` · 일본`;
-                                        } else if (country == 'AU') {
-                                            desc += ` · 호주`;
-                                        } else if (country == 'ES') {
-                                            desc += ` · 스페인`;
-                                        } else if (country == 'FR') {
-                                            desc += ` · 프랑스`;
-                                        } else if (country == 'NL') {
-                                            desc += ` · 네덜란드`; 
-                                        } else if (country == 'CN') {
-                                            desc += ` · 중국`;
-                                        } else if (country == 'HK') {
-                                            desc += ` · 홍콩`;
-                                        } else if (country == 'CA') {
-                                            desc += ` · 캐나다`;
-                                        } else if (country == 'DE') {
-                                            desc += ` · 독일`;
-                                        } else if (country == 'IN') {
-                                            desc += ` · 인도`;
-                                        } else if (country == 'IT') {
-                                            desc += ` · 이탈리아`;
-                                        } else if (country == 'MX') {
-                                            desc += ` · 멕시코`;
-                                        } else if (country == 'NZ') {
-                                            desc += ` · 뉴질랜드`;
-                                        } 
-                                    }
-                                } catch (error) {
-                                    
-                                }
+                                    desc += findCountry(country);
+                                } catch (error) { }
                                 return (
                                     <ContentCardWithEvent id={element.id} posterUrl={element.poster_path} bigImageUrl={element.bigImage} title={element.title} desc={desc} 
                                     score={`${rate2}`} slideIndex={slideIndex} index={index + 1} 
                                     rightOnce={rightOnce} makeWideForLastIndex={makeWideForLastIndex} 
                                     makeNormalForLastIndex={makeNormalForLastIndex} datasLength={datas.length} overview={element.overview}
-                                    type={type} key={element.id} isImageLoaded={isImageLoaded}/>
+                                    type={type} key={`card-${element.id}`} isImageLoaded={isImageLoaded}/>
                                 )
                             }
                             else if (type == 'tv') {
@@ -164,50 +129,14 @@ function ContentSlideSection({sectionTitle, datas, type, page, isImageLoaded, is
                                 let country;
                                 try {
                                     country = element.origin_country[0];
-                                    if (country != undefined) {
-                                        if (country == 'US') {
-                                            desc += ` · 미국`;
-                                        } else if (country == 'GB') {
-                                            desc += ` · 영국`;
-                                        } else if (country == 'KR') {
-                                            desc += ` · 한국`;
-                                        } else if (country == 'JP') {
-                                            desc += ` · 일본`;
-                                        } else if (country == 'AU') {
-                                            desc += ` · 호주`;
-                                        } else if (country == 'ES') {
-                                            desc += ` · 스페인`;
-                                        } else if (country == 'FR') {
-                                            desc += ` · 프랑스`;
-                                        } else if (country == 'NL') {
-                                            desc += ` · 네덜란드`; 
-                                        } else if (country == 'CN') {
-                                            desc += ` · 중국`;
-                                        } else if (country == 'HK') {
-                                            desc += ` · 홍콩`;
-                                        } else if (country == 'CA') {
-                                            desc += ` · 캐나다`;
-                                        } else if (country == 'DE') {
-                                            desc += ` · 독일`;
-                                        } else if (country == 'IN') {
-                                            desc += ` · 인도`;
-                                        } else if (country == 'IT') {
-                                            desc += ` · 이탈리아`;
-                                        } else if (country == 'MX') {
-                                            desc += ` · 멕시코`;
-                                        } else if (country == 'NZ') {
-                                            desc += ` · 뉴질랜드`;
-                                        } 
-                                    }
-                                } catch (error) {
-                                    
-                                }
+                                    desc += findCountry(country);
+                                } catch (error) { }
                                 return (
                                     <ContentCardWithEvent id={element.id} posterUrl={element.poster_path} bigImageUrl={element.bigImage} title={element.name} desc={desc} 
                                         score={`${rate2}`} slideIndex={slideIndex} index={index + 1} 
-                                        rightOnce={rightOnce} makeWideForLastIndex={makeWideForLastIndex} 
+                                        rightOnce={rightOnce} makeWideForLastIndex={makeWideForLastIndex} type={type}
                                         makeNormalForLastIndex={makeNormalForLastIndex} datasLength={datas.length} overview={element.overview}
-                                        key={element.id} isImageLoaded={isImageLoaded}/>
+                                        key={`card-${element.id}`} isImageLoaded={isImageLoaded}/>
                                 )
                             }
                             else if (type == undefined) {
@@ -218,7 +147,7 @@ function ContentSlideSection({sectionTitle, datas, type, page, isImageLoaded, is
                                         score={`${rate2}`} slideIndex={slideIndex} index={index + 1} 
                                         rightOnce={rightOnce} makeWideForLastIndex={makeWideForLastIndex} 
                                         makeNormalForLastIndex={makeNormalForLastIndex} datasLength={datas.length} overview={element.overview}
-                                        key={element.id} isImageLoaded={isImageLoaded}/>
+                                        key={`card-${element.id}`} isImageLoaded={isImageLoaded}/>
                                 )
                             }
                         })

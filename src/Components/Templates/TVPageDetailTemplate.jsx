@@ -9,7 +9,6 @@ const TVPageDetailTemplateWrapper = styled.div `
 function TVPageDetailTemplate() {
     return (
         <>
-            <SubHeader/>
             <MainHeader/>
             <TVPageDetailTemplateWrapper className='fc fleft'>
                 TVPageDetailTemplateWrapper

@@ -12,7 +12,7 @@ function TVPageTemplate() {
             <SubHeader/>
             <MainHeader/>
             <TVPageTemplateWrapper className='fc fleft'>
-            TVPageTemplate
+                TVPageTemplate
             </TVPageTemplateWrapper>
         </>
     )

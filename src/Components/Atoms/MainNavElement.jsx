@@ -6,13 +6,18 @@ const MainNavElementWrapper = styled.span `
     font-style: normal;
     font-weight: 400;
     font-size: 16rem;
-    color: var(--w-black);
+    color: ${props => {
+        if (props.$backgroundColor == 'auto')
+            return 'var(--w-black)'
+        else if (props.$backgroundColor == 'transparent')
+            return 'var(--w-white)'}
+    };
 `;
 
-function MainNavElement({text, page}) {
+function MainNavElement({text, page, backgroundColor="auto"}) {
     return (
         <Link to={`/${page}`} className='no-underline'>
-            <MainNavElementWrapper>
+            <MainNavElementWrapper $backgroundColor={backgroundColor}>
                 {text}
             </MainNavElementWrapper>
         </Link>

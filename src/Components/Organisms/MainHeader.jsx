@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-
 import MainNavLogo from '../Atoms/MainNavLogo'
 import MainHeaderNav from '../Molecules/MainHeaderNav'
 import SearchForm from '../Molecules/SearchForm'
@@ -17,12 +16,6 @@ const MainHeaderWrapper = styled.div `
         else if (props.$backgroundColor == 'transparent')
             return 'transparent'}
     };
-    border-bottom: 1px solid ${props => {
-        if (props.$borderBottom == 'auto')
-            return '#E6E6E6'
-        else if (props.$borderBottom == 'transparent')
-            return 'transparent'}
-    };;
 `;
 
 const MainNavWrapper = styled.div `
@@ -32,6 +25,10 @@ const MainNavWrapper = styled.div `
 `;
 
 const MainHeaderContentWrapper = styled.div `
+    position: relative;
+    height: 64rem;
+    left: 50%;
+    transform: translateX(-50%);
     @media (max-width: 575px) {
         & {
             width: calc(100% - 100rem);
@@ -70,30 +67,43 @@ const MainNavUserWrapper = styled.div `
     margin-right: 44rem;
 `;
 
+const MainHeaderHr = styled.div `
+    width: 1440rem;
+    height: 1rem;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: ${props => {
+        if (props.$backgroundColor == 'auto')
+            return 'var(--w-graywhite)'
+        else if (props.$backgroundColor == 'transparent')
+            return 'var(--w-white)'}
+    };
+`;
 
-function MainHeader({backgroundColor="auto", borderBottom="auto"}) {
+
+function MainHeader({backgroundColor="auto"}) {
     return (
-        <MainHeaderWrapper className='fr fcenter'  $backgroundColor={backgroundColor} $borderBottom={borderBottom}>
+        <MainHeaderWrapper className='fc fsbetween' $backgroundColor={backgroundColor}>
             <MainHeaderContentWrapper className='fr fsbetween'>
                 <MainNavWrapper className='fr fsbetween'>
                     <div className='fc fcenter'>
-                        <MainNavLogo></MainNavLogo>
+                        <MainNavLogo/>
                     </div>
                     <div className='fc fcenter'>
-                        <MainHeaderNav></MainHeaderNav>
+                        <MainHeaderNav backgroundColor={backgroundColor}/>
                     </div>
                 </MainNavWrapper>
-                
                 <MainNavUserWrapper className='fr fsbetween'>
                     <div className='fc fcenter'>
-                        <SearchForm></SearchForm>
+                        <SearchForm backgroundColor={backgroundColor}/>
                     </div>
                     <div className='fc fcenter'>
-                        <MainNavUser></MainNavUser>
+                        <MainNavUser/>
                     </div>
                 </MainNavUserWrapper>
-
             </MainHeaderContentWrapper>
+            <MainHeaderHr $backgroundColor={backgroundColor}/>
         </MainHeaderWrapper>
     )
 }

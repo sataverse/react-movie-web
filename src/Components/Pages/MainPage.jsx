@@ -8,9 +8,9 @@ let koMovieData = [];
 let koTVData = [];
 
 function MainPage() {
-    const [trendMovies, setTrendMovies] = useState(new Array(0));
-    const [trendTvs, setTrendTvs] = useState(new Array(0));
-    const [gbsPick, setGbsPick] = useState(new Array(0));
+    const [trendMovies, setTrendMovies] = useState([]);
+    const [trendTvs, setTrendTvs] = useState([]);
+    const [gbsPick, setGbsPick] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
 
     async function isImageLoaded() {
@@ -48,8 +48,6 @@ function MainPage() {
             CardStore.increaseMaxCount(koMovieData.length);
             setTrendMovies(koMovieData);
         }
-        getMovieData()
-
         async function getTVData() {
             let responseTV = await fetch('https://api.themoviedb.org/3/trending/tv/day?api_key=6199da9940f55ef72ddc1512ea6eca9a');
             let enTVData = await responseTV.json();
@@ -80,8 +78,6 @@ function MainPage() {
             CardStore.increaseMaxCount(koTVData.length);
             setTrendTvs(koTVData)
         }
-        getTVData()
-
         async function getGBSPick(){
             for(const element of gbsPlaylist) {
                 let elementResult;
@@ -110,6 +106,16 @@ function MainPage() {
             CardStore.increaseMaxCount(gbsPlaylistData.length);
             setGbsPick(gbsPlaylistData)
         }
+
+        async function clearArray () {
+            gbsPlaylistData = [];
+            koMovieData = [];
+            koTVData = [];
+        }
+
+        clearArray();
+        getMovieData();
+        getTVData();
         getGBSPick();
     }, [])
 

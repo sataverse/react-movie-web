@@ -29,6 +29,27 @@
     background: rgb(145, 145, 145);
 }
 
+
+input::-webkit-input-placeholder {
+    font-family: 'Noto Sans KR';
+    font-weight: 400;
+}
+
+input:-ms-input-placeholder {
+    font-family: 'Noto Sans KR';
+    font-weight: 400;
+}
+
+input:-moz-placeholder {
+    font-family: 'Noto Sans KR';
+    font-weight: 400;
+}
+
+input::-moz-placeholder {
+    font-family: 'Noto Sans KR';
+    font-weight: 400;
+}
+
 body {
     margin: 0;
     padding: 0;

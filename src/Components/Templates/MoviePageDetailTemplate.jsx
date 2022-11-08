@@ -1,22 +1,19 @@
 import styled from 'styled-components'
 import MainHeader from '../Organisms/MainHeader';
-import SubHeader from '../Organisms/SubHeader';
-import { useParams } from 'react-router-dom'
+import DetailContentBackgroundImageImg from '../Atoms/Detail/DetailContentBackgroundImage'
 
 const MoviePageDetailTemplateWrapper = styled.div `
-    
+
 `
 
+
 function MoviePageDetailTemplate() {
-    let { id } = useParams();
     return (
-        <>
-            <SubHeader/>
-            <MainHeader/>
-            <MoviePageDetailTemplateWrapper className='fc fleft'>
-                MoviePageDetailTemplateWrapper {id}
-            </MoviePageDetailTemplateWrapper>
-        </>
+        <MoviePageDetailTemplateWrapper className='fc fleft'>
+            <DetailContentBackgroundImageImg src={'https://www.themoviedb.org/t/p/original/rSGNonLiTSKUjT7HhQSqhpGFihs.jpg'}/>
+            <MainHeader backgroundColor='transparent'/>
+            MoviePageDetailTemplateWrapper
+        </MoviePageDetailTemplateWrapper>
     )
 }
 

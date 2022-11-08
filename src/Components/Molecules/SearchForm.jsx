@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import React, { useState, useEffect } from 'react';
 
 const SearchFormWrapper = styled.div `
     position: relative;
@@ -49,10 +50,15 @@ const SearchInputWrapper = styled.input `
     top: 0rem;
     width: calc(100% - 32rem);
     border: 0;
-    color: var(--w-gray);
-    border-bottom: 1px solid var(--w-gray);
+    color: var(--w-white);
     background-color: transparent;
     height: 35rem;
+    border-bottom: ${props => {
+        if (props.$backgroundColor == 'auto')
+            return '1px solid var(--w-gray)'
+        else if (props.$backgroundColor == 'transparent')
+            return '1px solid var(--w-white)'}
+    };
 
     &:focus {
         outline: none;
@@ -68,7 +74,12 @@ const SearchInputWrapper = styled.input `
         font-style: normal;
         font-weight: 400;
         font-size: 14rem;
-        color: var(--w-gray);
+        color: ${props => {
+        if (props.$backgroundColor == 'auto')
+            return 'var(--w-gray)'
+        else if (props.$backgroundColor == 'transparent')
+            return 'var(--w-gray)'}
+    };
     }
 
     &:focus {
@@ -85,14 +96,25 @@ const SearchInputWrapper = styled.input `
 `
 
 
-function SearchForm() {
+function SearchForm({backgroundColor="auto"}) {
+    const [iconColor, setIconColor] = useState("#252525");
+
+    useEffect(() => {
+        if (backgroundColor == 'auto') {
+            setIconColor("#252525")
+        }
+        else if (backgroundColor == 'transparent') {
+            setIconColor("#F5F5F5")
+        }
+    })
+
     return (
         <SearchFormWrapper>
-            <SearchInputWrapper spellCheck={false} type='text' placeholder='영화, TV 프로그램, 인물을 찾아보세요'/>
+            <SearchInputWrapper spellCheck={false} type='text' placeholder='영화, TV 프로그램, 인물을 찾아보세요' $backgroundColor={backgroundColor}/>
             <SearchIcon>
                 <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="8.57145" cy="8.20186" r="5" transform="rotate(-40 8.57145 8.20186)" stroke="#252525"/>
-                    <rect x="11.0811" y="11.9703" width="1" height="7" transform="rotate(-40 11.0811 11.9703)" fill="#252525"/>
+                    <circle cx="8.57145" cy="8.20186" r="5" transform="rotate(-40 8.57145 8.20186)" stroke={iconColor}/>
+                    <rect x="11.0811" y="11.9703" width="1" height="7" transform="rotate(-40 11.0811 11.9703)" fill={iconColor}/>
                 </svg>
             </SearchIcon>
         </SearchFormWrapper>
