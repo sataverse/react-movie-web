@@ -17,8 +17,8 @@ function MoviePageTemplate({data}) {
             <SubHeader/>
             <MainHeader/>
             <MoviePageTemplateWrapper className='fc fleft'>
-                <ContentSlideSectionTitle text={'🍿 인기 영화 '} margin={0}/>
-                <ContentGrid data={data}/>
+            <ContentSlideSectionTitle text={'🍿 모든 영화'} margin={0}/>
+            <ContentGrid data={data}/>
             </MoviePageTemplateWrapper>
         </>
     )
