@@ -4,13 +4,13 @@
 
     --w-black: #252525;
     --w-gray: #696969;
-    --w-red: #F23535;
-    --w-orange: #FF9900;
-    --w-green: #2FCC5B;
-    --w-background: #FFFFFF;
-    --w-white: #F5F5F5;
-    --w-blue: #0094FF;
-    --w-graywhite: #D8D8D8;
+    --w-red: #f23535;
+    --w-orange: #ff9900;
+    --w-green: #2fcc5b;
+    --w-background: #ffffff;
+    --w-white: #f5f5f5;
+    --w-blue: #0094ff;
+    --w-graywhite: #d8d8d8;
 }
 
 ::-webkit-scrollbar {
@@ -28,7 +28,6 @@
 ::-webkit-scrollbar-thumb:hover {
     background: rgb(145, 145, 145);
 }
-
 
 input::-webkit-input-placeholder {
     font-family: 'Noto Sans KR';

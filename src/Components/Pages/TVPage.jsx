@@ -2,9 +2,7 @@ import styled from 'styled-components'
 import TVPageTemplate from '../Templates/TVPageTemplate'
 
 function TVPage() {
-    return (
-        <TVPageTemplate/>
-    )
+    return <TVPageTemplate />
 }
 
 export default TVPage

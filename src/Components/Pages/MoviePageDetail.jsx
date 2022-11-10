@@ -2,19 +2,19 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import MoviePageDetailTemplate from '../Templates/MoviePageDetailTemplate'
 
-let koMovieData = [];
+let koMovieData = []
 
 function MoviePageDetail() {
-    const [detailData, setDetailData] = useState(new Array(0));
-    let { id } = useParams();
+    const [detailData, setDetailData] = useState(new Array(0))
+    let { id } = useParams()
 
     useEffect(() => {
         async function getDetailData() {
             await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data)
-            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data)
+                })
             /*
             let enMovieData = await responseMovie.json();
 
@@ -47,9 +47,7 @@ function MoviePageDetail() {
         getDetailData()
     }, [])
 
-    return (
-        <MoviePageDetailTemplate/>
-    )
+    return <MoviePageDetailTemplate />
 }
 
 export default MoviePageDetail

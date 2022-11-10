@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const CardTextTitleSpan = styled.span `
+const CardTextTitleSpan = styled.span`
     width: 180rem;
     height: 20rem;
     font-family: 'Noto Sans KR';
@@ -9,16 +9,12 @@ const CardTextTitleSpan = styled.span `
     font-size: 16rem;
     text-overflow: ellipsis;
     overflow: hidden;
-    white-space:nowrap;
+    white-space: nowrap;
     color: var(--w-black);
-`;
+`
 
-function CardTextTitle({text}) {
-    return (
-        <CardTextTitleSpan>
-            {text}
-        </CardTextTitleSpan>
-    )
+function CardTextTitle({ text }) {
+    return <CardTextTitleSpan>{text}</CardTextTitleSpan>
 }
 
 export default CardTextTitle

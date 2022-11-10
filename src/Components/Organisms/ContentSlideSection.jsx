@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import { findCountry } from '../../Modules/utils';
-import ContentCardWithEvent from '../Molecules/ContentCardWithEvent';
-import ContentSlideSectionTitle from '../Atoms/ContentSlideSectionTitle';
-import ContentSlideSectionLink from '../Atoms/ContentSlideSectionLink';
-import SkeletonContentSlide from './SkeletonContentSlide';
+import { findCountry } from '../../Modules/utils'
+import ContentCardWithEvent from '../Molecules/ContentCardWithEvent'
+import ContentSlideSectionTitle from '../Atoms/ContentSlideSectionTitle'
+import ContentSlideSectionLink from '../Atoms/ContentSlideSectionLink'
+import SkeletonContentSlide from './SkeletonContentSlide'
 
-const ContentSlideSectionDiv = styled.div `
+const ContentSlideSectionDiv = styled.div`
     height: 420rem;
     background-color: var(--w-background);
     @media (min-width: 1380px) {
@@ -14,9 +14,9 @@ const ContentSlideSectionDiv = styled.div `
             width: 1380rem;
         }
     }
-`;
+`
 
-const ContentSlideGrid = styled.div `
+const ContentSlideGrid = styled.div`
     position: absolute;
     top: 0rem;
     height: 340rem;
@@ -29,7 +29,7 @@ const ContentSlideGrid = styled.div `
     }
 `
 
-const SlideButton = styled.button `
+const SlideButton = styled.button`
     display: none;
     width: 40rem;
     height: 40rem;
@@ -40,127 +40,162 @@ const SlideButton = styled.button `
     background-color: transparent;
 `
 
-const ContentSlideSectionLinkWrapper = styled.div `
+const ContentSlideSectionLinkWrapper = styled.div``
 
-`
-
-const SlideWrapper1 = styled.div `
+const SlideWrapper1 = styled.div`
     height: 340rem;
     &:hover > div ${SlideButton} {
         display: block;
     }
 `
 
-const SlideWrapper2 = styled.div `
+const SlideWrapper2 = styled.div`
     width: 1280rem;
     overflow: hidden;
     position: relative;
 `
 
-function ContentSlideSection({sectionTitle, datas, type, page, isImageLoaded, isLoaded}) {
-    const [slideIndex, setSlideIndex] = useState(0);
-    const [LinkDisplay, setLinkDisplay] = useState("none");
-    
+function ContentSlideSection({ sectionTitle, datas, type, page, isImageLoaded, isLoaded }) {
+    const [slideIndex, setSlideIndex] = useState(0)
+    const [LinkDisplay, setLinkDisplay] = useState('none')
+
     async function rightOnce() {
-        if (slideIndex < datas.length - 6) 
-            setSlideIndex(slideIndex + 1)
-    };
+        if (slideIndex < datas.length - 6) setSlideIndex(slideIndex + 1)
+    }
 
     async function makeWideForLastIndex() {
         setSlideIndex(slideIndex + 1)
-    };
+    }
 
     async function makeNormalForLastIndex() {
         setSlideIndex(slideIndex - 1)
-    };
+    }
 
     return (
-        <ContentSlideSectionDiv className='fc' onMouseOver={()=>{
-            setLinkDisplay('block')
-        }}
-        onMouseLeave={()=>{
-            setLinkDisplay('none')
-        }}>
+        <ContentSlideSectionDiv
+            className='fc'
+            onMouseOver={() => {
+                setLinkDisplay('block')
+            }}
+            onMouseLeave={() => {
+                setLinkDisplay('none')
+            }}>
             <div className='fr fsbetween'>
-                <ContentSlideSectionTitle text={sectionTitle}/>
-                <ContentSlideSectionLinkWrapper style={{display: LinkDisplay}}>
-                    <ContentSlideSectionLink page={page}/>
+                <ContentSlideSectionTitle text={sectionTitle} />
+                <ContentSlideSectionLinkWrapper style={{ display: LinkDisplay }}>
+                    <ContentSlideSectionLink page={page} />
                 </ContentSlideSectionLinkWrapper>
             </div>
             <SlideWrapper1 className='fr fsevenly'>
                 <div className='fc fcenter'>
-                    <SlideButton disabled={!isLoaded} onClick={() => {
-                        if (slideIndex > 0)
-                            setSlideIndex(slideIndex - 1)
-                    }}>
-                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M25 10L15 20L25 30" stroke="#696969"/>
+                    <SlideButton
+                        disabled={!isLoaded}
+                        onClick={() => {
+                            if (slideIndex > 0) setSlideIndex(slideIndex - 1)
+                        }}>
+                        <svg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                            <path d='M25 10L15 20L25 30' stroke='#696969' />
                         </svg>
                     </SlideButton>
-                </div> 
+                </div>
                 <SlideWrapper2>
-                    <ContentSlideGrid id='contentSlideGrid' className='fr' style={{transform: `translateX(-${slideIndex * 220}px)`}}>
-                    { isLoaded==false && <SkeletonContentSlide/> }
-                    {   
-                        datas.map((element, index) => {
-                            let rate1 = element.vote_average || '';
+                    <ContentSlideGrid id='contentSlideGrid' className='fr' style={{ transform: `translateX(-${slideIndex * 220}px)` }}>
+                        {isLoaded == false && <SkeletonContentSlide />}
+                        {datas.map((element, index) => {
+                            let rate1 = element.vote_average || ''
                             let rate2 = Math.floor(rate1 * 10)
                             if (type == 'movie') {
-                                let year1 = element.release_date || '';
-                                let year2 = year1?.slice(0, 4);
+                                let year1 = element.release_date || ''
+                                let year2 = year1?.slice(0, 4)
                                 let desc = `${year2}`
-                                let country;
+                                let country
                                 try {
-                                    country = element.production_countries[0].iso_3166_1;
-                                    desc += findCountry(country);
-                                } catch (error) { }
+                                    country = element.production_countries[0].iso_3166_1
+                                    desc += findCountry(country)
+                                } catch (error) {}
                                 return (
-                                    <ContentCardWithEvent id={element.id} posterUrl={element.poster_path} bigImageUrl={element.bigImage} title={element.title} desc={desc} 
-                                    score={`${rate2}`} slideIndex={slideIndex} index={index + 1} 
-                                    rightOnce={rightOnce} makeWideForLastIndex={makeWideForLastIndex} 
-                                    makeNormalForLastIndex={makeNormalForLastIndex} datasLength={datas.length} overview={element.overview}
-                                    type={type} key={`card-${element.id}`} isImageLoaded={isImageLoaded}/>
+                                    <ContentCardWithEvent
+                                        id={element.id}
+                                        posterUrl={element.poster_path}
+                                        bigImageUrl={element.bigImage}
+                                        title={element.title}
+                                        desc={desc}
+                                        score={`${rate2}`}
+                                        slideIndex={slideIndex}
+                                        index={index + 1}
+                                        rightOnce={rightOnce}
+                                        makeWideForLastIndex={makeWideForLastIndex}
+                                        makeNormalForLastIndex={makeNormalForLastIndex}
+                                        datasLength={datas.length}
+                                        overview={element.overview}
+                                        type={type}
+                                        key={`card-${element.id}`}
+                                        isImageLoaded={isImageLoaded}
+                                    />
                                 )
-                            }
-                            else if (type == 'tv') {
-                                let year1 = element.first_air_date || '';
-                                let year2 = year1?.slice(0, 4);
+                            } else if (type == 'tv') {
+                                let year1 = element.first_air_date || ''
+                                let year2 = year1?.slice(0, 4)
                                 let desc = `${year2}`
-                                let country;
+                                let country
                                 try {
-                                    country = element.origin_country[0];
-                                    desc += findCountry(country);
-                                } catch (error) { }
+                                    country = element.origin_country[0]
+                                    desc += findCountry(country)
+                                } catch (error) {}
                                 return (
-                                    <ContentCardWithEvent id={element.id} posterUrl={element.poster_path} bigImageUrl={element.bigImage} title={element.name} desc={desc} 
-                                        score={`${rate2}`} slideIndex={slideIndex} index={index + 1} 
-                                        rightOnce={rightOnce} makeWideForLastIndex={makeWideForLastIndex} type={type}
-                                        makeNormalForLastIndex={makeNormalForLastIndex} datasLength={datas.length} overview={element.overview}
-                                        key={`card-${element.id}`} isImageLoaded={isImageLoaded}/>
+                                    <ContentCardWithEvent
+                                        id={element.id}
+                                        posterUrl={element.poster_path}
+                                        bigImageUrl={element.bigImage}
+                                        title={element.name}
+                                        desc={desc}
+                                        score={`${rate2}`}
+                                        slideIndex={slideIndex}
+                                        index={index + 1}
+                                        rightOnce={rightOnce}
+                                        makeWideForLastIndex={makeWideForLastIndex}
+                                        type={type}
+                                        makeNormalForLastIndex={makeNormalForLastIndex}
+                                        datasLength={datas.length}
+                                        overview={element.overview}
+                                        key={`card-${element.id}`}
+                                        isImageLoaded={isImageLoaded}
+                                    />
+                                )
+                            } else if (type == undefined) {
+                                let year1 = element.release_date || ''
+                                let year2 = year1?.slice(0, 4)
+                                return (
+                                    <ContentCardWithEvent
+                                        id={element.id}
+                                        posterUrl={element.poster_path}
+                                        bigImageUrl={element.bigImage}
+                                        title={element.title}
+                                        desc={year2}
+                                        score={`${rate2}`}
+                                        slideIndex={slideIndex}
+                                        index={index + 1}
+                                        rightOnce={rightOnce}
+                                        makeWideForLastIndex={makeWideForLastIndex}
+                                        makeNormalForLastIndex={makeNormalForLastIndex}
+                                        datasLength={datas.length}
+                                        overview={element.overview}
+                                        key={`card-${element.id}`}
+                                        isImageLoaded={isImageLoaded}
+                                    />
                                 )
                             }
-                            else if (type == undefined) {
-                                let year1 = element.release_date || '';
-                                let year2 = year1?.slice(0, 4);
-                                return (
-                                    <ContentCardWithEvent id={element.id} posterUrl={element.poster_path} bigImageUrl={element.bigImage} title={element.title} desc={year2} 
-                                        score={`${rate2}`} slideIndex={slideIndex} index={index + 1} 
-                                        rightOnce={rightOnce} makeWideForLastIndex={makeWideForLastIndex} 
-                                        makeNormalForLastIndex={makeNormalForLastIndex} datasLength={datas.length} overview={element.overview}
-                                        key={`card-${element.id}`} isImageLoaded={isImageLoaded}/>
-                                )
-                            }
-                        })
-                    }
+                        })}
                     </ContentSlideGrid>
                 </SlideWrapper2>
                 <div className='fc fcenter'>
-                    <SlideButton disabled={!isLoaded} onClick={() => {
-                        if (slideIndex < datas.length - 6) 
-                            setSlideIndex(slideIndex + 1)
-                    }}>
-                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15 30L25 20L15 10" stroke="#696969"/>
+                    <SlideButton
+                        disabled={!isLoaded}
+                        onClick={() => {
+                            if (slideIndex < datas.length - 6) setSlideIndex(slideIndex + 1)
+                        }}>
+                        <svg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                            <path d='M15 30L25 20L15 10' stroke='#696969' />
                         </svg>
                     </SlideButton>
                 </div>

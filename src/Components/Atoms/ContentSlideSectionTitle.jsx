@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const ContentSlideSectionTitleSpan = styled.span `
+const ContentSlideSectionTitleSpan = styled.span`
     height: 70rem;
     font-family: 'Noto Sans KR';
     font-style: normal;
@@ -8,15 +8,11 @@ const ContentSlideSectionTitleSpan = styled.span `
     font-size: 24rem;
     line-height: 70rem;
     color: var(--w-black);
-    margin-left: ${props => `${props.$margin}rem`};
+    margin-left: ${(props) => `${props.$margin}rem`};
 `
 
-function ContentSlideSectionTitle({text, margin = 50}) {
-    return (
-        <ContentSlideSectionTitleSpan $margin={margin}>
-            {text}
-        </ContentSlideSectionTitleSpan>
-    )
+function ContentSlideSectionTitle({ text, margin = 50 }) {
+    return <ContentSlideSectionTitleSpan $margin={margin}>{text}</ContentSlideSectionTitleSpan>
 }
 
 export default ContentSlideSectionTitle

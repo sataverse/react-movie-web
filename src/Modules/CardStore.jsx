@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { observable } from 'mobx'
 
 const CardStore = observable({
     maxCount: 0,
@@ -7,15 +7,15 @@ const CardStore = observable({
     isExist: false,
 
     increaseMaxCount(count) {
-        this.maxCount = this.maxCount + count;
+        this.maxCount = this.maxCount + count
     },
 
     increaseLoadingCount() {
-        this.loadingCount = this.loadingCount + 1;
+        this.loadingCount = this.loadingCount + 1
         if (this.maxCount == this.loadingCount) {
-            this.isLoaded = true;
+            this.isLoaded = true
         }
-    }
-});
+    },
+})
 
-export default CardStore;
+export default CardStore

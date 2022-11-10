@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const CardIndexDiv = styled.div `
+const CardIndexDiv = styled.div`
     position: absolute;
     top: 6rem;
     left: 6rem;
@@ -9,9 +9,9 @@ const CardIndexDiv = styled.div `
     border-radius: 6rem;
     background-color: #00000040;
     z-index: 1000;
-`;
+`
 
-const CardIndexSpan = styled.div `
+const CardIndexSpan = styled.div`
     position: relative;
     top: 0rem;
     left: 0rem;
@@ -26,9 +26,9 @@ const CardIndexSpan = styled.div `
     text-align: center;
     color: var(--w-white);
     z-index: 1001;
-`;
+`
 
-function CardIndex({index}) {
+function CardIndex({ index }) {
     return (
         <CardIndexDiv>
             <CardIndexSpan>{index}</CardIndexSpan>
