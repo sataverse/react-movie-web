@@ -1,7 +1,7 @@
 :root {
     font-size: 6.25%;
     overflow-y: overlay;
-
+    overflow-x: hidden;
     --w-black: #252525;
     --w-gray: #696969;
     --w-red: #f23535;
@@ -23,7 +23,8 @@
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgb(173, 173, 173);
+    background: rgb(190, 190, 190);
+    border-radius: 5px;
 }
 ::-webkit-scrollbar-thumb:hover {
     background: rgb(145, 145, 145);

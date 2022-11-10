@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
 import CardImage from '../Atoms/Card/CardImage'
 import CardTextTitle from '../Atoms/Card/CardTextTitle'
 import CardTextDesc from '../Atoms/Card/CardTextDesc'
@@ -18,21 +17,23 @@ const Wrapper1 = styled.div`
     height: 70rem;
 `
 
-function ContentCard({ id, title, desc, score, posterUrl, index, type }) {
+function ContentCard({ id, title, desc, score, posterUrl, index, type, showModal }) {
     return (
-        <Link to={`/${type}/${id}`} className='no-underline no-drag'>
-            <ContentCardDiv className='fc no-drag'>
-                <CardIndex index={index} />
-                <CardImage posterUrl={posterUrl} />
-                <Wrapper1 className='fc fsevenly'>
-                    <CardTextTitle text={title} />
-                    <div className='fr fsbetween'>
-                        <CardTextDesc text={desc} />
-                        <CardTextScore text={score} />
-                    </div>
-                </Wrapper1>
-            </ContentCardDiv>
-        </Link>
+        <ContentCardDiv
+            className='fc no-drag'
+            onClick={() => {
+                showModal(id)
+            }}>
+            <CardIndex index={index} />
+            <CardImage posterUrl={posterUrl} />
+            <Wrapper1 className='fc fsevenly'>
+                <CardTextTitle text={title} />
+                <div className='fr fsbetween'>
+                    <CardTextDesc text={desc} />
+                    <CardTextScore text={score} />
+                </div>
+            </Wrapper1>
+        </ContentCardDiv>
     )
 }
 

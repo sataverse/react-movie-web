@@ -4,6 +4,8 @@ import SubHeader from '../Organisms/SubHeader'
 import ContentGrid from '../Organisms/ContentGrid'
 import ContentSlideSectionTitle from '../Atoms/ContentSlideSectionTitle'
 import ScrollTopButton from '../Atoms/ScrollTopButton'
+import ModalDetailContent from '../Organisms/ModalDetailContent'
+import { useState, useEffect } from 'react'
 
 const MoviePageTemplateWrapper = styled.div`
     position: relative;
@@ -13,15 +15,33 @@ const MoviePageTemplateWrapper = styled.div`
 `
 
 function MoviePageTemplate({ data }) {
+    const [modal, setModal] = useState(false)
+    const [noScroll, setScroll] = useState(false)
+
+    const showModal = async (id) => {
+        setModal(true)
+        setScroll(true)
+        document.body.style.overflow = 'none'
+    }
+    const hideModal = (async) => {
+        setModal(false)
+        setScroll(false)
+    }
+
+    useEffect(() => {
+        document.querySelector('html').style.overflowY = noScroll ? 'hidden' : 'auto'
+    })
+
     return (
         <>
             <SubHeader />
             <MainHeader />
             <MoviePageTemplateWrapper className='fc fleft'>
                 <ContentSlideSectionTitle text={'🍿 모든 영화'} margin={0} />
-                <ContentGrid data={data} />
+                <ContentGrid data={data} showModal={showModal} noScroll={noScroll} />
             </MoviePageTemplateWrapper>
             <ScrollTopButton />
+            {modal ? <ModalDetailContent hideModal={hideModal} /> : null}
         </>
     )
 }

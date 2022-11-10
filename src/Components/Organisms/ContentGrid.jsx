@@ -13,7 +13,7 @@ const ContentGridDiv = styled.div`
     column-gap: 40rem;
 `
 
-function ContentGrid({ data }) {
+function ContentGrid({ data, showModal }) {
     if (data != undefined) {
         return (
             <ContentGridDiv>
@@ -28,6 +28,7 @@ function ContentGrid({ data }) {
                     } catch (error) {}
                     return (
                         <ContentCard
+                            key={`grid-content-${element.id}`}
                             id={element.id}
                             title={element.title}
                             desc={desc}
@@ -35,6 +36,7 @@ function ContentGrid({ data }) {
                             posterUrl={element.poster_path}
                             index={index}
                             type={'movie'}
+                            showModal={showModal}
                         />
                     )
                 })}

@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
 import CardImageWithEvent from '../Atoms/Card/CardImageWithEvent'
 import CardTextTitle from '../Atoms/Card/CardTextTitle'
 import CardTextDesc from '../Atoms/Card/CardTextDesc'
@@ -33,33 +32,36 @@ function ContentCardWithEvent({
     overview,
     type,
     isImageLoaded,
+    showModal,
 }) {
     return (
-        <Link to={`/${type}/${id}`} className='no-underline no-drag'>
-            <ContentCardDiv className='fc no-drag'>
-                <CardIndex index={index} />
-                <CardImageWithEvent
-                    posterUrl={posterUrl}
-                    bigImageUrl={bigImageUrl}
-                    slideIndex={slideIndex}
-                    index={index}
-                    rightOnce={rightOnce}
-                    makeWideForLastIndex={makeWideForLastIndex}
-                    makeNormalForLastIndex={makeNormalForLastIndex}
-                    datasLength={datasLength}
-                    overview={overview}
-                    className='no-drag'
-                    isImageLoaded={isImageLoaded}
-                />
-                <Wrapper1 className='fc fsevenly'>
-                    <CardTextTitle text={title} />
-                    <div className='fr fsbetween'>
-                        <CardTextDesc text={desc} />
-                        <CardTextScore text={score} />
-                    </div>
-                </Wrapper1>
-            </ContentCardDiv>
-        </Link>
+        <ContentCardDiv
+            className='fc no-drag'
+            onClick={() => {
+                showModal(id)
+            }}>
+            <CardIndex index={index} />
+            <CardImageWithEvent
+                posterUrl={posterUrl}
+                bigImageUrl={bigImageUrl}
+                slideIndex={slideIndex}
+                index={index}
+                rightOnce={rightOnce}
+                makeWideForLastIndex={makeWideForLastIndex}
+                makeNormalForLastIndex={makeNormalForLastIndex}
+                datasLength={datasLength}
+                overview={overview}
+                className='no-drag'
+                isImageLoaded={isImageLoaded}
+            />
+            <Wrapper1 className='fc fsevenly'>
+                <CardTextTitle text={title} />
+                <div className='fr fsbetween'>
+                    <CardTextDesc text={desc} />
+                    <CardTextScore text={score} />
+                </div>
+            </Wrapper1>
+        </ContentCardDiv>
     )
 }
 

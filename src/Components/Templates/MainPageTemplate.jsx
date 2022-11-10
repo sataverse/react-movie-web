@@ -2,12 +2,31 @@ import styled from 'styled-components'
 import ContentSlideSection from '../Organisms/ContentSlideSection'
 import MainHeader from '../Organisms/MainHeader'
 import SubHeader from '../Organisms/SubHeader'
+import ModalDetailContent from '../Organisms/ModalDetailContent'
+import { useState, useEffect } from 'react'
 
 const MainPageTemplateWrapper = styled.div`
     width: 100vw;
 `
 
 function MainPageTemplate({ trendMovies, trendTvs, gbsPick, isImageLoaded, isLoaded }) {
+    const [modal, setModal] = useState(false)
+    const [noScroll, setScroll] = useState(false)
+
+    const showModal = async (id) => {
+        setModal(true)
+        setScroll(true)
+        document.body.style.overflow = 'none'
+    }
+    const hideModal = (async) => {
+        setModal(false)
+        setScroll(false)
+    }
+
+    useEffect(() => {
+        document.querySelector('html').style.overflowY = noScroll ? 'hidden' : 'auto'
+    })
+
     return (
         <>
             <SubHeader />
@@ -21,6 +40,7 @@ function MainPageTemplate({ trendMovies, trendTvs, gbsPick, isImageLoaded, isLoa
                         page={'movie'}
                         isImageLoaded={isImageLoaded}
                         isLoaded={isLoaded}
+                        showModal={showModal}
                     />
                 </div>
                 <div className='fr fcenter'>
@@ -31,6 +51,7 @@ function MainPageTemplate({ trendMovies, trendTvs, gbsPick, isImageLoaded, isLoa
                         page={'tv'}
                         isImageLoaded={isImageLoaded}
                         isLoaded={isLoaded}
+                        showModal={showModal}
                     />
                 </div>
                 <div className='fr fcenter'>
@@ -41,9 +62,11 @@ function MainPageTemplate({ trendMovies, trendTvs, gbsPick, isImageLoaded, isLoa
                         page={'movie'}
                         isImageLoaded={isImageLoaded}
                         isLoaded={isLoaded}
+                        showModal={showModal}
                     />
                 </div>
             </MainPageTemplateWrapper>
+            {modal ? <ModalDetailContent hideModal={hideModal} /> : null}
         </>
     )
 }

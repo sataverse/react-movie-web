@@ -55,7 +55,7 @@ const SlideWrapper2 = styled.div`
     position: relative;
 `
 
-function ContentSlideSection({ sectionTitle, datas, type, page, isImageLoaded, isLoaded }) {
+function ContentSlideSection({ sectionTitle, datas, type, page, isImageLoaded, isLoaded, showModal }) {
     const [slideIndex, setSlideIndex] = useState(0)
     const [LinkDisplay, setLinkDisplay] = useState('none')
 
@@ -129,8 +129,9 @@ function ContentSlideSection({ sectionTitle, datas, type, page, isImageLoaded, i
                                         datasLength={datas.length}
                                         overview={element.overview}
                                         type={type}
-                                        key={`card-${element.id}`}
+                                        key={`main-content=${element.id}`}
                                         isImageLoaded={isImageLoaded}
+                                        showModal={showModal}
                                     />
                                 )
                             } else if (type == 'tv') {
@@ -158,8 +159,9 @@ function ContentSlideSection({ sectionTitle, datas, type, page, isImageLoaded, i
                                         makeNormalForLastIndex={makeNormalForLastIndex}
                                         datasLength={datas.length}
                                         overview={element.overview}
-                                        key={`card-${element.id}`}
+                                        key={`main-content=${element.id}`}
                                         isImageLoaded={isImageLoaded}
+                                        showModal={showModal}
                                     />
                                 )
                             } else if (type == undefined) {
@@ -180,8 +182,9 @@ function ContentSlideSection({ sectionTitle, datas, type, page, isImageLoaded, i
                                         makeNormalForLastIndex={makeNormalForLastIndex}
                                         datasLength={datas.length}
                                         overview={element.overview}
-                                        key={`card-${element.id}`}
+                                        key={`main-content=${element.id}`}
                                         isImageLoaded={isImageLoaded}
+                                        showModal={showModal}
                                     />
                                 )
                             }
