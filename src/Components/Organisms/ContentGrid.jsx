@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import ContentCard from '../Molecules/ContentCard';
-import { findCountry } from '../../Modules/FindCountry';
+import { findCountry } from '../../Modules/utils';
 
 const ContentGridDiv = styled.div `
     position: relative;

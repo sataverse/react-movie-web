@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components'
-import { findCountry } from '../../Modules/FindCountry';
+import { findCountry } from '../../Modules/utils';
 import ContentCardWithEvent from '../Molecules/ContentCardWithEvent';
 import ContentSlideSectionTitle from '../Atoms/ContentSlideSectionTitle';
 import ContentSlideSectionLink from '../Atoms/ContentSlideSectionLink';
