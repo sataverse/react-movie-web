@@ -24,7 +24,7 @@ function ContentCard({ id, title, desc, score, posterUrl, index, type, showModal
             onClick={() => {
                 showModal(id)
             }}>
-            <CardIndex index={index} />
+            <CardIndex index={index + 1} />
             <CardImage posterUrl={posterUrl} />
             <Wrapper1 className='fc fsevenly'>
                 <CardTextTitle text={title} />

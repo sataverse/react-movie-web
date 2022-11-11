@@ -100,7 +100,7 @@ function ContentSlideSection({ sectionTitle, datas, type, page, isImageLoaded, i
                 </div>
                 <SlideWrapper2>
                     <ContentSlideGrid id='contentSlideGrid' className='fr' style={{ transform: `translateX(-${slideIndex * 220}px)` }}>
-                        {isLoaded == false && <SkeletonContentSlide />}
+                        {!isLoaded ? <SkeletonContentSlide /> : null}
                         {datas.map((element, index) => {
                             let rate1 = element.vote_average || ''
                             let rate2 = Math.floor(rate1 * 10)

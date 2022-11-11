@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react'
+
 export function findCountry(country) {
     if (country != undefined) {
         if (country == 'US') return ' · 미국'
@@ -18,4 +20,25 @@ export function findCountry(country) {
         else if (country == 'NZ') return ' · 뉴질랜드'
         else return ''
     }
+}
+
+export const getDetailContentFromAPI = (id) => {
+    const [data, setData] = useState()
+    const [imageSrc, setImageSrc] = useState()
+    useEffect(() => {
+        async function getDetail(id) {
+            fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`)
+                .then((response) => response.json())
+                .then(setData)
+        }
+        async function getImage(id) {
+            fetch(`https://api.themoviedb.org/3/movie/${id}/images?api_key=6199da9940f55ef72ddc1512ea6eca9a`)
+                .then((response) => response.json())
+                .then((data) => {
+                    setImageSrc(data.backdrops[0].file_path)
+                })
+        }
+        getImage(id)
+    }, [id])
+    return { data, imageSrc }
 }

@@ -12,10 +12,12 @@ const MainPageTemplateWrapper = styled.div`
 function MainPageTemplate({ trendMovies, trendTvs, gbsPick, isImageLoaded, isLoaded }) {
     const [modal, setModal] = useState(false)
     const [noScroll, setScroll] = useState(false)
+    const [id, setId] = useState(null)
 
     const showModal = async (id) => {
         setModal(true)
         setScroll(true)
+        setId(id)
         document.body.style.overflow = 'none'
     }
     const hideModal = (async) => {
@@ -66,7 +68,7 @@ function MainPageTemplate({ trendMovies, trendTvs, gbsPick, isImageLoaded, isLoa
                     />
                 </div>
             </MainPageTemplateWrapper>
-            {modal ? <ModalDetailContent hideModal={hideModal} /> : null}
+            {modal ? <ModalDetailContent id={id} hideModal={hideModal} /> : null}
         </>
     )
 }

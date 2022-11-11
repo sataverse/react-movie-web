@@ -48,15 +48,15 @@ const CardImageWrapper = styled.div`
     }
     &:hover ${CardImageImg1Wrapper} {
         transition-delay: 1s;
-        animation: fadeout 0.3s ease 1s forwards;
+        animation: fadeOutForBackgroundImage 0.3s ease 1s forwards;
     }
     &:hover ${CardImageImg2Wrapper} {
         transition-delay: 1s;
-        animation: fadein 0.3s ease 1s forwards;
+        animation: fadeInForBackgroundImage 0.3s ease 1s forwards;
         top: 0rem;
     }
 
-    @keyframes fadein {
+    @keyframes fadeInForBackgroundImage {
         from {
             opacity: 0;
         }
@@ -65,7 +65,7 @@ const CardImageWrapper = styled.div`
         }
     }
 
-    @keyframes fadeout {
+    @keyframes fadeOutForBackgroundImage {
         from {
             opacity: 1;
         }

@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 const CardTextTitleSpan = styled.span`
     width: 180rem;
-    height: 20rem;
+    height: 24rem;
     font-family: 'Noto Sans KR';
     font-style: normal;
     font-weight: 700;
