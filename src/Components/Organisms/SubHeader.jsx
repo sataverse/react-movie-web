@@ -9,8 +9,8 @@ const SubHeaderWrapper = styled.div`
     background-color: var(--w-red);
 `
 
-function MainHeader() {
+function SubHeader() {
     return <SubHeaderWrapper className='hcenter'>Sign Up Sign In</SubHeaderWrapper>
 }
 
-export default MainHeader
+export default SubHeader

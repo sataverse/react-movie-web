@@ -3,7 +3,15 @@ import styled from 'styled-components'
 import { getDetailContentFromAPI } from '../../Modules/utils'
 import ModalBigImage from '../Atoms/Modal/ModalBigImage'
 import ModalCloseButton from '../Atoms/Modal/ModalCloseButton'
+import ModalDesc from '../Atoms/Modal/ModalDesc'
+import ModalPosterImage from '../Atoms/Modal/ModalPosterImage'
 import ModalScrollDownButton from '../Atoms/Modal/ModalScrollDownButton'
+import ModalTitle from '../Atoms/Modal/ModalTitle'
+import { findCountry } from '../../Modules/utils'
+import ModalTagline from '../Atoms/Modal/ModalTagline'
+import ModalStory from '../Atoms/Modal/ModalStory'
+import ModalScore from '../Atoms/Modal/ModalScore'
+import ModalMyScore from '../Atoms/Modal/ModalMyScore'
 
 const ModalDetailContentBackground = styled.div`
     position: fixed;
@@ -67,26 +75,90 @@ const ModalScrollDownButtonWrapper = styled.div`
     height: 40rem;
 `
 
-const ModalDetailContentWrapper = styled.div`
+const ModalDetailContentWrapper1 = styled.div`
     position: relative;
     width: 100%;
-    height: 2000rem;
+    height: 800rem;
     background-color: white;
 `
 
-const Test = styled.div`
-    background-color: yellow;
-    height: 200rem;
-    margin: 0;
-    padding: 0;
+const ModalDetailContentWrapper2 = styled.div`
+    position: relative;
+    height: 800rem;
+    width: 1000rem;
+    left: 50%;
+    transform: translateX(-50%);
+`
+
+const ModalDetailContentWrapper3 = styled.div`
+    position: relative;
+    top: 40rem;
+    width: 100%;
+`
+
+const ModalDetailContentTextWrapper1 = styled.div`
+    position: relative;
+    width: 720rem;
+`
+
+const ModalDetailContentTextWrapper2 = styled.div`
+    position: relative;
+    width: 100%;
+    height: ${(props) => `${props.$height}rem`};
+`
+
+const HR = styled.div`
+    width: 100%;
+    height: 1rem;
+    background-color: var(--w-graywhite);
+    margin-top: 10rem;
+    margin-bottom: 10rem;
 `
 
 function ModalDetailContent({ id, hideModal }) {
     const { data, imageSrc } = getDetailContentFromAPI(id)
-    const modalWrapper = useRef(null)
+    const scrollHere1 = useRef(null)
+    const scrollHere2 = useRef(null)
+    const modalWrapper2 = useRef(null)
     async function scrollDownModal() {
-        modalWrapper.current.scrollIntoView({ behavior: 'smooth' })
+        scrollHere2.current.scrollIntoView({ behavior: 'smooth' })
     }
+    function combineDescription() {
+        let country = ''
+        try {
+            country = `${findCountry(data.production_countries[0].iso_3166_1)}`
+        } catch (error) {
+            country = ''
+        }
+        let desc = `${data.release_date.slice(0, 4)}${country} · `
+        data.genres.forEach((element, index) => {
+            desc += `${element.name} `
+        })
+        //for (let i = 0; i < 3; i++) {
+        //    if (data.genres[i].name != undefined) desc += `${data.genres[i].name} `
+        //}
+        return desc
+    }
+
+    function calcScore() {
+        let rate1 = data.vote_average || ''
+        let rate2 = Math.floor(rate1 * 10)
+        return rate2
+    }
+
+    useEffect(() => {
+        if (modalWrapper2 && modalWrapper2.current) {
+            modalWrapper2.current.addEventListener('wheel', function (e) {
+                e.preventDefault()
+                if (e.deltaY > 0) {
+                    scrollHere2.current.scrollIntoView({ behavior: 'smooth' })
+                } else if (e.deltaY < 0) {
+                    scrollHere1.current.scrollIntoView({ behavior: 'smooth' })
+                }
+            })
+        }
+    }, [])
+
     return (
         <ModalDetailContentBackground
             onClick={() => {
@@ -96,17 +168,35 @@ function ModalDetailContent({ id, hideModal }) {
                 <ModalCloseButton hideModal={hideModal}></ModalCloseButton>
             </ModalCloseButtonWrapper>
             <ModalDetailContentDiv
+                ref={modalWrapper2}
                 onClick={(event) => {
                     event.stopPropagation()
                 }}>
                 <ModalDetailContentScrollArea className='fc fleft'>
+                    <div style={{ width: '0', height: '0' }} ref={scrollHere1} />
                     <ModalBigImage imageSrc={imageSrc} />
-                    <ModalDetailContentWrapper className='fc fleft'>
+                    <ModalDetailContentWrapper1 className='fc fleft'>
                         <ModalScrollDownButtonWrapper>
                             <ModalScrollDownButton scrollDownModal={scrollDownModal} />
                         </ModalScrollDownButtonWrapper>
-                        <Test ref={modalWrapper}>테스트</Test>
-                    </ModalDetailContentWrapper>
+                        <ModalDetailContentWrapper2 ref={scrollHere2}>
+                            <ModalDetailContentWrapper3 className='fr fsbetween'>
+                                {data != undefined && <ModalPosterImage url={data.poster_path} />}
+                                <ModalDetailContentTextWrapper1 className='fc fleft'>
+                                    <ModalDetailContentTextWrapper2 $height='40' className='fr fsbetween'>
+                                        {data != undefined && <ModalTitle title={data.title} />}
+                                        {data != undefined && <ModalScore score={calcScore()} />}
+                                    </ModalDetailContentTextWrapper2>
+                                    <ModalDetailContentTextWrapper2 $height='40' className='fr fsbetween'>
+                                        {data != undefined && <ModalTagline tagline={data.tagline} />}
+                                        <ModalMyScore rate={5} />
+                                    </ModalDetailContentTextWrapper2>
+                                    <HR />
+                                    {data != undefined && <ModalStory story={data.overview} />}
+                                </ModalDetailContentTextWrapper1>
+                            </ModalDetailContentWrapper3>
+                        </ModalDetailContentWrapper2>
+                    </ModalDetailContentWrapper1>
                 </ModalDetailContentScrollArea>
             </ModalDetailContentDiv>
         </ModalDetailContentBackground>

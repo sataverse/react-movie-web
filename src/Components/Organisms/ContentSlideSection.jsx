@@ -110,8 +110,7 @@ function ContentSlideSection({ sectionTitle, datas, type, page, isImageLoaded, i
                                 let desc = `${year2}`
                                 let country
                                 try {
-                                    country = element.production_countries[0].iso_3166_1
-                                    desc += findCountry(country)
+                                    desc += findCountry(element.production_countries[0].iso_3166_1)
                                 } catch (error) {}
                                 return (
                                     <ContentCardWithEvent

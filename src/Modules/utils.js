@@ -38,6 +38,7 @@ export const getDetailContentFromAPI = (id) => {
                     setImageSrc(data.backdrops[0].file_path)
                 })
         }
+        getDetail(id)
         getImage(id)
     }, [id])
     return { data, imageSrc }

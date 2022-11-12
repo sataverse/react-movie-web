@@ -97,3 +97,14 @@ body {
 .no-underline {
     text-decoration: none;
 }
+
+.max-width {
+    position: relative;
+    width: 100%;
+}
+
+.vcenter {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
