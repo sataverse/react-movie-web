@@ -140,8 +140,8 @@ function ModalSignIn({ hideSigninModal, switchModal }) {
                 <ModalSignInDiv
                     onClick={(event) => event.stopPropagation()}>
                     <ModalMainLogo />
-                    <ModalEmailInput type='text' placeholder='이메일' maxLength='50' onChange={e => setEmail(e.target.value)}/>
-                    <ModalPasswordInput type='password' placeholder='비밀번호' onChange={e => setPasswd(e.target.value)}/>
+                    <ModalEmailInput type='text' placeholder=' 이메일' maxLength='50' onChange={e => setEmail(e.target.value)}/>
+                    <ModalPasswordInput type='password' placeholder=' 비밀번호' onChange={e => setPasswd(e.target.value)}/>
                     <ModalSignInButton onClick={() => signin()}>로그인</ModalSignInButton>
                     <ModalNoAccountMessage>회원이 아니신가요?</ModalNoAccountMessage>
                     <ModalSignUpButton onClick={() => switchModal()}>회원가입</ModalSignUpButton>

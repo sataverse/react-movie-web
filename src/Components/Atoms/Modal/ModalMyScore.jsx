@@ -8,17 +8,23 @@ const ModalMyScoreDiv = styled.div`
 `
 
 function ModalMyScore({ rate = 10 }) {
-    const [hoverIndex, setHoverIndex] = useState(0)
-    async function mouseOverIndex(index) {
-        setHoverIndex(index)
+    const [beforeRate, setBeforeRate] = useState(rate)
+    const [afterRate, setAfterRate] = useState(rate)
+
+    async function mouseClickStar() {
+        setBeforeRate(afterRate)
     }
+    async function mouseOverStar(index) {
+        setAfterRate(index)
+    }
+
     return (
-        <ModalMyScoreDiv className='fr fsbetween vcenter'>
-            <Star rate={rate} index={0} mouseOverIndex={mouseOverIndex} hoverIndex={hoverIndex} />
-            <Star rate={rate} index={2} mouseOverIndex={mouseOverIndex} hoverIndex={hoverIndex} />
-            <Star rate={rate} index={4} mouseOverIndex={mouseOverIndex} hoverIndex={hoverIndex} />
-            <Star rate={rate} index={6} mouseOverIndex={mouseOverIndex} hoverIndex={hoverIndex} />
-            <Star rate={rate} index={8} mouseOverIndex={mouseOverIndex} hoverIndex={hoverIndex} />
+        <ModalMyScoreDiv className='fr fsbetween vcenter' onMouseLeave={() => mouseOverStar(beforeRate)}>
+            <Star beforeRate={beforeRate} afterRate={afterRate} index={1} mouseOverStar={mouseOverStar} mouseClickStar={mouseClickStar}/>
+            <Star beforeRate={beforeRate} afterRate={afterRate} index={3} mouseOverStar={mouseOverStar} mouseClickStar={mouseClickStar}/>
+            <Star beforeRate={beforeRate} afterRate={afterRate} index={5} mouseOverStar={mouseOverStar} mouseClickStar={mouseClickStar}/>
+            <Star beforeRate={beforeRate} afterRate={afterRate} index={7} mouseOverStar={mouseOverStar} mouseClickStar={mouseClickStar}/>
+            <Star beforeRate={beforeRate} afterRate={afterRate} index={9} mouseOverStar={mouseOverStar} mouseClickStar={mouseClickStar}/>
         </ModalMyScoreDiv>
     )
 }
