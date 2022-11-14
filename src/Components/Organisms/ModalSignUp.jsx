@@ -130,9 +130,9 @@ function ModalSignUp({ hideSignupModal }) {
                 <ModalSignInDiv
                     onClick={(event) => event.stopPropagation()}>
                     <ModalMainLogo />
-                    <ModalEmailInput type='text' placeholder='이메일' maxLength='50' onChange={e => setEmail(e.target.value)} />
-                    <ModalPasswordInput type='password' placeholder='비밀번호' onChange={e => setPasswd(e.target.value)} />
-                    <ModalNicknameInput type='text' placeholder='닉네임' maxLength='20' onChange={e => setNickname(e.target.value)} />
+                    <ModalEmailInput type='text' placeholder=' 이메일' maxLength='50' onChange={e => setEmail(e.target.value)} />
+                    <ModalPasswordInput type='password' placeholder=' 비밀번호' onChange={e => setPasswd(e.target.value)} />
+                    <ModalNicknameInput type='text' placeholder=' 닉네임' maxLength='20' onChange={e => setNickname(e.target.value)} />
                     <ModalSignUpButton onClick={() => check()}>가입</ModalSignUpButton>
                     <ModalHorizontalCloseButton  modalSize='middle' hideThisModal={hideSignupModal} />
                 </ModalSignInDiv>
