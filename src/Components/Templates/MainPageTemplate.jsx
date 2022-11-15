@@ -20,6 +20,7 @@ function MainPageTemplate({ trendMovies, trendTvs, gbsPick, isImageLoaded, isLoa
         setId(id)
         document.body.style.overflow = 'none'
     }
+
     const hideModal = (async) => {
         setModal(false)
         setScroll(false)

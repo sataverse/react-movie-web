@@ -12,14 +12,12 @@ const ModalBigImageImg = styled.img`
 `
 
 function ModalBigImage({ imageSrc }) {
-    const testImage = useRef(null)
+    const loadingImage = useRef(null)
     return (
         <ModalBigImageImg
-            ref={testImage}
+            ref={loadingImage}
             src={`https://www.themoviedb.org/t/p/original/${imageSrc}`}
-            onLoad={() => {
-                testImage.current.style.opacity = 1
-            }}
+            onLoad={() => (loadingImage.current.style.opacity = 1)}
         />
     )
 }

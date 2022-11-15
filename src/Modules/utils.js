@@ -23,13 +23,13 @@ export function findCountry(country) {
 }
 
 export const getDetailContentFromAPI = (id) => {
-    const [data, setData] = useState()
+    const [detailData, setDetailData] = useState()
     const [imageSrc, setImageSrc] = useState()
     useEffect(() => {
         async function getDetail(id) {
             fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`)
                 .then((response) => response.json())
-                .then(setData)
+                .then(setDetailData)
         }
         async function getImage(id) {
             fetch(`https://api.themoviedb.org/3/movie/${id}/images?api_key=6199da9940f55ef72ddc1512ea6eca9a`)
@@ -41,5 +41,18 @@ export const getDetailContentFromAPI = (id) => {
         getDetail(id)
         getImage(id)
     }, [id])
-    return { data, imageSrc }
+    return { detailData, imageSrc }
+}
+
+export const getCreditFromApi = (id) => {
+    const [creditData, setCreditData] = useState([])
+    useEffect(() => {
+        async function getCredit(id) {
+            fetch(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`)
+                .then((response) => response.json())
+                .then((data) => setCreditData(data.cast))
+        }
+        getCredit(id)
+    }, [id])
+    return { creditData }
 }

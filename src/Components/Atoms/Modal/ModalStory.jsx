@@ -9,7 +9,7 @@ const ModalStorySpan = styled.div`
     color: var(--w-black);
     overflow: hidden;
     position: relative;
-    height: 250rem;
+    height: 210rem;
     width: 100%;
 `
 

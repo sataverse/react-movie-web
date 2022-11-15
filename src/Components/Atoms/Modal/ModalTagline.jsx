@@ -5,7 +5,7 @@ const ModalTaglineSpan = styled.span`
     font-style: normal;
     font-weight: 700;
     font-size: 20rem;
-    color: var(--w-red);
+    color: var(--w-orange);
     margin-top: 8rem;
 `
 
