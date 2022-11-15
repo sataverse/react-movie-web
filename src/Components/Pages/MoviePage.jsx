@@ -8,6 +8,9 @@ function MoviePage() {
     const [isFetching, setFetching] = useState(false)
     const [index, setIndex] = useState(0)
     const [hasNextPage, setNextPage] = useState(true)
+    const [genre, setGenre] = useState("All")
+
+    const changeGenre = changedGenre => setGenre(changedGenre)
 
     async function getMovie() {
         for (let i = 1; i <= 3; i++) {
@@ -40,7 +43,7 @@ function MoviePage() {
         else if (!hasNextPage) setFetching(false)
     }, [isFetching])
 
-    return <MoviePageTemplate data={movieData} />
+    return <MoviePageTemplate data={movieData} genre={genre} changeGenre={changeGenre}/>
 }
 
 export default MoviePage

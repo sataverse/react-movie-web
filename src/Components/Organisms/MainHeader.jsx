@@ -143,8 +143,10 @@ function MainHeader({ backgroundColor = 'auto' }) {
     const signOut = () => {
         navigate('/')
         localStorage.removeItem('user_id')
+        localStorage.removeItem('user_email')
         localStorage.removeItem('user_nickname')
         localStorage.removeItem('favorite_list')
+        localStorage.removeItem('rating_list')
         setIsSignIn(false)
         setSignoutModal(false)
         setScroll(false)

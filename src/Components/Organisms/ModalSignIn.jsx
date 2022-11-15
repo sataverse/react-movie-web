@@ -88,39 +88,28 @@ function ModalSignIn({ hideSigninModal, switchModal }) {
     const saveJSON = (key, data) => localStorage.setItem(key, JSON.stringify(data))
 
     const [signinFailedModal, setSigninFailedModal] = React.useState(false)
-
     const [email, setEmail] = React.useState()
     const [passwd, setPasswd] = React.useState()
     const [userId, setUserId] = React.useState(loadJSON('user_id'))
-    const [userNickname, setUserNickname] = React.useState(loadJSON('user_nickname'))
+    const [userFavorite, setUserFavorite] = React.useState(loadJSON('favorite_list'))
 
     const hideSigninFailedModal = () => setSigninFailedModal(false)
 
     async function signin() {
         if (!email || !passwd) return
         await fetch(`http://localhost:8000/v1/sign-in?email=${email}&password=${passwd}`, {method: 'POST'})
-            .then(response => response.json())
-            .then(data => {
-                if (data == -1){
-                    setSigninFailedModal(true)
-                } else {
-                    saveJSON('user_id', data)
-                    setUserId(data)
-                }
-            }
-        )
-    }
-
-    React.useEffect(() => {
-        if (!userId) return
-        const id = loadJSON('user_id')
-        fetch(`http://localhost:8000/v1/nickname?id=${id}`, {method: 'GET'})
         .then(response => response.json())
         .then(data => {
-            saveJSON('user_nickname', data)
-            setUserNickname(data)
+            if (data.Id == -1){
+                setSigninFailedModal(true)
+            } else {
+                saveJSON('user_id', data.Id)
+                saveJSON('user_email', data.Email)
+                saveJSON('user_nickname', data.Nickname)
+                setUserId(data.Id)
+            }
         })
-    }, [userId])
+    }
 
     React.useEffect(() => {
         if (!userId) return
@@ -129,9 +118,21 @@ function ModalSignIn({ hideSigninModal, switchModal }) {
         .then(response => response.json())
         .then(data => {
             saveJSON('favorite_list', data)
+            if(!data) setUserFavorite([])
+            else setUserFavorite(data)
+        })
+    }, [userId])
+
+    React.useEffect(() => {
+        if (!userId) return
+        const id = loadJSON('user_id')
+        fetch(`http://localhost:8000/v1/rating-list?user_id=${id}`, {method: 'GET'})
+        .then(response => response.json())
+        .then(data => {
+            saveJSON('rating_list', data)
             hideSigninModal()
         })
-    }, [userNickname])
+    }, [userFavorite])
 
     return (
         <>

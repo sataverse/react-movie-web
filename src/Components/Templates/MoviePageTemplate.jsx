@@ -14,7 +14,7 @@ const MoviePageTemplateWrapper = styled.div`
     transform: translateX(-50%);
 `
 
-function MoviePageTemplate({ data }) {
+function MoviePageTemplate({ data, genre, changeGenre }) {
     const [modal, setModal] = useState(false)
     const [noScroll, setScroll] = useState(false)
     const [id, setId] = useState(null)
