@@ -59,6 +59,7 @@ function ModalSignUp({ hideSignupModal }) {
     const [passwd, setPasswd] = React.useState()
     const [nickname, setNickname] = React.useState()
     const [userId, setUserId] = React.useState()
+    const [userFavorite, setUserFavorite] = React.useState(loadJSON('favorite_list'))
     const [userNickname, setUserNickname] = React.useState()
     const [alertDidNotInputModal, setAlertDidNotInputModal] = useState(false)
     const [alertSignUpFailedModal, setAlertSignUpFailedModal] = useState(false)
@@ -95,22 +96,13 @@ function ModalSignUp({ hideSignupModal }) {
         fetch(`http://localhost:8000/v1/sign-in?email=${email}&password=${passwd}`, {method: 'POST'})
         .then(response => response.json())
         .then(data => {
-            if (data == -1) return
-            saveJSON('user_id', data)
-            setUserId(data)
+            if (data.Id == -1) return
+            saveJSON('user_id', data.Id)
+            saveJSON('user_email', data.Email)
+            saveJSON('user_nickname', data.Nickname)
+            setUserId(data.Id)
         })
     }
-
-    React.useEffect(() => {
-        if (!userId) return
-        const id = loadJSON('user_id')
-        fetch(`http://localhost:8000/v1/nickname?id=${id}`, {method: 'GET'})
-        .then(response => response.json())
-        .then(data => {
-            saveJSON('user_nickname', data)
-            setUserNickname(data)
-        })
-    }, [userId])
 
     React.useEffect(() => {
         if (!userId) return
@@ -119,9 +111,21 @@ function ModalSignUp({ hideSignupModal }) {
         .then(response => response.json())
         .then(data => {
             saveJSON('favorite_list', data)
+            if(!data) setUserFavorite([])
+            else setUserFavorite(data)
+        })
+    }, [userId])
+
+    React.useEffect(() => {
+        if (!userId) return
+        const id = loadJSON('user_id')
+        fetch(`http://localhost:8000/v1/rating-list?id=${id}`, {method: 'GET'})
+        .then(response => response.json())
+        .then(data => {
+            saveJSON('rating_list', data)
             hideSignupModal()
         })
-    }, [userNickname])
+    }, [userFavorite])
 
     return (
         <>
