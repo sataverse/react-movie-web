@@ -10,7 +10,7 @@ const SubHeaderWrapper = styled.div`
 `
 
 function SubHeader() {
-    return <SubHeaderWrapper className='hcenter'>Sign Up Sign In</SubHeaderWrapper>
+    return <SubHeaderWrapper className='hcenter'></SubHeaderWrapper>
 }
 
 export default SubHeader

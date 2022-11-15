@@ -40,7 +40,7 @@ let itemArray = [
     ['🕵️ 미스터리', 9648],
 ]
 
-function MoviePageTemplate({ data }) {
+function MoviePageTemplate({ data, genre, changeGenre }) {
     const [modal, setModal] = useState(false)
     const [noScroll, setScroll] = useState(false)
     const [id, setId] = useState(null)
