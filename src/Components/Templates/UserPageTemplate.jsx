@@ -4,8 +4,8 @@ import MainHeader from '../Organisms/MainHeader'
 import SubHeader from '../Organisms/SubHeader'
 import MainSection from '../Organisms/MainSection'
 import ContentGrid from '../Organisms/ContentGrid'
-import ScrollTopButton from '../Atoms/ScrollTopButton'
 import ModalDetailContent from '../Organisms/ModalDetailContent'
+import Footer from '../Organisms/Footer'
 import { useState, useRef } from 'react'
 
 const UserPageTemplateWrapper = styled.div`
@@ -72,6 +72,7 @@ function UserPageTemplate({ likedListData, ratedListData }) {
                 </TwoGrid>
             </UserPageTemplateWrapper>
             {modal ? <ModalDetailContent id={id} hideModal={hideModal} /> : null}
+            <Footer />
         </>
     )
 }

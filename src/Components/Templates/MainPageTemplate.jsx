@@ -3,6 +3,7 @@ import ContentSlideSection from '../Organisms/ContentSlideSection'
 import MainHeader from '../Organisms/MainHeader'
 import SubHeader from '../Organisms/SubHeader'
 import ModalDetailContent from '../Organisms/ModalDetailContent'
+import Footer from '../Organisms/Footer'
 import { useState, useEffect } from 'react'
 
 const MainPageTemplateWrapper = styled.div`
@@ -70,6 +71,8 @@ function MainPageTemplate({ trendMovies, trendTvs, gbsPick, isImageLoaded, isLoa
                 </div>
             </MainPageTemplateWrapper>
             {modal ? <ModalDetailContent id={id} hideModal={hideModal} /> : null}
+
+            <Footer />
         </>
     )
 }
