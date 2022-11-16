@@ -30,8 +30,7 @@ function UserPageTemplate({ likedListData, ratedListData }) {
     const [id, setId] = useState(null)
     const [userName, setUserName] = useState('홍길동')
     const [tabType, setTabType] = useState(1) // 1 = 좋아요, 2 = 평가함
-    const likeTab = useRef(null)
-    const rateTab = useRef(null)
+    const twoGridWrapper = useRef(null)
 
     const showModal = async (id) => {
         setModal(true)
@@ -47,8 +46,13 @@ function UserPageTemplate({ likedListData, ratedListData }) {
 
     async function changeTab(num) {
         setTabType(num)
-        if (num == 1) likeTab.current.scrollIntoView({ behavior: 'smooth' })
-        else if (num == 2) rateTab.current.scrollIntoView({ behavior: 'smooth' })
+        if (num == 1) {
+            console.log('1')
+            twoGridWrapper.current.scrollBy({ left: -1280, behavior: 'smooth' })
+        } else if (num == 2) {
+            console.log('2')
+            twoGridWrapper.current.scrollBy({ left: 1280, behavior: 'smooth' })
+        }
     }
 
     return (
@@ -58,16 +62,15 @@ function UserPageTemplate({ likedListData, ratedListData }) {
             <MainSection />
             <UserPageTemplateWrapper className='fc fleft'>
                 <Tab tabType={tabType} changeTab={changeTab} />
-                <TwoGrid className='fr'>
-                    <div ref={likeTab}>
+                <TwoGrid ref={twoGridWrapper} className='fr'>
+                    <div>
                         <ContentGrid data={likedListData} showModal={showModal} noScroll={noScroll} />
                     </div>
-                    <div ref={rateTab}>
+                    <div>
                         <ContentGrid data={ratedListData} showModal={showModal} noScroll={noScroll} />
                     </div>
                 </TwoGrid>
             </UserPageTemplateWrapper>
-            <ScrollTopButton />
             {modal ? <ModalDetailContent id={id} hideModal={hideModal} /> : null}
         </>
     )

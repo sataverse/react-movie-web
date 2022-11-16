@@ -15,7 +15,6 @@ const ContentGridDiv = styled.div`
 `
 
 function ContentGrid({ data, showModal }) {
-    console.log('11')
     return (
         <ContentGridDiv className='hcenter'>
             {data != undefined &&
