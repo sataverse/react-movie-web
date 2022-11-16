@@ -174,7 +174,6 @@ function ModalDetailContent({ id, hideModal }) {
                                         {detailData != undefined && <ModalTagline tagline={detailData.tagline} />}
                                         <ModalMyScore rate={5} />
                                     </ModalDetailContentTextWrapper2>
-                                    <HR />
                                     {detailData != undefined && <ModalStory story={detailData.overview} />}
                                     <HR />
                                     <div style={{ backgroundColor: 'white', height: '60rem' }}></div>
