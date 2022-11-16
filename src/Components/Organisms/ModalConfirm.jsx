@@ -1,7 +1,7 @@
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
 import ModalHorizontalDoubleButton from '../Atoms/Modal/ModalHorizontalDoubleButton'
 
-const ModalSignOutBackground = styled.div`
+const ModalConfirmBackground = styled.div`
     position: fixed;
     top: 0px;
     left: 0px;
@@ -11,7 +11,7 @@ const ModalSignOutBackground = styled.div`
     z-index: 2000;
 `
 
-const ModalSignOutDiv = styled.div`
+const ModalConfirmDiv = styled.div`
     position: relative;
     width: 250rem;
     height: 150rem;
@@ -23,7 +23,7 @@ const ModalSignOutDiv = styled.div`
     overflow-y: scroll;
 `
 
-const ModalSignOutMessage = styled.div`
+const ModalConfirmMessage = styled.div`
     position: absolute;
     width: 80%;
     height: 40%;
@@ -38,12 +38,12 @@ const ModalSignOutMessage = styled.div`
 
 function ModalSignOut({msg, cancel, confirm}) {
     return (
-        <ModalSignOutBackground onClick={() => cancel()}>
-            <ModalSignOutDiv onClick={(event) => event.stopPropagation()}>
-                <ModalSignOutMessage>{msg}</ModalSignOutMessage>
+        <ModalConfirmBackground onClick={() => cancel()}>
+            <ModalConfirmDiv onClick={(event) => event.stopPropagation()}>
+                <ModalConfirmMessage>{msg}</ModalConfirmMessage>
                 <ModalHorizontalDoubleButton cancel={cancel} confirm={confirm}/>
-            </ModalSignOutDiv>
-        </ModalSignOutBackground>
+            </ModalConfirmDiv>
+        </ModalConfirmBackground>
     )
 }
 

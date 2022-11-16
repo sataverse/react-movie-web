@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
 import React, { useState, useEffect } from 'react'
 import ModalMainLogo from '../Atoms/Modal/ModalMainLogo'
 import ModalEmailInput from '../Atoms/Modal/ModalEmailInput'
@@ -15,6 +15,14 @@ const ModalSignInBackground = styled.div`
     background-color: #00000040;
     z-index: 2000;
 `
+const fadeIn = keyframes`
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+`
 
 const ModalSignInDiv = styled.div`
     position: relative;
@@ -26,6 +34,7 @@ const ModalSignInDiv = styled.div`
     background-color: var(--w-background);
     border-radius: 10rem;
     overflow-y: scroll;
+    animation: ${fadeIn} 0.3s linear;
 `
 
 const ModalSignInButton = styled.button`
@@ -110,6 +119,14 @@ function ModalSignIn({ hideSigninModal, switchModal }) {
             }
         })
     }
+
+    /*
+    React.useEffect(() => {
+        return () => {
+            clearTimeout(setTimeout(() => setVisibleThisComponent(false)), 2000);
+        }
+    }, [visibleThisComponent])
+    */
 
     React.useEffect(() => {
         if (!userId) return
