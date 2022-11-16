@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
 import React, { useState, useEffect } from 'react'
 import ModalMainLogo from '../Atoms/Modal/ModalMainLogo'
 import ModalEmailInput from '../Atoms/Modal/ModalEmailInput'
@@ -18,7 +18,16 @@ const ModalSignInBackground = styled.div`
     z-index: 2000;
 `
 
-const ModalSignInDiv = styled.div`
+const fadeIn = keyframes`
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+`
+
+const ModalSignUpDiv = styled.div`
     position: relative;
     width: 300rem;
     height: 500rem;
@@ -28,6 +37,7 @@ const ModalSignInDiv = styled.div`
     background-color: var(--w-background);
     border-radius: 10rem;
     overflow-y: scroll;
+    animation: ${fadeIn} 0.3s linear;
 `
 
 const ModalSignUpButton = styled.button`
@@ -131,7 +141,7 @@ function ModalSignUp({ hideSignupModal }) {
         <>
             <ModalSignInBackground
                 onClick={() => hideSignupModal()}>
-                <ModalSignInDiv
+                <ModalSignUpDiv
                     onClick={(event) => event.stopPropagation()}>
                     <ModalMainLogo />
                     <ModalEmailInput type='text' placeholder=' 이메일' maxLength='50' onChange={e => setEmail(e.target.value)} />
@@ -139,7 +149,7 @@ function ModalSignUp({ hideSignupModal }) {
                     <ModalNicknameInput type='text' placeholder=' 닉네임' maxLength='20' onChange={e => setNickname(e.target.value)} />
                     <ModalSignUpButton onClick={() => check()}>가입</ModalSignUpButton>
                     <ModalHorizontalCloseButton  modalSize='middle' hideThisModal={hideSignupModal} />
-                </ModalSignInDiv>
+                </ModalSignUpDiv>
             </ModalSignInBackground>
             {alertDidNotInputModal ? <ModalAlert msg={'모든 정보를 입력해주세요.'} hideThisModal={hideAlertDidNotInputModal} />: null}
             {alertSignUpFailedModal ? <ModalAlert msg={'현재 이메일로 가입할 수 없습니다.'} hideThisModal={hideAlertSignUpFailedModal} />: null}
