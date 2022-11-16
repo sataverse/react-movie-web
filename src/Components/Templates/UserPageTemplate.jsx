@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import Tab from '../Molecules/Tab'
 import MainHeader from '../Organisms/MainHeader'
-import SubHeader from '../Organisms/SubHeader'
 import MainSection from '../Organisms/MainSection'
 import ContentGrid from '../Organisms/ContentGrid'
 import ModalDetailContent from '../Organisms/ModalDetailContent'
@@ -57,7 +56,6 @@ function UserPageTemplate({ likedListData, ratedListData }) {
 
     return (
         <>
-            <SubHeader />
             <MainHeader />
             <MainSection />
             <UserPageTemplateWrapper className='fc fleft'>

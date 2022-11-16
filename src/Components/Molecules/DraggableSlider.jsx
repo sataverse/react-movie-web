@@ -41,7 +41,6 @@ function DraggableSlider({ itemArray }) {
         if (isMouseDown) {
             const x = event.pageX - slider.current.offsetLeft
             const scroll = x - startX
-            console.log(scrollLeft - scroll)
             slider.current.scrollLeft = scrollLeft - scroll
         }
     }

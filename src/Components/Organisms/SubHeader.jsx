@@ -2,11 +2,11 @@ import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
 const SubHeaderWrapper = styled.div`
+    position: relative;
     width: 100vw;
     height: 30rem;
     background-color: var(--w-red);
     overflow-y: scroll;
-    overflow-x: hidden;
     &::-webkit-scrollbar {
         display: none;
     }
@@ -18,7 +18,6 @@ const SubHeaderElement = styled.div`
     transform: translateX(-50%);
     width: 1280rem;
     height: 30rem;
-    text-align: left;
     line-height: 30rem;
     font-size: 14rem;
     color: var(--w-white);
@@ -59,12 +58,13 @@ function SubHeader() {
             scrollWrapper.current.scrollBy({ top: 30, behavior: 'smooth' })
         }
         if (index == notice.length * 2 - 1) {
-            scrollWrapper.current.scrollBy({ top: -180 })
+            let y = -30 * notice.length
+            scrollWrapper.current.scrollBy({ top: y })
         }
-    }, 2000)
+    }, 1000)
 
     return (
-        <SubHeaderWrapper ref={scrollWrapper} className='hcenter fc'>
+        <SubHeaderWrapper ref={scrollWrapper} className='fc'>
             {notice.map((n, i) => (
                 <SubHeaderElement key={i}>{n}</SubHeaderElement>
             ))}

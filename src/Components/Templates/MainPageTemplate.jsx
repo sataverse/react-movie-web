@@ -33,7 +33,6 @@ function MainPageTemplate({ trendMovies, trendTvs, gbsPick, isImageLoaded, isLoa
 
     return (
         <>
-            <SubHeader />
             <MainHeader />
             <MainPageTemplateWrapper className='fc fleft'>
                 <div className='fr fcenter'>

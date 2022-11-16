@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import MainHeader from '../Organisms/MainHeader'
-import SubHeader from '../Organisms/SubHeader'
 import ContentGrid from '../Organisms/ContentGrid'
 import ContentSlideSectionTitle from '../Atoms/ContentSlideSectionTitle'
 import ScrollTopButton from '../Atoms/ScrollTopButton'
@@ -59,7 +58,6 @@ function MoviePageTemplate({ data, changeGenre, changeSort }) {
 
     return (
         <>
-            <SubHeader />
             <MainHeader />
             <MoviePageTemplateWrapper className='fc fleft'>
                 <div style={{ width: '1280rem' }} className='hcenter'>
