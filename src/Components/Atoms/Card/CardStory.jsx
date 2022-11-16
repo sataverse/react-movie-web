@@ -5,8 +5,6 @@ const CardStorySpan = styled.div`
     left: 30rem;
     top: 30rem;
     width: 340rem;
-    font-family: 'Noto Sans KR';
-    font-style: normal;
     font-weight: 400;
     font-size: 14rem;
     color: var(--w-white);

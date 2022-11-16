@@ -1,8 +1,6 @@
 import styled from 'styled-components'
 
 const ModalStorySpan = styled.div`
-    font-family: 'Noto Sans KR';
-    font-style: normal;
     font-weight: 400;
     font-size: 16rem;
     line-height: 180%;

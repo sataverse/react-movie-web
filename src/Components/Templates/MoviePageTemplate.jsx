@@ -9,10 +9,7 @@ import DraggableSlider from '../Molecules/DraggableSlider'
 import { useState, useEffect } from 'react'
 
 const MoviePageTemplateWrapper = styled.div`
-    position: relative;
-    width: 1280rem;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 100vw;
 `
 
 let itemArray = [
@@ -65,9 +62,13 @@ function MoviePageTemplate({ data, genre, changeGenre }) {
             <SubHeader />
             <MainHeader />
             <MoviePageTemplateWrapper className='fc fleft'>
-                <ContentSlideSectionTitle text={'🍿 모든 영화'} margin={0} />
-                <DraggableSlider itemArray={itemArray} />
-                <ContentGrid data={data} showModal={showModal} noScroll={noScroll} />
+                <div style={{ width: '1280rem' }} className='hcenter'>
+                    <ContentSlideSectionTitle text={'🍿 모든 영화'} margin={0} />
+                    <div className='fr fsbetween' style={{ marginTop: '-10rem', marginBottom: '5rem' }}>
+                        <DraggableSlider itemArray={itemArray} />
+                    </div>
+                    <ContentGrid data={data} showModal={showModal} noScroll={noScroll} />
+                </div>
             </MoviePageTemplateWrapper>
             <ScrollTopButton />
             {modal ? <ModalDetailContent id={id} hideModal={hideModal} /> : null}

@@ -1,8 +1,6 @@
 import styled from 'styled-components'
 
 const CardTextScoreSpan = styled.span`
-    font-family: 'Noto Sans KR';
-    font-style: normal;
     font-weight: 500;
     font-size: 16rem;
     margin-top: -4rem;

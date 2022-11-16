@@ -36,12 +36,12 @@ const ModalSignInFailedMessage = styled.div`
     text-align: center;
 `
 
-function ModalSignInFailed({msg, hideThisModal}) {
+function ModalSignInFailed({ msg, hideThisModal }) {
     return (
         <ModalSignInFailedBackground onClick={() => hideThisModal()}>
             <ModalSignInFailedDiv onClick={(event) => event.stopPropagation()}>
                 <ModalSignInFailedMessage>{msg}</ModalSignInFailedMessage>
-                <ModalHorizontalCloseButton  modalSize='small' hideThisModal={hideThisModal} />
+                <ModalHorizontalCloseButton modalSize='small' hideThisModal={hideThisModal} />
             </ModalSignInFailedDiv>
         </ModalSignInFailedBackground>
     )

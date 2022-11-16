@@ -30,20 +30,19 @@ const ModalHorizontalCloseButtonButton = styled.button`
     }};
     border: 0;
     background-color: transparent;
-    font-size: 18px;
+    font-size: 16rem;
+    font-weight: 500;
     color: var(--w-red);
-
-    &:hover {
-        cursor: pointer;
-        filter: brightness(0.8);
-    }
+    cursor: pointer;
 `
 
-function ModalHorizontalCloseButton({modalSize, hideThisModal}) {
+function ModalHorizontalCloseButton({ modalSize, hideThisModal }) {
     return (
         <>
             <ModalHorizontalCloseDiv $modalSize={modalSize}></ModalHorizontalCloseDiv>
-            <ModalHorizontalCloseButtonButton onClick={() => hideThisModal()} $modalSize={modalSize}>닫기</ModalHorizontalCloseButtonButton>
+            <ModalHorizontalCloseButtonButton onClick={() => hideThisModal()} $modalSize={modalSize}>
+                닫기
+            </ModalHorizontalCloseButtonButton>
         </>
     )
 }

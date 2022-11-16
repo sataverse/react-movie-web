@@ -2,8 +2,6 @@ import styled from 'styled-components'
 
 const ContentSlideSectionTitleSpan = styled.span`
     height: 70rem;
-    font-family: 'Noto Sans KR';
-    font-style: normal;
     font-weight: 700;
     font-size: 24rem;
     line-height: 70rem;

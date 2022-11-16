@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom'
 
 const ContentSlideSectionLinkSpan = styled.div`
     position: relative;
-    font-family: 'Noto Sans KR';
-    font-style: normal;
     font-weight: 400;
     font-size: 14rem;
     margin-right: 50rem;

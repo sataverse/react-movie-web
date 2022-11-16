@@ -5,7 +5,6 @@ const SearchFormWrapper = styled.div`
     position: relative;
     height: 35rem;
     margin-right: 18rem;
-
     @media (max-width: 616px) {
         & {
             display: none;
@@ -57,19 +56,14 @@ const SearchInputWrapper = styled.input`
         if (props.$backgroundColor == 'auto') return '1px solid var(--w-gray)'
         else if (props.$backgroundColor == 'transparent') return '1px solid var(--w-white)'
     }};
-
     &:focus {
         outline: none;
         border-bottom: 1px solid var(--w-gray);
     }
-
     &:valid {
         padding-left: 30rem;
     }
-
     &::placeholder {
-        font-family: 'Noto Sans KR';
-        font-style: normal;
         font-weight: 400;
         font-size: 14rem;
         color: ${(props) => {
@@ -77,15 +71,12 @@ const SearchInputWrapper = styled.input`
             else if (props.$backgroundColor == 'transparent') return 'var(--w-gray)'
         }};
     }
-
     &:focus {
         border-bottom: 1px solid var(--w-red);
     }
-
     &:focus + ${SearchIcon} svg circle {
         stroke: var(--w-red);
     }
-
     &:focus + ${SearchIcon} svg rect {
         fill: var(--w-red);
     }

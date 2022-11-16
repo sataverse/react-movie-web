@@ -1,13 +1,12 @@
 import styled from 'styled-components'
 import MainNavLogo from '../Atoms/MainNavLogo'
 import MainHeaderNav from '../Molecules/MainHeaderNav'
-import SearchForm from '../Molecules/SearchForm'
 import MainNavUser from '../Atoms/MainNavUser'
 import ModalSignIn from '../Organisms/ModalSignIn'
 import ModalSignUp from '../Organisms/ModalSignUp'
 import ModalConfirm from './ModalConfirm'
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const MainHeaderWrapper = styled.div`
     position: sticky;
@@ -64,12 +63,6 @@ const MainHeaderContentWrapper = styled.div`
     }
 `
 
-const MainNavUserWrapper = styled.div`
-    width: 400rem;
-    height: 100%;
-    margin-right: 44rem;
-`
-
 const MainHeaderHr = styled.div`
     width: 1440rem;
     height: 1rem;
@@ -84,15 +77,15 @@ const MainHeaderHr = styled.div`
 
 const SignButton = styled.button`
     position: relative;
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 400;
     width: 80rem;
-    height: 16rem;
-    top: 3rem;
-    right: ${(props) => props.$right};
+    height: 100%;
     border: 0;
     background-color: transparent;
-    font-size: 16px;
+    font-size: 16rem;
     color: var(--w-red);
-
     &:hover {
         cursor: pointer;
         filter: brightness(0.8);
@@ -100,7 +93,7 @@ const SignButton = styled.button`
 `
 
 function MainHeader({ backgroundColor = 'auto' }) {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     const [signinModal, setSigninModal] = useState(false)
     const [signupModal, setSignupModal] = useState(false)
@@ -108,7 +101,7 @@ function MainHeader({ backgroundColor = 'auto' }) {
     const [noScroll, setScroll] = useState(false)
     const [isSignIn, setIsSignIn] = useState(false)
 
-    const loadJSON = key => key && JSON.parse(localStorage.getItem(key))
+    const loadJSON = (key) => key && JSON.parse(localStorage.getItem(key))
 
     const showSigninModal = (async) => {
         setSigninModal(true)
@@ -151,7 +144,7 @@ function MainHeader({ backgroundColor = 'auto' }) {
         setSignoutModal(false)
         setScroll(false)
     }
-    
+
     useEffect(() => {
         document.querySelector('html').style.overflowY = noScroll ? 'hidden' : 'auto'
     })
@@ -177,17 +170,25 @@ function MainHeader({ backgroundColor = 'auto' }) {
                             <MainHeaderNav backgroundColor={backgroundColor} />
                         </div>
                     </MainNavWrapper>
-                    <MainNavUserWrapper className='fr fsbetween'>
-                        <div className='fc fcenter'>
-                            <SearchForm backgroundColor={backgroundColor} />
-                        </div>
-                        <div className='fc fcenter'>
-                            {!isSignIn ? <SignButton onClick={() => showSigninModal()} $right='100px'>로그인</SignButton> : null}
-                            {!isSignIn ? <SignButton onClick={() => showSignupModal()} $right='10px'>회원가입</SignButton> : null}
-                            {isSignIn ? <SignButton onClick={() => checkSignOut()} $right='100px'>로그아웃</SignButton> : null}
-                            {isSignIn ? <MainNavUser /> : null}
-                        </div>
-                    </MainNavUserWrapper>
+                    <div className='fr fsbetween'>
+                        <Link to={`/search`}>
+                            <svg
+                                className='vcenter'
+                                style={{ marginRight: '10rem' }}
+                                width='30'
+                                height='30'
+                                viewBox='0 0 30 30'
+                                fill='none'
+                                xmlns='http://www.w3.org/2000/svg'>
+                                <circle cx='13.9012' cy='13.9013' r='6' stroke='#252525' />
+                                <rect x='17.4012' y='19.044' width='1' height='7' transform='rotate(-40 17.4012 19.044)' fill='#252525' />
+                            </svg>
+                        </Link>
+                        {!isSignIn ? <SignButton onClick={() => showSigninModal()}>로그인</SignButton> : null}
+                        {!isSignIn ? <SignButton onClick={() => showSignupModal()}>회원가입</SignButton> : null}
+                        {isSignIn ? <SignButton onClick={() => checkSignOut()}>로그아웃</SignButton> : null}
+                        {isSignIn ? <MainNavUser /> : null}
+                    </div>
                 </MainHeaderContentWrapper>
                 <MainHeaderHr $backgroundColor={backgroundColor} />
             </MainHeaderWrapper>

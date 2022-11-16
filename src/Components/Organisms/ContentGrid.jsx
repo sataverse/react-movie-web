@@ -14,9 +14,10 @@ const ContentGridDiv = styled.div`
 `
 
 function ContentGrid({ data, showModal }) {
+    console.log(data)
     if (data != undefined) {
         return (
-            <ContentGridDiv>
+            <ContentGridDiv className='hcenter'>
                 {data.map((element, index) => {
                     let year1 = element.release_date || ''
                     let year2 = year1?.slice(0, 4)
@@ -32,7 +33,7 @@ function ContentGrid({ data, showModal }) {
                             id={element.id}
                             title={element.title}
                             desc={desc}
-                            score={element.vote_average * 10}
+                            score={parseInt(element.vote_average * 10)}
                             posterUrl={element.poster_path}
                             index={index}
                             type={'movie'}

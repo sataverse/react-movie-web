@@ -6,14 +6,12 @@ const DraggableSliderWrapper = styled.div`
     display: grid;
     grid-template-rows: 1fr;
     grid-auto-flow: column;
-    width: 1280rem;
-    height: 30rem;
+    width: 1050rem;
+    height: 40rem;
     overflow-x: scroll;
-    margin-top: -10rem;
-    margin-bottom: 20rem;
     column-gap: 20rem;
     &::-webkit-scrollbar {
-        height: 2px;
+        height: 1px;
     }
     &::-webkit-scrollbar-thumb {
         background: transparent;

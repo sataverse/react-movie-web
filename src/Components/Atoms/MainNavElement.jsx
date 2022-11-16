@@ -2,8 +2,6 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
 const MainNavElementWrapper = styled.span`
-    font-family: 'Noto Sans KR', sans-serif;
-    font-style: normal;
     font-weight: 400;
     font-size: 16rem;
     color: ${(props) => {

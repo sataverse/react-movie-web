@@ -2,11 +2,9 @@ import styled from 'styled-components'
 
 const DraggableSliderItemSpan = styled.span`
     width: max-content;
-    font-family: 'Noto Sans KR';
-    font-style: normal;
     font-weight: 400;
     font-size: 16px;
-    line-height: 23px;
+    line-height: 38px;
     color: var(--w-black);
     cursor: pointer;
 `

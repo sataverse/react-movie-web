@@ -1,3 +1,8 @@
+* {
+    font-family: 'Noto Sans KR' !important;
+    font-style: normal;
+}
+
 :root {
     font-size: 6.25%;
     overflow-y: overlay;
@@ -107,4 +112,10 @@ body {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
+}
+
+.hcenter {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }

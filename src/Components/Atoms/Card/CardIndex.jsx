@@ -17,8 +17,6 @@ const CardIndexSpan = styled.div`
     left: 0rem;
     width: 20rem;
     height: 20rem;
-    font-family: 'Roboto';
-    font-style: normal;
     font-weight: 500;
     font-size: 12rem;
     line-height: 18rem;
