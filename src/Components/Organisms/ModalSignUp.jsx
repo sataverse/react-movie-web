@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
 import React, { useState, useEffect } from 'react'
 import ModalMainLogo from '../Atoms/Modal/ModalMainLogo'
 import ModalHorizontalCloseButton from '../Atoms/Modal/ModalHorizontalCloseButton'
@@ -17,7 +17,16 @@ const ModalSignInBackground = styled.div`
     z-index: 2000;
 `
 
-const ModalSignInDiv = styled.div`
+const fadeIn = keyframes`
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+`
+
+const ModalSignUpDiv = styled.div`
     position: relative;
     width: 300rem;
     height: 500rem;
@@ -26,7 +35,9 @@ const ModalSignInDiv = styled.div`
     transform: translate(-50%, -50%);
     background-color: var(--w-background);
     border-radius: 10rem;
+    animation: ${fadeIn} 0.3s linear;
 `
+
 
 function ModalSignUp({ hideSignupModal }) {
     const loadJSON = (key) => key && JSON.parse(localStorage.getItem(key))
@@ -106,6 +117,7 @@ function ModalSignUp({ hideSignupModal }) {
 
     return (
         <>
+<<<<<<< HEAD
             <ModalSignInBackground onClick={() => hideSignupModal()}>
                 <ModalSignInDiv className='fc fleft' onClick={(event) => event.stopPropagation()}>
                     <ModalMainLogo className='fr fcenter' style={{ height: '140rem' }} />
@@ -117,6 +129,19 @@ function ModalSignUp({ hideSignupModal }) {
                     </ModalSignButton>
                     <ModalHorizontalCloseButton modalSize='middle' hideThisModal={hideSignupModal} />
                 </ModalSignInDiv>
+=======
+            <ModalSignInBackground
+                onClick={() => hideSignupModal()}>
+                <ModalSignUpDiv
+                    onClick={(event) => event.stopPropagation()}>
+                    <ModalMainLogo />
+                    <ModalEmailInput type='text' placeholder=' 이메일' maxLength='50' onChange={e => setEmail(e.target.value)} />
+                    <ModalPasswordInput type='password' placeholder=' 비밀번호' onChange={e => setPasswd(e.target.value)} />
+                    <ModalNicknameInput type='text' placeholder=' 닉네임' maxLength='20' onChange={e => setNickname(e.target.value)} />
+                    <ModalSignUpButton onClick={() => check()}>가입</ModalSignUpButton>
+                    <ModalHorizontalCloseButton  modalSize='middle' hideThisModal={hideSignupModal} />
+                </ModalSignUpDiv>
+>>>>>>> 33f44b9bd54484fffddda963d6f58cb2867f966b
             </ModalSignInBackground>
             {alertDidNotInputModal ? <ModalAlert msg={'모든 정보를 입력해주세요.'} hideThisModal={hideAlertDidNotInputModal} /> : null}
             {alertSignUpFailedModal ? <ModalAlert msg={'현재 이메일로 가입할 수 없습니다.'} hideThisModal={hideAlertSignUpFailedModal} /> : null}

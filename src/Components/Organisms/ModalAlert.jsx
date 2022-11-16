@@ -1,7 +1,7 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import ModalHorizontalCloseButton from '../Atoms/Modal/ModalHorizontalCloseButton'
 
-const ModalSignInFailedBackground = styled.div`
+const ModalAlertBackground = styled.div`
     position: fixed;
     top: 0px;
     left: 0px;
@@ -11,7 +11,7 @@ const ModalSignInFailedBackground = styled.div`
     z-index: 2000;
 `
 
-const ModalSignInFailedDiv = styled.div`
+const ModalAlertDiv = styled.div`
     position: relative;
     width: 250rem;
     height: 150rem;
@@ -23,7 +23,7 @@ const ModalSignInFailedDiv = styled.div`
     overflow-y: scroll;
 `
 
-const ModalSignInFailedMessage = styled.div`
+const ModalAlertMessage = styled.div`
     position: absolute;
     width: 80%;
     height: 40%;
@@ -38,12 +38,12 @@ const ModalSignInFailedMessage = styled.div`
 
 function ModalSignInFailed({ msg, hideThisModal }) {
     return (
-        <ModalSignInFailedBackground onClick={() => hideThisModal()}>
-            <ModalSignInFailedDiv onClick={(event) => event.stopPropagation()}>
-                <ModalSignInFailedMessage>{msg}</ModalSignInFailedMessage>
+        <ModalAlertBackground onClick={() => hideThisModal()}>
+            <ModalAlertDiv onClick={(event) => event.stopPropagation()}>
+                <ModalAlertMessage>{msg}</ModalAlertMessage>
                 <ModalHorizontalCloseButton modalSize='small' hideThisModal={hideThisModal} />
-            </ModalSignInFailedDiv>
-        </ModalSignInFailedBackground>
+            </ModalAlertDiv>
+        </ModalAlertBackground>
     )
 }
 

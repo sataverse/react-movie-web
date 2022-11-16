@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import React, { useState, useEffect } from 'react'
 import ModalMainLogo from '../Atoms/Modal/ModalMainLogo'
 import ModalHorizontalCloseButton from '../Atoms/Modal/ModalHorizontalCloseButton'
@@ -15,6 +15,14 @@ const ModalSignInBackground = styled.div`
     background-color: #00000040;
     z-index: 2000;
 `
+const fadeIn = keyframes`
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+`
 
 const ModalSignInDiv = styled.div`
     position: relative;
@@ -25,6 +33,7 @@ const ModalSignInDiv = styled.div`
     transform: translate(-50%, -50%);
     background-color: var(--w-background);
     border-radius: 10rem;
+    animation: ${fadeIn} 0.3s linear;
 `
 
 const ModalNoAccountMessage = styled.div`
@@ -68,6 +77,14 @@ function ModalSignIn({ hideSigninModal, switchModal }) {
                 }
             })
     }
+
+    /*
+    React.useEffect(() => {
+        return () => {
+            clearTimeout(setTimeout(() => setVisibleThisComponent(false)), 2000);
+        }
+    }, [visibleThisComponent])
+    */
 
     React.useEffect(() => {
         if (!userId) return
