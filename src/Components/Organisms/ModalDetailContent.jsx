@@ -12,6 +12,8 @@ import ModalTagline from '../Atoms/Modal/ModalTagline'
 import ModalStory from '../Atoms/Modal/ModalStory'
 import ModalScore from '../Atoms/Modal/ModalScore'
 import ModalMyScore from '../Atoms/Modal/ModalMyScore'
+import ModalDetailInfo from '../Molecules/ModalDetailInfo'
+import ModalDetailInfoWithLink from '../Molecules/ModalDetailInfoWithLink'
 
 const ModalDetailContentBackground = styled.div`
     position: fixed;
@@ -113,6 +115,14 @@ const HR = styled.div`
     background-color: var(--w-graywhite);
 `
 
+const ModalDetailInfoGrid = styled.div`
+    height: 60rem;
+    display: flex;
+    grid-template-rows: 1fr;
+    grid-auto-flow: column;
+    width: 720rem;
+`
+
 function ModalDetailContent({ id, hideModal }) {
     const { detailData, imageSrc } = getDetailContentFromAPI(id)
     //const { creditData } = getCreditFromApi(id)
@@ -163,23 +173,29 @@ function ModalDetailContent({ id, hideModal }) {
                             <ModalScrollDownButton scrollDownModal={scrollDownModal} />
                         </ModalScrollDownButtonWrapper>
                         <ModalDetailContentWrapper2 ref={scrollHere2}>
-                            <ModalDetailContentWrapper3 className='fr fsbetween'>
-                                {detailData != undefined && <ModalPosterImage url={detailData.poster_path} />}
-                                <ModalDetailContentTextWrapper1 className='fc fleft'>
-                                    <ModalDetailContentTextWrapper2 $height='40' className='fr fsbetween'>
-                                        {detailData != undefined && <ModalTitle title={detailData.title} />}
-                                        {detailData != undefined && <ModalScore score={calcScore()} />}
-                                    </ModalDetailContentTextWrapper2>
-                                    <ModalDetailContentTextWrapper2 $height='40' className='fr fsbetween' style={{ marginBottom: '10rem' }}>
-                                        {detailData != undefined && <ModalTagline tagline={detailData.tagline} />}
-                                        <ModalMyScore rate={5} />
-                                    </ModalDetailContentTextWrapper2>
-                                    {detailData != undefined && <ModalStory story={detailData.overview} />}
-                                    <HR />
-                                    <div style={{ backgroundColor: 'white', height: '60rem' }}></div>
-                                    <HR />
-                                </ModalDetailContentTextWrapper1>
-                            </ModalDetailContentWrapper3>
+                            {detailData != undefined && (
+                                <ModalDetailContentWrapper3 className='fr fsbetween'>
+                                    <ModalPosterImage url={detailData.poster_path} />
+                                    <ModalDetailContentTextWrapper1 className='fc fleft'>
+                                        <ModalDetailContentTextWrapper2 $height='40' className='fr fsbetween'>
+                                            <ModalTitle title={detailData.title} />
+                                            <ModalScore score={calcScore()} />
+                                        </ModalDetailContentTextWrapper2>
+                                        <ModalDetailContentTextWrapper2 $height='40' className='fr fsbetween' style={{ marginBottom: '10rem' }}>
+                                            <ModalTagline tagline={detailData.tagline} />
+                                            <ModalMyScore rate={5} />
+                                        </ModalDetailContentTextWrapper2>
+                                        <ModalStory story={detailData.overview} />
+                                        <HR />
+                                        <ModalDetailInfoGrid>
+                                            <ModalDetailInfo text1={'개봉년도'} text2={'2022'} />
+                                            <ModalDetailInfo text1={'제작국가'} text2={'한국'} />
+                                            <ModalDetailInfoWithLink text1={'제작국가'} genres={detailData.genres} hideModal={hideModal} />
+                                        </ModalDetailInfoGrid>
+                                        <HR />
+                                    </ModalDetailContentTextWrapper1>
+                                </ModalDetailContentWrapper3>
+                            )}
                         </ModalDetailContentWrapper2>
                     </ModalDetailContentWrapper1>
                 </ModalDetailContentScrollArea>

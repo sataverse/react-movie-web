@@ -6,7 +6,6 @@ import PersonPage from './Components/Pages/PersonPage'
 import PersonPageDetail from './Components/Pages/PersonPageDetail'
 import UserPage from './Components/Pages/UserPage'
 import SubHeader from './Components/Organisms/SubHeader'
-import MainHeader from './Components/Organisms/MainHeader'
 
 function App() {
     return (
@@ -16,6 +15,7 @@ function App() {
                 <Routes>
                     <Route path='/' element={<MainPage />} />
                     <Route path='/movie' element={<MoviePage />} />
+                    <Route path='/movie/:genre' element={<MoviePage />} />
                     <Route path='/tv' element={<TVPage />} />
                     <Route path='/person' element={<PersonPage />} />
                     <Route path='/person/:id' element={<PersonPageDetail />} />

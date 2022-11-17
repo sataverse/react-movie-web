@@ -21,8 +21,9 @@ const DraggableSliderWrapper = styled.div`
     }
 `
 
-function DraggableSlider({ itemArray }) {
+function DraggableSlider({ itemArray, changeGenreType }) {
     const [isMouseDown, setMouseDown] = useState(false)
+    const [isMouseMove, setMouseMove] = useState(false)
     const [startX, setStartX] = useState(0)
     const [scrollLeft, setScrollLeft] = useState(0)
     const slider = useRef(null)
@@ -42,6 +43,7 @@ function DraggableSlider({ itemArray }) {
             const x = event.pageX - slider.current.offsetLeft
             const scroll = x - startX
             slider.current.scrollLeft = scrollLeft - scroll
+            setMouseMove(true)
         }
     }
 
@@ -49,6 +51,11 @@ function DraggableSlider({ itemArray }) {
         if (isMouseDown) {
             setMouseDown(false)
         }
+    }
+
+    async function changeGenreType2(num) {
+        if (!isMouseMove) changeGenreType(num)
+        else setMouseMove(false)
     }
 
     return (
@@ -60,7 +67,15 @@ function DraggableSlider({ itemArray }) {
             onMouseMove={mouseMoveEvent}
             onMouseLeave={mouseLeaveEvent}>
             {itemArray.map((item) => {
-                return <DraggableSliderItem className='no-drag' text={item[0]} key={`genre-${item[1]}`} />
+                return (
+                    <DraggableSliderItem
+                        className='no-drag'
+                        text={item[0]}
+                        num={item[1]}
+                        key={`genre-${item[1]}`}
+                        changeGenreType={changeGenreType2}
+                    />
+                )
             })}
         </DraggableSliderWrapper>
     )
