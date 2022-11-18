@@ -14,6 +14,7 @@ const MoviePageTemplateWrapper = styled.div`
 `
 
 let itemArray = [
+    ['🍿 인기 영화', 0],
     ['# 현재상영작', 1],
     ['# 개봉예정작', 2],
     ['# 최고평점작', 3],
@@ -47,14 +48,20 @@ function MoviePageTemplate({ data, changeGenre, sortType, changeSort }) {
     const [noScroll, setScroll] = useState(false)
     const [id, setId] = useState(null)
     //const [sortType, setSortType] = useState(1) // 1 = 평점순, 2 = 인기순, 3 = 최신순
-    const [genreText, setGenreText] = useState('🍿 모든 영화')
+    const [genreText, setGenreText] = useState('🍿 인기 영화')
     const [genreType, setGenreType] = useState(0)
     const location = useLocation()
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (location.pathname.replaceAll('/movie', '') == '') setGenreText('🍿 모든 영화')
-        else setGenreText(getGenreByNum(location.pathname.replaceAll('/movie/genre-', ''))[0][0])
+        if (location.pathname.replaceAll('/movie', '') == '') {
+            setGenreText('🍿 인기 영화')
+            changeGenre(0)
+        }
+        else {
+            setGenreText(getGenreByNum(location.pathname.replaceAll('/movie/genre-', ''))[0][0])
+            changeGenre(location.pathname.replaceAll('/movie/genre-', ''))
+        }
     }, [location.pathname])
 
     useEffect(() => {
@@ -80,7 +87,6 @@ function MoviePageTemplate({ data, changeGenre, sortType, changeSort }) {
     async function changeGenreType(num) {
         navigate(`/movie/genre-${num}`)
         setGenreType(num)
-        changeGenre(num)
         setGenreText(getGenreByNum(num)[0][0])
     }
 

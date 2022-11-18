@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import MoviePageTemplate from '../Templates/MoviePageTemplate'
 
 let responseMovieData = []
@@ -9,24 +10,26 @@ let day = ('0' + today.getDate()).slice(-2);
 let dateString = year + '-' + month  + '-' + day;
 
 function MoviePage() {
+    const getCurrentGenreFromPath = path => {
+        if (location.pathname.replaceAll('/movie', '') == '') return 0
+        else return location.pathname.replaceAll('/movie/genre-', '')
+    }
+
     const [movieData, setMovieData] = useState([])
     const [isFetching, setFetching] = useState(false)
     const [index, setIndex] = useState(0)
     const [hasNextPage, setNextPage] = useState(true)
-    const [currentGenre, setCurrentGenre] = useState(0)
+    const [currentGenre, setCurrentGenre] = useState(getCurrentGenreFromPath(useLocation().pathname))
     const [currentSort, setCurrentSort] = useState('popularity.desc')
-
     
     const changeGenre = changedGenre => {
         if(changeGenre == currentGenre) return
-        responseMovieData = []
         setIndex(0)
         setCurrentGenre(changedGenre)
     }
     
     const changeSort = changedSort => {
         if(changeSort == currentSort) return
-        responseMovieData = []
         setIndex(0)
         setCurrentSort(changedSort)
     }
@@ -34,7 +37,7 @@ function MoviePage() {
     async function getMovie({sort, genre}) {
         let api_key = '6199da9940f55ef72ddc1512ea6eca9a'
         let url = ''
-        if(genre == 0) url = `https://api.themoviedb.org/3/movie/popular?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`
+        if(genre == 0) url = `https://api.themoviedb.org/3/trending/movie/day?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`
         else if(genre == 1) url = `https://api.themoviedb.org/3/movie/now_playing?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`
         else if(genre == 2) url = `https://api.themoviedb.org/3/movie/upcoming?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`
         else if(genre == 3) url = `https://api.themoviedb.org/3/movie/top_rated?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`
@@ -59,10 +62,7 @@ function MoviePage() {
 
     useEffect(() => {
         responseMovieData = []
-        getMovie({sort: currentSort, genre: currentGenre})
-    }, [])
-
-    useEffect(() => {
+        setMovieData([])
         getMovie({sort: currentSort, genre: currentGenre})
     }, [currentGenre, currentSort])
 
