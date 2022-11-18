@@ -42,19 +42,24 @@ function getGenreByNum(num) {
     return itemArray.filter((element) => element[1] == num)
 }
 
-function MoviePageTemplate({ data, changeGenre, changeSort }) {
+function MoviePageTemplate({ data, changeGenre, sortType, changeSort }) {
     const [modal, setModal] = useState(false)
     const [noScroll, setScroll] = useState(false)
     const [id, setId] = useState(null)
-    const [sortType, setSortType] = useState(1) // 1 = 평점순, 2 = 인기순, 3 = 최신순
+    //const [sortType, setSortType] = useState(1) // 1 = 평점순, 2 = 인기순, 3 = 최신순
     const [genreText, setGenreText] = useState('🍿 모든 영화')
-    const [genreType, setGenreType] = useState(2)
+    const [genreType, setGenreType] = useState(0)
     const location = useLocation()
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (location.pathname.replaceAll('/movie/genre-', '') == '') setGenreText('🍿 모든 영화')
-        else setGenreText(getGenreByNum(location.pathname.replaceAll('/movie/genre-', ''))[0][0])
+        if (location.pathname.replaceAll('/movie', '') == '') setGenreText('🍿 모든 영화')
+        else {
+            let genreId = location.pathname.replaceAll('/movie/genre-', '')
+            setGenreText(getGenreByNum(genreId)[0][0])
+            setGenreType(genreId)
+            changeGenre(genreId)
+        }
     }, [location.pathname])
 
     const showModal = async (id) => {
@@ -69,13 +74,10 @@ function MoviePageTemplate({ data, changeGenre, changeSort }) {
         setScroll(false)
     }
 
-    async function changeSortType(num) {
-        setSortType(num)
-    }
-
     async function changeGenreType(num) {
         navigate(`/movie/genre-${num}`)
         setGenreType(num)
+        changeGenre(num)
         setGenreText(getGenreByNum(num)[0][0])
     }
 
@@ -91,13 +93,13 @@ function MoviePageTemplate({ data, changeGenre, changeSort }) {
                     <ContentSlideSectionTitle text={genreText} margin={0} />
                     <div className='fr fsbetween' style={{ marginTop: '-10rem', marginBottom: '8rem' }}>
                         <DraggableSlider itemArray={itemArray} changeGenreType={changeGenreType} />
-                        <SortList sortType={sortType} changeSortType={changeSortType} />
+                        {genreType > 3 ? <SortList sortType={sortType} changeSortType={changeSort} /> : null}
                     </div>
-                    <ContentGrid data={data} showModal={showModal} noScroll={noScroll} />
+                    <ContentGrid data={data} type={'movie'} showModal={showModal} noScroll={noScroll} />
                 </div>
             </MoviePageTemplateWrapper>
             <ScrollTopButton />
-            {modal ? <ModalDetailContent id={id} hideModal={hideModal} /> : null}
+            {modal ? <ModalDetailContent id={id} hideModal={hideModal} type={'movie'} /> : null}
         </>
     )
 }

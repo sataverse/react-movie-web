@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import ContentCard from '../Molecules/ContentCard'
 import { findCountry } from '../../Modules/utils'
-import { useEffect } from 'react'
 
 const ContentGridDiv = styled.div`
     position: relative;
@@ -14,32 +13,52 @@ const ContentGridDiv = styled.div`
     column-gap: 40rem;
 `
 
-function ContentGrid({ data, showModal }) {
+function ContentGrid({ data, showModal, type }) {
     return (
         <ContentGridDiv className='hcenter'>
             {data != undefined &&
                 data.map((element, index) => {
-                    let year1 = element.release_date || ''
-                    let year2 = year1?.slice(0, 4)
-                    let desc = `${year2}`
-                    let country
-                    try {
-                        country = element.production_countries[0].iso_3166_1
-                        desc += findCountry(country)
-                    } catch (error) {}
-                    return (
-                        <ContentCard
-                            key={`grid-content-${element.id}`}
-                            id={element.id}
-                            title={element.title}
-                            desc={desc}
-                            score={parseInt(element.vote_average * 10)}
-                            posterUrl={element.poster_path}
-                            index={index}
-                            type={'movie'}
-                            showModal={showModal}
-                        />
-                    )
+                    if (type == 'movie') {
+                        let year1 = element.release_date
+                        let year2 = year1?.slice(0, 4)
+                        let desc = `${year2}`
+                        try {
+                            desc += ` · ${findCountry(element.production_countries[0].iso_3166_1)}`
+                        } catch (error) {}
+                        return (
+                            <ContentCard
+                                key={`grid-content-${type}-${element.id}`}
+                                id={element.id}
+                                title={element.title}
+                                desc={desc}
+                                score={parseInt(element.vote_average * 10)}
+                                posterUrl={element.poster_path}
+                                index={index}
+                                type={type}
+                                showModal={showModal}
+                            />
+                        )
+                    } else if (type == 'tv') {
+                        let year1 = element.first_air_date
+                        let year2 = year1?.slice(0, 4)
+                        let desc = `${year2}`
+                        try {
+                            desc += ` · ${findCountry(element.origin_country[0])}`
+                        } catch (error) {}
+                        return (
+                            <ContentCard
+                                key={`grid-content-${type}-${element.id}`}
+                                id={element.id}
+                                title={element.name}
+                                desc={desc}
+                                score={parseInt(element.vote_average * 10)}
+                                posterUrl={element.poster_path}
+                                index={index}
+                                type={type}
+                                showModal={showModal}
+                            />
+                        )
+                    }
                 })}
         </ContentGridDiv>
     )

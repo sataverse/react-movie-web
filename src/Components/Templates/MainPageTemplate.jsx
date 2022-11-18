@@ -14,17 +14,20 @@ function MainPageTemplate({ trendMovies, trendTvs, gbsPick, isImageLoaded, isLoa
     const [modal, setModal] = useState(false)
     const [noScroll, setScroll] = useState(false)
     const [id, setId] = useState(null)
+    const [modalType, setModalType] = useState(null)
 
-    const showModal = async (id) => {
+    const showModal = async (id, type) => {
         setModal(true)
         setScroll(true)
         setId(id)
+        setModalType(type)
         document.body.style.overflow = 'none'
     }
 
     const hideModal = (async) => {
         setModal(false)
         setScroll(false)
+        setModalType(null)
     }
 
     useEffect(() => {
@@ -69,7 +72,7 @@ function MainPageTemplate({ trendMovies, trendTvs, gbsPick, isImageLoaded, isLoa
                     />
                 </div>
             </MainPageTemplateWrapper>
-            {modal ? <ModalDetailContent id={id} hideModal={hideModal} /> : null}
+            {modal ? <ModalDetailContent id={id} hideModal={hideModal} type={modalType} /> : null}
 
             <Footer />
         </>

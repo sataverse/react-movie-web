@@ -22,7 +22,7 @@ function ContentCardWithEvent({
     desc,
     score,
     posterUrl,
-    bigImageUrl,
+    backdropUrl,
     slideIndex,
     index,
     rightOnce,
@@ -38,12 +38,12 @@ function ContentCardWithEvent({
         <ContentCardDiv
             className='fc no-drag'
             onClick={() => {
-                showModal(id)
+                showModal(id, type)
             }}>
             <CardIndex index={index} />
             <CardImageWithEvent
                 posterUrl={posterUrl}
-                bigImageUrl={bigImageUrl}
+                backdropUrl={backdropUrl}
                 slideIndex={slideIndex}
                 index={index}
                 rightOnce={rightOnce}

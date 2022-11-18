@@ -17,6 +17,7 @@ function App() {
                     <Route path='/movie' element={<MoviePage />} />
                     <Route path='/movie/:genre' element={<MoviePage />} />
                     <Route path='/tv' element={<TVPage />} />
+                    <Route path='/tv/:genre' element={<TVPage />} />
                     <Route path='/person' element={<PersonPage />} />
                     <Route path='/person/:id' element={<PersonPageDetail />} />
                     <Route path='/user' element={<UserPage />}></Route>

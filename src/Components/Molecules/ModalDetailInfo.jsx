@@ -18,6 +18,7 @@ const ModalDetailInfoText2 = styled.div`
     font-weight: 400;
     font-size: 14rem;
     line-height: 22rem;
+    height: 22rem;
     color: var(--w-black);
 `
 

@@ -123,8 +123,8 @@ const ModalDetailInfoGrid = styled.div`
     width: 720rem;
 `
 
-function ModalDetailContent({ id, hideModal }) {
-    const { detailData, imageSrc } = getDetailContentFromAPI(id)
+function ModalDetailContent({ id, hideModal, type }) {
+    const { detailData } = getDetailContentFromAPI(id, type)
     //const { creditData } = getCreditFromApi(id)
     const scrollHere1 = useRef(null)
     const scrollHere2 = useRef(null)
@@ -152,6 +152,8 @@ function ModalDetailContent({ id, hideModal }) {
         }
     }, [])
 
+    console.log(detailData)
+
     return (
         <ModalDetailContentBackground
             onClick={() => {
@@ -167,18 +169,18 @@ function ModalDetailContent({ id, hideModal }) {
                 }}>
                 <ModalDetailContentScrollArea className='fc fleft'>
                     <div style={{ width: '0', height: '0' }} ref={scrollHere1} />
-                    <ModalBigImage imageSrc={imageSrc} />
+                    {detailData != undefined && <ModalBigImage imageSrc={detailData.backdrop_path} />}
                     <ModalDetailContentWrapper1 className='fc fleft'>
                         <ModalScrollDownButtonWrapper>
                             <ModalScrollDownButton scrollDownModal={scrollDownModal} />
                         </ModalScrollDownButtonWrapper>
                         <ModalDetailContentWrapper2 ref={scrollHere2}>
-                            {detailData != undefined && (
+                            {detailData != undefined && type != undefined && (
                                 <ModalDetailContentWrapper3 className='fr fsbetween'>
                                     <ModalPosterImage url={detailData.poster_path} />
                                     <ModalDetailContentTextWrapper1 className='fc fleft'>
                                         <ModalDetailContentTextWrapper2 $height='40' className='fr fsbetween'>
-                                            <ModalTitle title={detailData.title} />
+                                            <ModalTitle title={type == 'movie' ? detailData.title : detailData.name} />
                                             <ModalScore score={calcScore()} />
                                         </ModalDetailContentTextWrapper2>
                                         <ModalDetailContentTextWrapper2 $height='40' className='fr fsbetween' style={{ marginBottom: '10rem' }}>
@@ -188,9 +190,20 @@ function ModalDetailContent({ id, hideModal }) {
                                         <ModalStory story={detailData.overview} />
                                         <HR />
                                         <ModalDetailInfoGrid>
-                                            <ModalDetailInfo text1={'개봉년도'} text2={'2022'} />
-                                            <ModalDetailInfo text1={'제작국가'} text2={'한국'} />
-                                            <ModalDetailInfoWithLink text1={'제작국가'} genres={detailData.genres} hideModal={hideModal} />
+                                            {type == 'movie' ? (
+                                                <ModalDetailInfo text1={'개봉일'} text2={detailData.release_date} />
+                                            ) : (
+                                                <ModalDetailInfo text1={'방영일'} text2={detailData.first_air_date} />
+                                            )}
+                                            {type == 'movie' ? (
+                                                <ModalDetailInfo
+                                                    text1={'제작국가'}
+                                                    text2={findCountry(detailData.production_countries[0].iso_3166_1)}
+                                                />
+                                            ) : (
+                                                <ModalDetailInfo text1={'제작국가'} text2={findCountry(detailData.origin_country[0])} />
+                                            )}
+                                            <ModalDetailInfoWithLink text1={'장르'} type={type} genres={detailData.genres} hideModal={hideModal} />
                                         </ModalDetailInfoGrid>
                                         <HR />
                                     </ModalDetailContentTextWrapper1>

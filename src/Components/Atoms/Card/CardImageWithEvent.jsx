@@ -81,7 +81,7 @@ let isLastIndex = false
 
 function CardImageWithEvent({
     posterUrl,
-    bigImageUrl,
+    backdropUrl,
     slideIndex,
     index,
     rightOnce,
@@ -131,7 +131,7 @@ function CardImageWithEvent({
                 />
             </CardImageImg1Wrapper>
             <CardImageImg2Wrapper className='no-drag'>
-                <CardImageImg2 className='no-drag' src={`https://www.themoviedb.org/t/p/w500/${bigImageUrl}`} />
+                <CardImageImg2 className='no-drag' src={`https://www.themoviedb.org/t/p/w500/${backdropUrl}`} />
                 <CardStory overview={overview} className='no-drag' />
             </CardImageImg2Wrapper>
         </CardImageWrapper>

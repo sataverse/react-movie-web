@@ -108,15 +108,14 @@ function ContentSlideSection({ sectionTitle, datas, type, page, isImageLoaded, i
                                 let year1 = element.release_date || ''
                                 let year2 = year1?.slice(0, 4)
                                 let desc = `${year2}`
-                                let country
                                 try {
-                                    desc += findCountry(element.production_countries[0].iso_3166_1)
+                                    desc += ` · ${findCountry(element.production_countries[0].iso_3166_1)}`
                                 } catch (error) {}
                                 return (
                                     <ContentCardWithEvent
                                         id={element.id}
                                         posterUrl={element.poster_path}
-                                        bigImageUrl={element.bigImage}
+                                        backdropUrl={element.backdrop_path}
                                         title={element.title}
                                         desc={desc}
                                         score={`${rate2}`}
@@ -137,16 +136,14 @@ function ContentSlideSection({ sectionTitle, datas, type, page, isImageLoaded, i
                                 let year1 = element.first_air_date || ''
                                 let year2 = year1?.slice(0, 4)
                                 let desc = `${year2}`
-                                let country
                                 try {
-                                    country = element.origin_country[0]
-                                    desc += findCountry(country)
+                                    desc += ` · ${findCountry(element.origin_country[0])}`
                                 } catch (error) {}
                                 return (
                                     <ContentCardWithEvent
                                         id={element.id}
                                         posterUrl={element.poster_path}
-                                        bigImageUrl={element.bigImage}
+                                        backdropUrl={element.backdrop_path}
                                         title={element.name}
                                         desc={desc}
                                         score={`${rate2}`}
@@ -170,7 +167,7 @@ function ContentSlideSection({ sectionTitle, datas, type, page, isImageLoaded, i
                                     <ContentCardWithEvent
                                         id={element.id}
                                         posterUrl={element.poster_path}
-                                        bigImageUrl={element.bigImage}
+                                        backdropUrl={element.backdrop_path}
                                         title={element.title}
                                         desc={year2}
                                         score={`${rate2}`}

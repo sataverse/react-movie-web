@@ -24,7 +24,39 @@ const GenreTag = styled.div`
     cursor: pointer;
 `
 
-function ModalDetailInfoWithLink({ text1, genres, hideModal }) {
+function translateGenre(text) {
+    switch (text) {
+        case 'Action & Adventure':
+            return '액션 & 어드벤처'
+            break
+        case 'Kids':
+            return '어린이'
+            break
+        case 'News':
+            return '뉴스'
+            break
+        case 'Reality':
+            return '리얼리티'
+            break
+        case 'Sci-Fi & Fantasy':
+            return 'SF & 판타지'
+            break
+        case 'Soap':
+            return '연속극'
+            break
+        case 'Talk':
+            return '토크쇼'
+            break
+        case 'War & Politics':
+            return '전쟁 & 정치'
+            break
+        default:
+            return text
+            break
+    }
+}
+
+function ModalDetailInfoWithLink({ text1, genres, hideModal, type }) {
     const navigate = useNavigate()
     return (
         <ModalDetailInfoWrapper className='fc fsevenly'>
@@ -38,9 +70,9 @@ function ModalDetailInfoWithLink({ text1, genres, hideModal }) {
                                     key={`detail-content-genre-tag-${element.id}`}
                                     onClick={() => {
                                         hideModal()
-                                        navigate(`/movie/genre-${element.id}`)
+                                        navigate(`/${type}/genre-${element.id}`)
                                     }}>
-                                    # {element.name}
+                                    # {translateGenre(element.name)}
                                 </GenreTag>
                             )
                         })}
