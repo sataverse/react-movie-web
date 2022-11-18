@@ -13,33 +13,34 @@ function MoviePage() {
     const [isFetching, setFetching] = useState(false)
     const [index, setIndex] = useState(0)
     const [hasNextPage, setNextPage] = useState(true)
-    const [currentGenre, setCurrentGenre] = useState()
+    const [currentGenre, setCurrentGenre] = useState(0)
     const [currentSort, setCurrentSort] = useState('popularity.desc')
 
+    
     const changeGenre = changedGenre => {
         if(changeGenre == currentGenre) return
-        setIndex(0)
         responseMovieData = []
-        getMovie({sort: currentSort, genre: changedGenre})
+        setIndex(0)
         setCurrentGenre(changedGenre)
     }
-
+    
     const changeSort = changedSort => {
         if(changeSort == currentSort) return
-        setIndex(0)
         responseMovieData = []
-        getMovie({sort: changedSort, genre: currentGenre})
+        setIndex(0)
         setCurrentSort(changedSort)
     }
 
-    async function getMovie({sort='popularity.desc', genre}) {
+    async function getMovie({sort, genre}) {
         let api_key = '6199da9940f55ef72ddc1512ea6eca9a'
+        let url = ''
+        if(genre == 0) url = `https://api.themoviedb.org/3/movie/popular?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`
+        else if(genre == 1) url = `https://api.themoviedb.org/3/movie/now_playing?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`
+        else if(genre == 2) url = `https://api.themoviedb.org/3/movie/upcoming?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`
+        else if(genre == 3) url = `https://api.themoviedb.org/3/movie/top_rated?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`
+        else url = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=ko&sort_by=${sort}&with_genres=${genre}&release_date.lte=${dateString}&vote_count.gte=50`
 
-        let url = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=ko&sort_by=${sort}&with_genres=${genre}&release_date.lte=${dateString}`
-        url = `https://api.themoviedb.org/3/movie/now_playing?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`
-        url = `https://api.themoviedb.org/3/movie/upcoming?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`
-        url = `https://api.themoviedb.org/3/movie/top_rated?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`
-        //sort_by - vote_average.desc, popularity.desc, release_date.desc, original_title.desc
+        //sort_by - vote_average.desc, popularity.desc, release_date.desc
         //vote_count.gte - 투표수
 
         for (let i = 1; i <= 3; i++) {
@@ -58,8 +59,12 @@ function MoviePage() {
 
     useEffect(() => {
         responseMovieData = []
-        getMovie({})
+        getMovie({sort: currentSort, genre: currentGenre})
     }, [])
+
+    useEffect(() => {
+        getMovie({sort: currentSort, genre: currentGenre})
+    }, [currentGenre, currentSort])
 
     window.addEventListener('scroll', function () {
         if (window.innerHeight + window.scrollY > document.body.offsetHeight - 1000) {
@@ -72,7 +77,7 @@ function MoviePage() {
         else if (!hasNextPage) setFetching(false)
     }, [isFetching])
 
-    return <MoviePageTemplate data={movieData} changeGenre={changeGenre} changeSort={changeSort} />
+    return <MoviePageTemplate data={movieData} changeGenre={changeGenre} sortType={currentSort} changeSort={changeSort} />
 }
 
 export default MoviePage

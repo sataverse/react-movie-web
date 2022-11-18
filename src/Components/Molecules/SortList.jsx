@@ -24,15 +24,15 @@ const SortListVerticalHR = styled.div`
 function SortList({ sortType, changeSortType }) {
     return (
         <SortListWrapper className='fr fsbetween no-drag'>
-            <SortListElement current={sortType == 1} onClick={() => changeSortType(1)}>
+            <SortListElement current={sortType == 'vote_average.desc'} onClick={() => changeSortType('vote_average.desc')}>
                 평점순
             </SortListElement>
             <SortListVerticalHR className='vcenter' />
-            <SortListElement current={sortType == 2} onClick={() => changeSortType(2)}>
+            <SortListElement current={sortType == 'popularity.desc'} onClick={() => changeSortType('popularity.desc')}>
                 인기순
             </SortListElement>
             <SortListVerticalHR className='vcenter' />
-            <SortListElement current={sortType == 3} onClick={() => changeSortType(3)}>
+            <SortListElement current={sortType == 'release_date.desc'} onClick={() => changeSortType('release_date.desc')}>
                 최신순
             </SortListElement>
         </SortListWrapper>
