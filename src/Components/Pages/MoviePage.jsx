@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import MoviePageTemplate from '../Templates/MoviePageTemplate'
 
 let responseMovieData = []
@@ -9,9 +10,15 @@ let day = ('0' + today.getDate()).slice(-2)
 let dateString = year + '-' + month + '-' + day
 
 function MoviePage() {
+    const getCurrentGenreFromPath = (path) => {
+        if (location.pathname.replaceAll('/movie', '') == '') return 0
+        else return location.pathname.replaceAll('/movie/genre-', '')
+    }
+
     const [movieData, setMovieData] = useState([])
     const [isFetching, setFetching] = useState(false)
     const [index, setIndex] = useState(0)
+
     const [currentGenre, setCurrentGenre] = useState(0)
     const [currentSort, setCurrentSort] = useState('popularity.desc')
 

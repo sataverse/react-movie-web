@@ -14,6 +14,7 @@ const MoviePageTemplateWrapper = styled.div`
 `
 
 let itemArray = [
+    ['🍿 인기 영화', 0],
     ['# 현재상영작', 1],
     ['# 개봉예정작', 2],
     ['# 최고평점작', 3],
@@ -61,6 +62,10 @@ function MoviePageTemplate({ data, changeGenre, sortType, changeSort }) {
             changeGenre(genreId)
         }
     }, [location.pathname])
+
+    useEffect(() => {
+        console.log('template-ch')
+    }, [])
 
     const showModal = async (id) => {
         setModal(true)
