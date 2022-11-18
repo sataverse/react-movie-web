@@ -66,7 +66,9 @@ function SubHeader() {
     return (
         <SubHeaderWrapper ref={scrollWrapper} className='fc'>
             {notice.map((n, i) => (
-                <SubHeaderElement key={i}>{n}</SubHeaderElement>
+                <SubHeaderElement key={i} className='no-drag'>
+                    {n}
+                </SubHeaderElement>
             ))}
         </SubHeaderWrapper>
     )

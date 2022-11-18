@@ -54,8 +54,11 @@ function MoviePageTemplate({ data, changeGenre, sortType, changeSort }) {
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (location.pathname.replaceAll('/movie', '') == '') setGenreText('🍿 모든 영화')
-        else {
+        if (location.pathname.replaceAll('/movie', '') == '') {
+            setGenreText('🍿 모든 영화')
+            setGenreType(0)
+            changeGenre(0)
+        } else {
             let genreId = location.pathname.replaceAll('/movie/genre-', '')
             setGenreText(getGenreByNum(genreId)[0][0])
             setGenreType(genreId)

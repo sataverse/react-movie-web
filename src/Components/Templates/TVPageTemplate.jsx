@@ -50,8 +50,11 @@ function TVPageTemplate({ data, changeGenre, sortType, changeSort }) {
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (location.pathname.replaceAll('/tv', '') == '') setGenreText('🍿 모든 TV 프로그램')
-        else {
+        if (location.pathname.replaceAll('/tv', '') == '') {
+            setGenreText('🍿 모든 TV 프로그램')
+            setGenreType(0)
+            changeGenre(0)
+        } else {
             let genreId = location.pathname.replaceAll('/tv/genre-', '')
             setGenreText(getGenreByNum(genreId)[0][0])
             setGenreType(genreId)
