@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { getDetailContentFromAPI, getCreditFromApi } from '../../Modules/utils'
 import ModalBigImage from '../Atoms/Modal/ModalBigImage'
 import ModalCloseButton from '../Atoms/Modal/ModalCloseButton'
-import ModalDesc from '../Atoms/Modal/ModalDesc'
+import DraggableSliderForPeople from '../Molecules/DraggableSliderForPeople'
 import ModalPosterImage from '../Atoms/Modal/ModalPosterImage'
 import ModalScrollDownButton from '../Atoms/Modal/ModalScrollDownButton'
 import ModalTitle from '../Atoms/Modal/ModalTitle'
@@ -14,6 +14,7 @@ import ModalScore from '../Atoms/Modal/ModalScore'
 import ModalMyScore from '../Atoms/Modal/ModalMyScore'
 import ModalDetailInfo from '../Molecules/ModalDetailInfo'
 import ModalDetailInfoWithLink from '../Molecules/ModalDetailInfoWithLink'
+import ContentSlideSectionTitle from '../Atoms/ContentSlideSectionTitle'
 
 const ModalDetailContentBackground = styled.div`
     position: fixed;
@@ -125,7 +126,7 @@ const ModalDetailInfoGrid = styled.div`
 
 function ModalDetailContent({ id, hideModal, type }) {
     const { detailData } = getDetailContentFromAPI(id, type)
-    //const { creditData } = getCreditFromApi(id)
+    const { creditData } = getCreditFromApi(id)
     const scrollHere1 = useRef(null)
     const scrollHere2 = useRef(null)
     const modalWrapper2 = useRef(null)
@@ -174,8 +175,8 @@ function ModalDetailContent({ id, hideModal, type }) {
                         <ModalScrollDownButtonWrapper>
                             <ModalScrollDownButton scrollDownModal={scrollDownModal} />
                         </ModalScrollDownButtonWrapper>
-                        <ModalDetailContentWrapper2 ref={scrollHere2}>
-                            {detailData != undefined && type != undefined && (
+                        {detailData != undefined && type != undefined && (
+                            <ModalDetailContentWrapper2 ref={scrollHere2}>
                                 <ModalDetailContentWrapper3 className='fr fsbetween'>
                                     <ModalPosterImage url={detailData.poster_path} />
                                     <ModalDetailContentTextWrapper1 className='fc fleft'>
@@ -210,8 +211,12 @@ function ModalDetailContent({ id, hideModal, type }) {
                                         <HR />
                                     </ModalDetailContentTextWrapper1>
                                 </ModalDetailContentWrapper3>
-                            )}
-                        </ModalDetailContentWrapper2>
+                                <ModalDetailContentWrapper3 className='fc fleft'>
+                                    <ContentSlideSectionTitle text={'📝 출연 & 제작진'} margin={0} />
+                                    {creditData != undefined ? <DraggableSliderForPeople creditData={creditData} /> : null}
+                                </ModalDetailContentWrapper3>
+                            </ModalDetailContentWrapper2>
+                        )}
                     </ModalDetailContentWrapper1>
                 </ModalDetailContentScrollArea>
             </ModalDetailContentDiv>
