@@ -20,7 +20,7 @@ export function findCountry(country) {
         else if (country == 'NZ') return '뉴질랜드'
         else if (country == 'CZ') return '체코'
         else return '기타'
-    }
+    } else return ''
 }
 
 export const getDetailContentFromAPI = (id, type) => {

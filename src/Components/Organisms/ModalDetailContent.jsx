@@ -152,6 +152,8 @@ function ModalDetailContent({ id, hideModal, type }) {
         }
     }, [])
 
+    console.log(detailData)
+
     return (
         <ModalDetailContentBackground
             onClick={() => {
@@ -200,9 +202,9 @@ function ModalDetailContent({ id, hideModal, type }) {
                                                         text2={findCountry(detailData.production_countries[0].iso_3166_1)}
                                                     />
                                                 ) : null
-                                            ) : (
+                                            ) : detailData.origin_country.length != 0 ? (
                                                 <ModalDetailInfo text1={'제작국가'} text2={findCountry(detailData.origin_country[0])} />
-                                            )}
+                                            ) : null}
                                             <ModalDetailInfoWithLink text1={'장르'} type={type} genres={detailData.genres} hideModal={hideModal} />
                                         </ModalDetailInfoGrid>
                                         <HR />
