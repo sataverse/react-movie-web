@@ -10,23 +10,16 @@ let day = ('0' + today.getDate()).slice(-2)
 let dateString = year + '-' + month + '-' + day
 
 function MoviePage() {
-    const getCurrentGenreFromPath = (path) => {
-        if (location.pathname.replaceAll('/movie', '') == '') return 0
-        else return location.pathname.replaceAll('/movie/genre-', '')
-    }
-
     const [movieData, setMovieData] = useState([])
     const [isFetching, setFetching] = useState(false)
     const [index, setIndex] = useState(0)
-
     const [currentGenre, setCurrentGenre] = useState(0)
     const [currentSort, setCurrentSort] = useState('popularity.desc')
 
-    const changeGenre = (changedGenre) => {
-        if (changeGenre == currentGenre) return
+    const changeGenre = (genreId) => {
         responseMovieData = []
         setIndex(0)
-        setCurrentGenre(changedGenre)
+        setCurrentGenre(genreId)
     }
 
     const changeSort = (changedSort) => {

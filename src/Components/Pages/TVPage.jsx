@@ -15,11 +15,10 @@ function TVPage() {
     const [currentGenre, setCurrentGenre] = useState(0)
     const [currentSort, setCurrentSort] = useState('popularity.desc')
 
-    const changeGenre = (changedGenre) => {
-        if (changeGenre == currentGenre) return
+    const changeGenre = (genreId) => {
         responseTVData = []
         setIndex(0)
-        setCurrentGenre(changedGenre)
+        setCurrentGenre(genreId)
     }
 
     const changeSort = (changedSort) => {

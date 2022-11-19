@@ -152,8 +152,6 @@ function ModalDetailContent({ id, hideModal, type }) {
         }
     }, [])
 
-    console.log(detailData)
-
     return (
         <ModalDetailContentBackground
             onClick={() => {
@@ -196,10 +194,12 @@ function ModalDetailContent({ id, hideModal, type }) {
                                                 <ModalDetailInfo text1={'방영일'} text2={detailData.first_air_date} />
                                             )}
                                             {type == 'movie' ? (
-                                                <ModalDetailInfo
-                                                    text1={'제작국가'}
-                                                    text2={findCountry(detailData.production_countries[0].iso_3166_1)}
-                                                />
+                                                detailData.production_countries.length != 0 ? (
+                                                    <ModalDetailInfo
+                                                        text1={'제작국가'}
+                                                        text2={findCountry(detailData.production_countries[0].iso_3166_1)}
+                                                    />
+                                                ) : null
                                             ) : (
                                                 <ModalDetailInfo text1={'제작국가'} text2={findCountry(detailData.origin_country[0])} />
                                             )}

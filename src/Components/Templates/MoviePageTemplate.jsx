@@ -66,10 +66,6 @@ function MoviePageTemplate({ data, changeGenre, sortType, changeSort }) {
         }
     }, [location.pathname])
 
-    useEffect(() => {
-        console.log('template-ch')
-    }, [])
-
     const showModal = async (id) => {
         setModal(true)
         setScroll(true)
@@ -84,9 +80,6 @@ function MoviePageTemplate({ data, changeGenre, sortType, changeSort }) {
 
     async function changeGenreType(num) {
         navigate(`/movie/genre-${num}`)
-        setGenreType(num)
-        changeGenre(num)
-        setGenreText(getGenreByNum(num)[0][0])
     }
 
     useEffect(() => {
