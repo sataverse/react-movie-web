@@ -23,7 +23,6 @@ function MoviePage() {
     }
 
     const changeSort = (changedSort) => {
-        if (changeSort == currentSort) return
         responseMovieData = []
         setIndex(0)
         setCurrentSort(changedSort)

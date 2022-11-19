@@ -22,7 +22,6 @@ function TVPage() {
     }
 
     const changeSort = (changedSort) => {
-        if (changeSort == currentSort) return
         responseTVData = []
         setIndex(0)
         setCurrentSort(changedSort)
