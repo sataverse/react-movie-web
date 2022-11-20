@@ -5,6 +5,7 @@ import TVPage from './Components/Pages/TVPage'
 import PersonPage from './Components/Pages/PersonPage'
 import PersonPageDetail from './Components/Pages/PersonPageDetail'
 import UserPage from './Components/Pages/UserPage'
+import SearchPage from './Components/Pages/SearchPage'
 import SubHeader from './Components/Organisms/SubHeader'
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
                     <Route path='/person' element={<PersonPage />} />
                     <Route path='/person/:id' element={<PersonPageDetail />} />
                     <Route path='/user' element={<UserPage />}></Route>
+                    <Route path='/search' element={<SearchPage />}></Route>
                 </Routes>
             </BrowserRouter>
         </>
