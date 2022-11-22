@@ -46,6 +46,7 @@ function MoviePage() {
                 .then((response) => response.json())
                 .then((data) => {
                     data.results.forEach((element) => {
+                        element.type = 'movie'
                         responseMovieData.push(element)
                     })
                 })

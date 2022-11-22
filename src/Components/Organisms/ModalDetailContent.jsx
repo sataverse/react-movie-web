@@ -153,8 +153,6 @@ function ModalDetailContent({ id, hideModal, type }) {
         }
     }, [])
 
-    console.log(detailData)
-
     return (
         <ModalDetailContentBackground
             onClick={() => {

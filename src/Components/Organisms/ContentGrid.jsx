@@ -13,12 +13,12 @@ const ContentGridDiv = styled.div`
     column-gap: 40rem;
 `
 
-function ContentGrid({ data, showModal, type }) {
+function ContentGrid({ data, showModal }) {
     return (
         <ContentGridDiv className='hcenter'>
             {data != undefined &&
                 data.map((element, index) => {
-                    if (type == 'movie') {
+                    if (element.type == 'movie') {
                         let year1 = element.release_date
                         let year2 = year1?.slice(0, 4)
                         let desc = `${year2}`
@@ -28,18 +28,18 @@ function ContentGrid({ data, showModal, type }) {
                         } catch (error) {}
                         return (
                             <ContentCard
-                                key={`grid-content-${type}-${element.id}`}
+                                key={`grid-content-${element.type}-${element.id}`}
                                 id={element.id}
                                 title={element.title}
                                 desc={desc}
                                 score={parseInt(element.vote_average * 10)}
                                 posterUrl={element.poster_path}
                                 index={index}
-                                type={type}
+                                type={element.type}
                                 showModal={showModal}
                             />
                         )
-                    } else if (type == 'tv') {
+                    } else if (element.type == 'tv') {
                         let year1 = element.first_air_date
                         let year2 = year1?.slice(0, 4)
                         let desc = `${year2}`
@@ -49,14 +49,28 @@ function ContentGrid({ data, showModal, type }) {
                         } catch (error) {}
                         return (
                             <ContentCard
-                                key={`grid-content-${type}-${element.id}`}
+                                key={`grid-content-${element.type}-${element.id}`}
                                 id={element.id}
                                 title={element.name}
                                 desc={desc}
                                 score={parseInt(element.vote_average * 10)}
                                 posterUrl={element.poster_path}
                                 index={index}
-                                type={type}
+                                type={element.type}
+                                showModal={showModal}
+                            />
+                        )
+                    } else if (element.type == 'credit') {
+                        return (
+                            <ContentCard
+                                key={`grid-content-${element.type}-${element.id}`}
+                                id={element.id}
+                                title={element.name}
+                                desc={element.known_for_department}
+                                score={0}
+                                posterUrl={element.profile_path}
+                                index={index}
+                                type={element.type}
                                 showModal={showModal}
                             />
                         )

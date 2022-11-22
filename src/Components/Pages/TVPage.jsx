@@ -45,6 +45,7 @@ function TVPage() {
                 .then((response) => response.json())
                 .then((data) => {
                     data.results.forEach((element) => {
+                        element.type = 'tv'
                         responseTVData.push(element)
                     })
                 })

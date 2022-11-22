@@ -2,8 +2,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import MainPage from './Components/Pages/MainPage'
 import MoviePage from './Components/Pages/MoviePage'
 import TVPage from './Components/Pages/TVPage'
-import PersonPage from './Components/Pages/PersonPage'
-import PersonPageDetail from './Components/Pages/PersonPageDetail'
+import CreditPage from './Components/Pages/CreditPage'
+import CreditDetailPage from './Components/Pages/CreditDetailPage'
 import UserPage from './Components/Pages/UserPage'
 import SubHeader from './Components/Organisms/SubHeader'
 
@@ -18,8 +18,8 @@ function App() {
                     <Route path='/movie/:genre' element={<MoviePage />} />
                     <Route path='/tv' element={<TVPage />} />
                     <Route path='/tv/:genre' element={<TVPage />} />
-                    <Route path='/person' element={<PersonPage />} />
-                    <Route path='/person/:id' element={<PersonPageDetail />} />
+                    <Route path='/credit' element={<CreditPage />} />
+                    <Route path='/credit/:id' element={<CreditDetailPage />} />
                     <Route path='/user' element={<UserPage />}></Route>
                 </Routes>
             </BrowserRouter>
