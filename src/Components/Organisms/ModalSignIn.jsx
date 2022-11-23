@@ -73,18 +73,11 @@ function ModalSignIn({ hideSigninModal, switchModal }) {
                     saveJSON('user_id', data.Id)
                     saveJSON('user_email', data.Email)
                     saveJSON('user_nickname', data.Nickname)
+                    saveJSON('rank', data.Rank)
                     setUserId(data.Id)
                 }
             })
     }
-
-    /*
-    React.useEffect(() => {
-        return () => {
-            clearTimeout(setTimeout(() => setVisibleThisComponent(false)), 2000);
-        }
-    }, [visibleThisComponent])
-    */
 
     React.useEffect(() => {
         if (!userId) return

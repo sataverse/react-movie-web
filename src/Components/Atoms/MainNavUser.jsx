@@ -5,7 +5,8 @@ const MainNavUserWrapper = styled.span`
     position: relative;
     width: 16rem;
     height: 16rem;
-    top: 5rem;
+    top: 25rem;
+    margin-left: 20rem;
 `
 
 function MainNavUser() {

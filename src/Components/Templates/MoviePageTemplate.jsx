@@ -48,7 +48,7 @@ function MoviePageTemplate({ data, changeGenre, sortType, changeSort }) {
     const [noScroll, setScroll] = useState(false)
     const [id, setId] = useState(null)
     //const [sortType, setSortType] = useState(1) // 1 = 평점순, 2 = 인기순, 3 = 최신순
-    const [genreText, setGenreText] = useState('🍿 모든 영화')
+    const [genreText, setGenreText] = useState('🍿 인기 영화')
     const [genreType, setGenreType] = useState(0)
     const location = useLocation()
     const navigate = useNavigate()

@@ -47,7 +47,6 @@ function ModalSignUp({ hideSignupModal }) {
     const [nickname, setNickname] = React.useState()
     const [userId, setUserId] = React.useState()
     const [userFavorite, setUserFavorite] = React.useState(loadJSON('favorite_list'))
-    const [userNickname, setUserNickname] = React.useState()
     const [alertDidNotInputModal, setAlertDidNotInputModal] = useState(false)
     const [alertSignUpFailedModal, setAlertSignUpFailedModal] = useState(false)
     const [confirmSignUpModal, setConfirmSignUpModal] = useState(false)
@@ -87,6 +86,7 @@ function ModalSignUp({ hideSignupModal }) {
                 saveJSON('user_id', data.Id)
                 saveJSON('user_email', data.Email)
                 saveJSON('user_nickname', data.Nickname)
+                saveJSON('rank', data.Rank)
                 setUserId(data.Id)
             })
     }
