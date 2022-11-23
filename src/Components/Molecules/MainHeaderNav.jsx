@@ -11,6 +11,7 @@ function MainHeaderNav({ backgroundColor = 'auto' }) {
             <MainNavElement text={'영화'} page={'movie'} backgroundColor={backgroundColor} />
             <MainNavElement text={'TV 프로그램'} page={'tv'} backgroundColor={backgroundColor} />
             <MainNavElement text={'인물'} page={'credit'} backgroundColor={backgroundColor} />
+            <MainNavElement text={'관리자'} page={'admin'} backgroundColor={backgroundColor} />
         </MainHeaderNavWrapper>
     )
 }

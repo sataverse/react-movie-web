@@ -6,6 +6,7 @@ import CreditPage from './Components/Pages/CreditPage'
 import CreditDetailPage from './Components/Pages/CreditDetailPage'
 import UserPage from './Components/Pages/UserPage'
 import SearchPage from './Components/Pages/SearchPage'
+import AdministratorPage from './Components/Pages/AdministratorPage'
 import SubHeader from './Components/Organisms/SubHeader'
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
                     <Route path='/credit/:id' element={<CreditDetailPage />} />
                     <Route path='/user' element={<UserPage />}></Route>
                     <Route path='/search' element={<SearchPage />}></Route>
+                    <Route path='/admin' element={<AdministratorPage />} />
                 </Routes>
             </BrowserRouter>
         </>

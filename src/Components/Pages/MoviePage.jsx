@@ -10,10 +10,15 @@ let day = ('0' + today.getDate()).slice(-2)
 let dateString = year + '-' + month + '-' + day
 
 function MoviePage() {
+    const getCurrentGenreFromPath = (path) => {
+        if (location.pathname.replaceAll('/movie', '') == '') return 0
+        else return location.pathname.replaceAll('/movie/genre-', '')
+    }
+
     const [movieData, setMovieData] = useState([])
     const [isFetching, setFetching] = useState(false)
     const [index, setIndex] = useState(0)
-    const [currentGenre, setCurrentGenre] = useState(0)
+    const [currentGenre, setCurrentGenre] = useState(getCurrentGenreFromPath(useLocation().pathname))
     const [currentSort, setCurrentSort] = useState('popularity.desc')
 
     const changeGenre = (genreId) => {
@@ -37,9 +42,6 @@ function MoviePage() {
         else if (genre == 3) url = `https://api.themoviedb.org/3/movie/top_rated?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`
         else
             url = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=ko&sort_by=${sort}&with_genres=${genre}&release_date.lte=${dateString}&vote_count.gte=50`
-
-        //sort_by - vote_average.desc, popularity.desc, release_date.desc
-        //vote_count.gte - 투표수
 
         for (let i = 1; i <= 3; i++) {
             await fetch(`${url}&page=${index * 3 + i}`)

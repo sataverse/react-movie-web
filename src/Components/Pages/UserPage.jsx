@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import UserPageTemplate from '../Templates/UserPageTemplate'
 
+const likedList = JSON.parse(localStorage.getItem('favorite_list'))
+const ratedList = JSON.parse(localStorage.getItem('rating_list'))
+
+/*
 const likedList = [
     { id: '53434', type: 'movie' },
     { id: '561', type: 'movie' },
@@ -25,6 +29,7 @@ const ratedList = [
     { id: '438', type: 'movie' },
     { id: '64688', type: 'movie' },
 ]
+*/
 let tempLikedListData = []
 let tempRatedListData = []
 
@@ -35,10 +40,10 @@ function UserPage() {
     useEffect(() => {
         async function getLikedListData() {
             for (const element of likedList) {
-                await fetch(`https://api.themoviedb.org/3/${element.type}/${element.id}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`)
+                await fetch(`https://api.themoviedb.org/3/${element.Type}/${element.Id}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`)
                     .then((response) => response.json())
                     .then((response) => {
-                        response.type = element.type
+                        response.type = element.Type
                         tempLikedListData.push(response)
                     })
             }
@@ -46,10 +51,10 @@ function UserPage() {
         }
         async function getRatedListData() {
             for (const element of ratedList) {
-                await fetch(`https://api.themoviedb.org/3/${element.type}/${element.id}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`)
+                await fetch(`https://api.themoviedb.org/3/${element.Type}/${element.Id}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`)
                     .then((response) => response.json())
                     .then((response) => {
-                        response.type = element.type
+                        response.type = element.Type
                         tempRatedListData.push(response)
                     })
             }

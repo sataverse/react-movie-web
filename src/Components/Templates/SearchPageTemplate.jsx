@@ -49,7 +49,6 @@ function SearchPageTemplate({ movieData, tvData, personData, onChange = f => f})
 
     return (
         <>
-            <SubHeader />
             <MainHeader />
             <SearchPageTemplateWrapper className='fc fleft'>
                 <SearchFromLarge onChange={onChange}/>
