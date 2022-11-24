@@ -10,7 +10,6 @@ const ModalPlaylistAddedDiv = styled.div`
         if(props.$size == 'medium') return '180rem'
         else return '90rem'
     }};
-    font-size: 15rem;
     border-radius: 10rem;
     margin: 10rem;
     &:hover {
@@ -28,18 +27,14 @@ const ModalPlaylistAddedImg = styled.img`
         else return '90rem'
     }};
     border-radius: 10rem;
-`
-
-const ModalPlaylistDeleteButton = styled.button`
-    position: absolute;
-    width: 20rem;
-    height: 20rem;
-    top: 10%;
-    right: 10%;
+    &:hover {
+        filter: opacity(30%);
+    }
 `
 
 function MiniCard({id, deleteThis, size}) {
     const [path, setPath] = useState('')
+    const [showIcon, setShowIcon] = useState(false)
 
     useEffect(() => {
         fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`)
@@ -49,9 +44,8 @@ function MiniCard({id, deleteThis, size}) {
 
     return (
         <>
-            <ModalPlaylistAddedDiv $size={size} onClick={() => deleteThis(id)}>
-                <ModalPlaylistAddedImg $size={size} src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${path}`}>   
-                </ModalPlaylistAddedImg>
+            <ModalPlaylistAddedDiv $size={size} onClick={() => deleteThis(id)} onMouseOver={() => setShowIcon(true)} onMouseLeave={() => setShowIcon(false)} >
+                <ModalPlaylistAddedImg $size={size} src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${path}`}></ModalPlaylistAddedImg> 
             </ModalPlaylistAddedDiv>
         </>
     )

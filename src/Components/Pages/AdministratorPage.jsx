@@ -18,7 +18,7 @@ function AdministratorPage() {
             const temp = []
             data.forEach(element => {
                 const arr = element.Playlist.split(',')
-                temp.push({id: element.Id, title: element.Name, playlist: arr})
+                temp.push({id: element.Id, title: element.Name, playlist: arr.map(movieId => parseInt(movieId))})
             })
             setPlaylistData(temp)
         })
