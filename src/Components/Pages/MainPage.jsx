@@ -2,14 +2,18 @@ import React, { useState, useEffect } from 'react'
 import MainPageTemplate from '../Templates/MainPageTemplate'
 import CardStore from '../../Modules/CardStore'
 
-const gbsPlaylist = ['53434', '561', '1487', '821153', '187', '705996', '22538', '361743', '241', '8327']
+//const gbsPlaylist = ['53434', '561', '1487', '821153', '187', '705996', '22538', '361743', '241', '8327']
 let gbsPlaylistData = []
 let koMovieData = []
 let koTVData = []
+let playlists = []
+let playlistMovieData = []
 
 function MainPage() {
     const [trendMovies, setTrendMovies] = useState([])
     const [trendTvs, setTrendTvs] = useState([])
+    const [playlistList, setPlaylistList] = useState([])
+    const [playlistMovies, setPlaylistMovies] = useState([])
     const [gbsPick, setGbsPick] = useState([])
     const [isLoaded, setIsLoaded] = useState(false)
 
@@ -95,18 +99,79 @@ function MainPage() {
         }
 
         async function clearArray() {
-            gbsPlaylistData = []
+            //gbsPlaylistData = []
             koMovieData = []
             koTVData = []
+            playlists = []
+            playlistMovieData = []
         }
 
         clearArray()
         getMovieData()
         getTVData()
-        getGBSPick()
+        //getGBSPick()
     }, [])
 
-    return <MainPageTemplate trendMovies={trendMovies} trendTvs={trendTvs} gbsPick={gbsPick} isImageLoaded={isImageLoaded} isLoaded={isLoaded} />
+    async function getPlaylistFromDB() {
+        await fetch('http://localhost:8000/v1/playlist', { method: 'GET' })
+        .then((response) => response.json())
+        .then((data) => {
+            playlists = []
+            if(!data) {
+                setPlaylistList(playlists)
+                return
+            }
+            data.forEach(element => {
+                if (element.Playlist.length != 0) {
+                    const arr = element.Playlist.split(',')
+                    playlists.push({id: element.Id, title: element.Name, playlist: arr})
+                    setPlaylistList(playlists)
+                }
+            })
+        })
+    }
+
+    async function getPlaylistMovieData() {
+        for (const playlist of playlistList) {
+            let resultPlaylistArray = []
+            for (const element of playlist.playlist) {
+                let elementResult
+                let ifNoOverview = false
+                try {
+                    await fetch(`https://api.themoviedb.org/3/movie/${element}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`)
+                        .then((response) => response.json())
+                        .then((data) => {
+                            elementResult = data
+                            if (data.overview == '') ifNoOverview = true
+                        })
+                    if (ifNoOverview == true) {
+                        await fetch(`https://api.themoviedb.org/3/movie/${element.id}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=en-US`)
+                            .then((response) => response.json())
+                            .then((data) => {
+                                elementResult.overview = data.overview
+                            })
+                    }
+                    resultPlaylistArray.push(elementResult)
+                    console.log(resultPlaylistArray)
+                } catch (error) {}
+            }
+            playlistMovieData.push({title: playlist.title, playlistData: resultPlaylistArray})
+        }
+        CardStore.increaseMaxCount(playlistMovieData.length)
+        setPlaylistMovies(playlistMovieData)
+    }
+
+    useEffect(() => {
+        if(trendTvs.length == 0) return
+        getPlaylistFromDB()
+    }, [trendTvs])
+
+    useEffect(() => {
+        if(playlistList.length == 0) return
+        getPlaylistMovieData()
+    }, [playlistList])
+
+    return <MainPageTemplate trendMovies={trendMovies} trendTvs={trendTvs} playlistMovies={playlistMovies} isImageLoaded={isImageLoaded} isLoaded={isLoaded} />
 }
 
 export default MainPage

@@ -10,7 +10,7 @@ const MainPageTemplateWrapper = styled.div`
     width: 100vw;
 `
 
-function MainPageTemplate({ trendMovies, trendTvs, gbsPick, isImageLoaded, isLoaded }) {
+function MainPageTemplate({ trendMovies, trendTvs, playlistMovies, isImageLoaded, isLoaded }) {
     const [modal, setModal] = useState(false)
     const [noScroll, setScroll] = useState(false)
     const [id, setId] = useState(null)
@@ -60,17 +60,20 @@ function MainPageTemplate({ trendMovies, trendTvs, gbsPick, isImageLoaded, isLoa
                         showModal={showModal}
                     />
                 </div>
-                <div className='fr fcenter'>
-                    <ContentSlideSection
-                        sectionTitle={'내가 최근에 본거임'}
-                        datas={gbsPick}
-                        type='movie'
-                        page={'movie'}
-                        isImageLoaded={isImageLoaded}
-                        isLoaded={isLoaded}
-                        showModal={showModal}
-                    />
-                </div>
+                {playlistMovies.map(playlist => (
+                    <div className='fr fcenter'>
+                        <ContentSlideSection
+                            sectionTitle={playlist.title}
+                            datas={playlist.playlistData}
+                            type='movie'
+                            page={'none'}
+                            isImageLoaded={isImageLoaded}
+                            isLoaded={isLoaded}
+                            showModal={showModal}
+                        />
+                    </div>
+                ))}
+                
             </MainPageTemplateWrapper>
             {modal ? <ModalDetailContent id={id} hideModal={hideModal} type={modalType} /> : null}
 
