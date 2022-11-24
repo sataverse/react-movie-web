@@ -114,21 +114,21 @@ function MainPage() {
 
     async function getPlaylistFromDB() {
         await fetch('http://localhost:8000/v1/playlist', { method: 'GET' })
-        .then((response) => response.json())
-        .then((data) => {
-            playlists = []
-            if(!data) {
-                setPlaylistList(playlists)
-                return
-            }
-            data.forEach(element => {
-                if (element.Playlist.length != 0) {
-                    const arr = element.Playlist.split(',')
-                    playlists.push({id: element.Id, title: element.Name, playlist: arr})
+            .then((response) => response.json())
+            .then((data) => {
+                playlists = []
+                if (!data) {
                     setPlaylistList(playlists)
+                    return
                 }
+                data.forEach((element) => {
+                    if (element.Playlist.length != 0) {
+                        const arr = element.Playlist.split(',')
+                        playlists.push({ id: element.Id, title: element.Name, playlist: arr })
+                        setPlaylistList(playlists)
+                    }
+                })
             })
-        })
     }
 
     async function getPlaylistMovieData() {
@@ -155,23 +155,31 @@ function MainPage() {
                     console.log(resultPlaylistArray)
                 } catch (error) {}
             }
-            playlistMovieData.push({title: playlist.title, playlistData: resultPlaylistArray})
+            playlistMovieData.push({ title: playlist.title, playlistData: resultPlaylistArray })
         }
         CardStore.increaseMaxCount(playlistMovieData.length)
         setPlaylistMovies(playlistMovieData)
     }
 
     useEffect(() => {
-        if(trendTvs.length == 0) return
+        if (trendTvs.length == 0) return
         getPlaylistFromDB()
     }, [trendTvs])
 
     useEffect(() => {
-        if(playlistList.length == 0) return
+        if (playlistList.length == 0) return
         getPlaylistMovieData()
     }, [playlistList])
 
-    return <MainPageTemplate trendMovies={trendMovies} trendTvs={trendTvs} playlistMovies={playlistMovies} isImageLoaded={isImageLoaded} isLoaded={isLoaded} />
+    return (
+        <MainPageTemplate
+            trendMovies={trendMovies}
+            trendTvs={trendTvs}
+            playlistMovies={playlistMovies}
+            isImageLoaded={isImageLoaded}
+            isLoaded={isLoaded}
+        />
+    )
 }
 
 export default MainPage

@@ -8,6 +8,8 @@ import ModalConfirm from './ModalConfirm'
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
+import UserStore from '../../Modules/UserStore'
+
 const MainHeaderWrapper = styled.div`
     position: sticky;
     top: -1px;
@@ -170,6 +172,12 @@ function MainHeader({ backgroundColor = 'auto' }) {
                             <MainHeaderNav backgroundColor={backgroundColor} />
                         </div>
                     </MainNavWrapper>
+                    <button
+                        onClick={() => {
+                            console.log(UserStore.getFavorites())
+                        }}>
+                        테스트
+                    </button>
                     <div className='fr fsbetween'>
                         <Link to={`/search`}>
                             <svg

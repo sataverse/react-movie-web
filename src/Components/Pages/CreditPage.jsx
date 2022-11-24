@@ -17,7 +17,7 @@ function CreditPage() {
                 .then((data) => {
                     data.results.forEach((element) => {
                         element.type = 'credit'
-                        responseCreditData.push(element)
+                        if (responseCreditData.filter((obj) => obj.id == element.id).length == 0) responseCreditData.push(element)
                     })
                 })
         }

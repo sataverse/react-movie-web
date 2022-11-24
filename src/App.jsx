@@ -9,7 +9,15 @@ import SearchPage from './Components/Pages/SearchPage'
 import AdministratorPage from './Components/Pages/AdministratorPage'
 import SubHeader from './Components/Organisms/SubHeader'
 
+import UserStore from './Modules/UserStore'
+import { useEffect } from 'react'
+
 function App() {
+    useEffect(() => {
+        // 테스트용 좋아요 세팅
+        UserStore.setFavorites([{ id: 436270, type: 'movie' }])
+    }, [])
+
     return (
         <>
             <SubHeader />
