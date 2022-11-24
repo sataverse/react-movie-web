@@ -24,7 +24,7 @@ function ContentCard({ id, title, desc, score, posterUrl, index, type, showModal
         <ContentCardDiv
             className='fc no-drag'
             onClick={() => {
-                type != 'credit' ? showModal(id) : navigate(`/credit/${id}`)
+                type != 'credit' ? showModal(id, type) : navigate(`/credit/${id}`)
             }}>
             <CardIndex index={index + 1} />
             <CardImage posterUrl={posterUrl} />

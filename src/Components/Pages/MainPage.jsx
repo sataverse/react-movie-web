@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react'
 import MainPageTemplate from '../Templates/MainPageTemplate'
 import CardStore from '../../Modules/CardStore'
 
-//const gbsPlaylist = ['53434', '561', '1487', '821153', '187', '705996', '22538', '361743', '241', '8327']
-let gbsPlaylistData = []
 let koMovieData = []
 let koTVData = []
 let playlists = []
@@ -14,7 +12,6 @@ function MainPage() {
     const [trendTvs, setTrendTvs] = useState([])
     const [playlistList, setPlaylistList] = useState([])
     const [playlistMovies, setPlaylistMovies] = useState([])
-    const [gbsPick, setGbsPick] = useState([])
     const [isLoaded, setIsLoaded] = useState(false)
 
     async function isImageLoaded() {
@@ -73,33 +70,8 @@ function MainPage() {
             CardStore.increaseMaxCount(koTVData.length)
             setTrendTvs(koTVData)
         }
-        async function getGBSPick() {
-            for (const element of gbsPlaylist) {
-                let elementResult
-                let ifNoOverview = false
-                try {
-                    await fetch(`https://api.themoviedb.org/3/movie/${element}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`)
-                        .then((response) => response.json())
-                        .then((data) => {
-                            elementResult = data
-                            if (data.overview == '') ifNoOverview = true
-                        })
-                    if (ifNoOverview == true) {
-                        await fetch(`https://api.themoviedb.org/3/movie/${element.id}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=en-US`)
-                            .then((response) => response.json())
-                            .then((data) => {
-                                elementResult.overview = data.overview
-                            })
-                    }
-                    gbsPlaylistData.push(elementResult)
-                } catch (error) {}
-            }
-            CardStore.increaseMaxCount(gbsPlaylistData.length)
-            setGbsPick(gbsPlaylistData)
-        }
 
         async function clearArray() {
-            //gbsPlaylistData = []
             koMovieData = []
             koTVData = []
             playlists = []
@@ -109,7 +81,6 @@ function MainPage() {
         clearArray()
         getMovieData()
         getTVData()
-        //getGBSPick()
     }, [])
 
     async function getPlaylistFromDB() {
@@ -152,7 +123,6 @@ function MainPage() {
                             })
                     }
                     resultPlaylistArray.push(elementResult)
-                    console.log(resultPlaylistArray)
                 } catch (error) {}
             }
             playlistMovieData.push({title: playlist.title, playlistData: resultPlaylistArray})

@@ -34,6 +34,7 @@ let tempLikedListData = []
 let tempRatedListData = []
 
 function UserPage() {
+    
     const [likedListData, setLikedListData] = useState(new Array(0))
     const [ratedListData, setRatedListData] = useState(new Array(0))
 
@@ -69,6 +70,8 @@ function UserPage() {
         getLikedListData()
         getRatedListData()
     }, [])
+
+
 
     return <UserPageTemplate likedListData={likedListData} ratedListData={ratedListData} />
 }

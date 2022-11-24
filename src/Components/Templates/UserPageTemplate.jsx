@@ -27,14 +27,16 @@ function UserPageTemplate({ likedListData, ratedListData }) {
     const [modal, setModal] = useState(false)
     const [noScroll, setScroll] = useState(false)
     const [id, setId] = useState(null)
+    const [type, setType] = useState(null)
     const [userName, setUserName] = useState('홍길동')
     const [tabType, setTabType] = useState(1) // 1 = 좋아요, 2 = 평가함
     const twoGridWrapper = useRef(null)
 
-    const showModal = async (id) => {
+    const showModal = async (id, type) => {
+        setId(id)
+        setType(type)
         setModal(true)
         setScroll(true)
-        setId(id)
         document.body.style.overflow = 'none'
     }
 
@@ -69,7 +71,7 @@ function UserPageTemplate({ likedListData, ratedListData }) {
                     </div>
                 </TwoGrid>
             </UserPageTemplateWrapper>
-            {modal ? <ModalDetailContent id={id} hideModal={hideModal} /> : null}
+            {modal ? <ModalDetailContent id={id} hideModal={hideModal} type={type}/> : null}
             <Footer />
         </>
     )
