@@ -21,6 +21,10 @@ function CardImage({ posterUrl }) {
             loading='lazy'
             src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${posterUrl}`}
             onLoad={() => (loadingImage.current.style.opacity = 1)}
+            onError={() => {
+                let random = Math.floor(Math.random() * 5) + 1
+                loadingImage.current.src = `/skeleton/no_image_${random}.png`
+            }}
         />
     )
 }
