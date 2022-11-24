@@ -5,6 +5,10 @@ const ModalTaglineSpan = styled.span`
     font-size: 20rem;
     color: var(--w-orange);
     margin-top: 8rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 580rem;
 `
 
 function ModalTagline({ tagline }) {

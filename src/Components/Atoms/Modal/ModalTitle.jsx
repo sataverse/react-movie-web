@@ -5,6 +5,10 @@ const ModalTitleSpan = styled.span`
     font-size: 36rem;
     margin-top: -10rem;
     color: var(--w-black);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 620rem;
 `
 
 function ModalTitle({ title }) {

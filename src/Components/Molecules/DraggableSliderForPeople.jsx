@@ -23,7 +23,7 @@ const DraggableSliderForPerpleWrapper = styled.div`
     }
 `
 
-function DraggableSliderForPeople({ creditData }) {
+function DraggableSliderForPeople({ creditData, hideModal }) {
     const [isMouseDown, setMouseDown] = useState(false)
     const [isMouseMove, setMouseMove] = useState(false)
     const [startX, setStartX] = useState(0)
@@ -70,7 +70,9 @@ function DraggableSliderForPeople({ creditData }) {
                         name={item.original_name}
                         character={item.character}
                         src={item.profile_path}
-                        key={`credit-${item.credit_id}`}
+                        id={item.id}
+                        key={`credit-${item.id}`}
+                        hideModal={hideModal}
                     />
                 )
             })}

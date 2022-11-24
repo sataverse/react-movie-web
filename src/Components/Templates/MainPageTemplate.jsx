@@ -60,7 +60,7 @@ function MainPageTemplate({ trendMovies, trendTvs, playlistMovies, isImageLoaded
                         showModal={showModal}
                     />
                 </div>
-                {playlistMovies.map(playlist => (
+                {playlistMovies.map((playlist) => (
                     <div className='fr fcenter'>
                         <ContentSlideSection
                             sectionTitle={playlist.title}
@@ -73,7 +73,6 @@ function MainPageTemplate({ trendMovies, trendTvs, playlistMovies, isImageLoaded
                         />
                     </div>
                 ))}
-                
             </MainPageTemplateWrapper>
             {modal ? <ModalDetailContent id={id} hideModal={hideModal} type={modalType} /> : null}
 

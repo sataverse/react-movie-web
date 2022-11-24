@@ -5,11 +5,8 @@ import { findCountry } from '../../Modules/utils'
 const ContentSearchGridDiv = styled.div`
     position: relative;
     display: grid;
-    width: 100vw;
-    grid-template-columns: repeat(1, 1fr);
-    top: 82rem;
+    grid-template-rows: 1fr;
     row-gap: 20rem;
-    margin-bottom: 20rem;
 `
 
 function ContentSearchGrid({ data, showModal, type }) {
@@ -27,7 +24,7 @@ function ContentSearchGrid({ data, showModal, type }) {
                         try {
                             country = element.production_countries[0].iso_3166_1
                             desc += findCountry(country)
-                        } catch (error) { }
+                        } catch (error) {}
                         return (
                             <SearchCard
                                 key={`search-grid-content-${element.id}`}
@@ -41,14 +38,13 @@ function ContentSearchGrid({ data, showModal, type }) {
                                 showModal={showModal}
                             />
                         )
-                    }
-                    else if(type == 'tv') {
+                    } else if (type == 'tv') {
                         let year1 = element.first_air_date || ''
                         let year2 = year1?.slice(0, 4)
                         let desc = `${year2}`
                         try {
                             desc += ` . ${findCountry(element.origin_country[0])}`
-                        } catch(error) {}
+                        } catch (error) {}
                         return (
                             <SearchCard
                                 key={`search-grid-content-${element.id}`}
@@ -61,10 +57,8 @@ function ContentSearchGrid({ data, showModal, type }) {
                                 type={type}
                                 showModal={showModal}
                             />
-                        )                
-                    }
-                    else if(type == 'person') {
-
+                        )
+                    } else if (type == 'person') {
                         return (
                             <SearchCard
                                 key={`search-grid-content-${element.id}`}

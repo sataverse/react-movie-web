@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import SearchPageTemplate from '../Templates/SearchPageTemplate';
+import SearchPageTemplate from '../Templates/SearchPageTemplate'
 
 let searchMovieData = []
 let searchTVData = []
@@ -12,16 +12,18 @@ function SearchPage() {
     const [movieData, setMovieData] = useState([])
     const [tvData, setTvData] = useState([])
     const [personData, setPersonData] = useState([])
-    const [searchField, setSearchField] = useState("")
+    const [searchField, setSearchField] = useState('')
 
     const onChange = (val) => {
         setSearchField(val)
     }
 
     useEffect(() => {
-        if (searchField != "") {
+        if (searchField != '') {
             async function getSearchMovieData() {
-                let responseMovie = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko&query=${searchField}`)
+                let responseMovie = await fetch(
+                    `https://api.themoviedb.org/3/search/movie?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko&query=${searchField}`
+                )
                 let enMovieData = await responseMovie.json()
                 let cnt = 0
 
@@ -46,19 +48,21 @@ function SearchPage() {
                             .then((data) => {
                                 elementResult.bigImage = data.backdrops[0].file_path
                             })
-                        let ids = hasMovieId.filter(id => id === element.id)
+                        let ids = hasMovieId.filter((id) => id === element.id)
                         if (ids.length == 0) {
                             searchMovieData.push(elementResult)
                             hasMovieId.push(element.id)
                         }
-                    } catch (error) { }
+                    } catch (error) {}
                 }
                 if (searchMovieData.length != 0) {
                     setMovieData(searchMovieData)
                 }
             }
             async function getSearchTVData() {
-                let responseMovie = await fetch(`https://api.themoviedb.org/3/search/tv?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko&query=${searchField}`)
+                let responseMovie = await fetch(
+                    `https://api.themoviedb.org/3/search/tv?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko&query=${searchField}`
+                )
                 let enTVData = await responseMovie.json()
                 let cnt = 0
 
@@ -78,19 +82,21 @@ function SearchPage() {
                                 .then((response) => response.json())
                                 .then((data) => (elementResult.overview = data.overview))
                         }
-                        let ids = hasTVId.filter(id => id === element.id)
+                        let ids = hasTVId.filter((id) => id === element.id)
                         if (ids.length == 0) {
                             searchTVData.push(elementResult)
                             hasTVId.push(element.id)
                         }
-                    } catch (error) { }
+                    } catch (error) {}
                 }
                 if (searchTVData.length != 0) {
                     setTvData(searchTVData)
                 }
             }
             async function getSearchPersonData() {
-                let responseMovie = await fetch(`https://api.themoviedb.org/3/search/person?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko&query=${searchField}`)
+                let responseMovie = await fetch(
+                    `https://api.themoviedb.org/3/search/person?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko&query=${searchField}`
+                )
                 let enPersonData = await responseMovie.json()
                 let cnt = 0
 
@@ -104,15 +110,14 @@ function SearchPage() {
                                 elementResult = data
                             })
 
-                        if(element.known_for_department != "Acting") continue
+                        if (element.known_for_department != 'Acting') continue
 
-                        let ids = hasPersonId.filter(id => id === element.id)
+                        let ids = hasPersonId.filter((id) => id === element.id)
                         if (ids.length == 0) {
                             searchPersonData.push(elementResult)
                             hasPersonId.push(element.id)
-                            console.log(element.id)
                         }
-                    } catch (error) { }
+                    } catch (error) {}
                 }
                 if (searchPersonData.length != 0) {
                     setPersonData(searchPersonData)
@@ -134,14 +139,7 @@ function SearchPage() {
         }
     }, [searchField])
 
-    return (
-        <SearchPageTemplate
-            movieData={movieData}
-            tvData={tvData}
-            personData={personData}
-            onChange={onChange}
-        />
-    )
+    return <SearchPageTemplate movieData={movieData} tvData={tvData} personData={personData} onChange={onChange} />
 }
 
 export default SearchPage

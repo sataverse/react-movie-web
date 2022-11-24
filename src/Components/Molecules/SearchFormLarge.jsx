@@ -2,58 +2,27 @@ import styled from 'styled-components'
 import React, { useState, useEffect } from 'react'
 
 const SearchFormWrapper = styled.div`
-    position: absolute;
-    height: 156rem;
-    
-    margin-right: 18rem;
-
-    @media (max-width: 616px) {
-        & {
-            display: none;
-        }
-    }
-    @media (min-width: 617px) and (max-width: 899px) {
-        & {
-            width: 100%;
-        }
-    }
-    @media (min-width: 900px) and (max-width: 999px) {
-        & {
-            width: 100%;
-        }
-    }
-    @media (min-width: 1000px) and (max-width: 1279px) {
-        & {
-            width: 600rem;
-        }
-    }
-    @media (min-width: 1280px) and (max-width: 1439px) {
-        & {
-            width: 600rem;
-        }
-    }
-    @media (min-width: 1380px) {
-        & {
-            width: 600rem;
-        }
-    }
+    position: relative;
+    height: 80rem;
 `
 
 const SearchIcon = styled.div`
-    position: relative;
+    position: absolute;
     width: 16rem;
     height: 16rem;
     top: 10rem;
+    left: 10rem;
 `
 
 const SearchInputWrapper = styled.input`
-    position: absolute;
-    top: 0rem;
-    width: calc(100% - 32rem);
+    position: relative;
+    left: 0;
+    width: 100%;
     border: 0;
     color: var(--w-black);
     background-color: transparent;
     height: 35rem;
+    box-sizing: border-box;
     border-bottom: ${(props) => {
         if (props.$backgroundColor == 'auto') return '1px solid var(--w-gray)'
         else if (props.$backgroundColor == 'transparent') return '1px solid var(--w-white)'
@@ -64,13 +33,10 @@ const SearchInputWrapper = styled.input`
         border-bottom: 1px solid var(--w-gray);
     }
 
-    &:valid {
-        padding-left: 30rem;
-    }
+    padding-left: 50rem;
+    padding-right: 20rem;
 
     &::placeholder {
-        font-family: 'Noto Sans KR';
-        font-style: normal;
         font-weight: 400;
         font-size: 14rem;
         color: ${(props) => {
@@ -92,7 +58,7 @@ const SearchInputWrapper = styled.input`
     }
 `
 
-function SearchForm({ backgroundColor = 'auto', onChange = f => f }) {
+function SearchForm({ backgroundColor = 'auto', onChange = (f) => f }) {
     const [iconColor, setIconColor] = useState('#252525')
 
     useEffect(() => {

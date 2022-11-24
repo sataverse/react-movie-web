@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom'
 
 const DraggableSliderItemForPeopleWrapper = styled.div`
     width: 230rem;
@@ -9,6 +11,7 @@ const DraggableSliderItemForPeopleWrapper = styled.div`
     color: var(--w-black);
     box-shadow: 4rem 4rem 4rem rgba(105, 105, 105, 0.25);
     border-radius: 6rem;
+    cursor: pointer;
 `
 
 const DraggableSliderItemForPeopleImageNull = styled.div`
@@ -45,9 +48,15 @@ const CreditCharacter = styled.span`
     white-space: nowrap;
 `
 
-function DraggableSliderItemForPeople({ name, character, src }) {
+function DraggableSliderItemForPeople({ name, character, src, id, hideModal }) {
+    const navigation = useNavigate()
     return (
-        <DraggableSliderItemForPeopleWrapper className='fr fsbetween'>
+        <DraggableSliderItemForPeopleWrapper
+            className='fr fsbetween'
+            onClick={() => {
+                hideModal()
+                navigation(`/credit/${id}`)
+            }}>
             {src != null ? (
                 <DraggableSliderItemForPeopleImage src={`https://image.tmdb.org/t/p/w92${src}`} />
             ) : (

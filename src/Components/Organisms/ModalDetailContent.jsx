@@ -124,12 +124,24 @@ const ModalDetailInfoGrid = styled.div`
     width: 720rem;
 `
 
+const ModalBigImageImg = styled.img`
+    position: sticky;
+    top: 0;
+    width: 1400rem;
+    height: 800rem;
+    object-fit: cover;
+    opacity: 0;
+    transition: all 0.3s;
+`
+
 function ModalDetailContent({ id, hideModal, type }) {
     const { detailData } = getDetailContentFromAPI(id, type)
     const { creditData } = getCreditFromApi(id)
     const scrollHere1 = useRef(null)
     const scrollHere2 = useRef(null)
     const modalWrapper2 = useRef(null)
+    const bigImage = useRef(null)
+
     async function scrollDownModal() {
         scrollHere2.current.scrollIntoView({ behavior: 'smooth' })
     }
@@ -139,19 +151,6 @@ function ModalDetailContent({ id, hideModal, type }) {
         let rate2 = Math.floor(rate1 * 10)
         return rate2
     }
-
-    useEffect(() => {
-        if (modalWrapper2 && modalWrapper2.current) {
-            modalWrapper2.current.addEventListener('wheel', function (e) {
-                e.preventDefault()
-                if (e.deltaY > 0) {
-                    scrollHere2.current.scrollIntoView({ behavior: 'smooth' })
-                } else if (e.deltaY < 0) {
-                    scrollHere1.current.scrollIntoView({ behavior: 'smooth' })
-                }
-            })
-        }
-    }, [])
 
     return (
         <ModalDetailContentBackground
@@ -168,7 +167,13 @@ function ModalDetailContent({ id, hideModal, type }) {
                 }}>
                 <ModalDetailContentScrollArea className='fc fleft'>
                     <div style={{ width: '0', height: '0' }} ref={scrollHere1} />
-                    {detailData != undefined && <ModalBigImage imageSrc={detailData.backdrop_path} />}
+                    {detailData != undefined && (
+                        <ModalBigImageImg
+                            ref={bigImage}
+                            src={`https://www.themoviedb.org/t/p/original/${detailData.backdrop_path}`}
+                            onLoad={() => (bigImage.current.style.opacity = 1)}
+                        />
+                    )}
                     <ModalDetailContentWrapper1 className='fc fleft'>
                         <ModalScrollDownButtonWrapper>
                             <ModalScrollDownButton scrollDownModal={scrollDownModal} />
@@ -211,7 +216,7 @@ function ModalDetailContent({ id, hideModal, type }) {
                                 </ModalDetailContentWrapper3>
                                 <ModalDetailContentWrapper3 className='fc fleft'>
                                     <ContentSlideSectionTitle text={'📝 출연 & 제작진'} margin={0} />
-                                    {creditData != undefined ? <DraggableSliderForPeople creditData={creditData} /> : null}
+                                    {creditData != undefined ? <DraggableSliderForPeople creditData={creditData} hideModal={hideModal} /> : null}
                                 </ModalDetailContentWrapper3>
                             </ModalDetailContentWrapper2>
                         )}

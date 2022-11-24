@@ -11,7 +11,7 @@ const SearchCardDiv = styled.div`
     width: 600rem;
     height: 140rem;
     background-color: var(--w-background);
-    border: 1px solid #D8D8D8;
+    border: 1px solid #d8d8d8;
     box-shadow: 4rem 4rem 8rem rgba(0, 0, 0, 0.1);
     border-radius: 6rem;
     cursor: pointer;
@@ -24,7 +24,7 @@ const Wrapper1 = styled.div`
     width: 468rem;
     height: 23rem;
     overflow: hidden;
-    background-color: var(--w-background)
+    background-color: var(--w-background);
 `
 
 function SearchCard({ id, title, desc, overview, score, posterUrl, type, showModal }) {
@@ -33,7 +33,7 @@ function SearchCard({ id, title, desc, overview, score, posterUrl, type, showMod
             <SearchCardDiv
                 className='fc no-drag'
                 onClick={() => {
-                    showModal(id)
+                    showModal(id, type)
                 }}>
                 <SearchCardImage posterUrl={posterUrl} />
                 <Wrapper1>
@@ -42,11 +42,9 @@ function SearchCard({ id, title, desc, overview, score, posterUrl, type, showMod
                     <SearchCardTextScore text={score} />
                 </Wrapper1>
                 <SearchCardStory overview={overview} />
-
             </SearchCardDiv>
         )
-    }
-    else {
+    } else {
         return (
             <SearchCardDiv
                 className='fc no-drag'
@@ -59,7 +57,6 @@ function SearchCard({ id, title, desc, overview, score, posterUrl, type, showMod
                     <SearchCardTextDesc text={desc} />
                 </Wrapper1>
                 <SearchCardStory overview={overview} />
-
             </SearchCardDiv>
         )
     }
