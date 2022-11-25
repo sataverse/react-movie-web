@@ -60,7 +60,7 @@ function ModalSignUp({ hideSignupModal }) {
             setAlertDidNotInputModal(true)
             return
         }
-        await fetch(`http://localhost:8000/v1/check?email=${email}`, { method: 'POST' })
+        await fetch(`http://13.209.26.226/v1/check?email=${email}`, { method: 'POST' })
             .then((response) => response.json())
             .then((data) => {
                 if (data == -1) setAlertSignUpFailedModal(true)
@@ -69,7 +69,7 @@ function ModalSignUp({ hideSignupModal }) {
     }
 
     function signup() {
-        fetch(`http://localhost:8000/v1/sign-up?email=${email}&password=${passwd}&nickname=${nickname}`, { method: 'POST' })
+        fetch(`http://13.209.26.226/v1/sign-up?email=${email}&password=${passwd}&nickname=${nickname}`, { method: 'POST' })
             .then((response) => response.json())
             .then((data) => {
                 if (data == 1) signin()
@@ -79,7 +79,7 @@ function ModalSignUp({ hideSignupModal }) {
 
     function signin() {
         setConfirmSignUpModal(false)
-        fetch(`http://localhost:8000/v1/sign-in?email=${email}&password=${passwd}`, { method: 'POST' })
+        fetch(`http://13.209.26.226/v1/sign-in?email=${email}&password=${passwd}`, { method: 'POST' })
             .then((response) => response.json())
             .then((data) => {
                 if (data.Id == -1) return
@@ -94,7 +94,7 @@ function ModalSignUp({ hideSignupModal }) {
     React.useEffect(() => {
         if (!userId) return
         const id = loadJSON('user_id')
-        fetch(`http://localhost:8000/v1/favorite?id=${id}`, { method: 'GET' })
+        fetch(`http://13.209.26.226/v1/favorite?id=${id}`, { method: 'GET' })
             .then((response) => response.json())
             .then((data) => {
                 saveJSON('favorite_list', data)
@@ -106,7 +106,7 @@ function ModalSignUp({ hideSignupModal }) {
     React.useEffect(() => {
         if (!userId) return
         const id = loadJSON('user_id')
-        fetch(`http://localhost:8000/v1/rating-list?id=${id}`, { method: 'GET' })
+        fetch(`http://13.209.26.226/v1/rating-list?id=${id}`, { method: 'GET' })
             .then((response) => response.json())
             .then((data) => {
                 saveJSON('rating_list', data)
