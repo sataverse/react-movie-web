@@ -8,7 +8,7 @@ const ModalHorizontalDiv = styled.div`
     right: 0;
     margin-left: auto;
     margin-right: auto;
-    top: 90px;
+    top: ${(props) => props.$top}px;
     border: 0;
     border-top: 1.5px solid var(--w-graywhite);
 `
@@ -18,7 +18,7 @@ const ModalHorizontalCancelButton = styled.button`
     width: 30%;
     height: 10%;
     left: 20px;
-    top: 105px;
+    top: ${(props) => props.$top}px;
     border: 0;
     background-color: transparent;
     font-size: 18px;
@@ -35,7 +35,7 @@ const ModalHorizontalConfirmButton = styled.button`
     width: 30%;
     height: 10%;
     right: 20px;
-    top: 105px;
+    top: ${(props) => props.$top}px;
     border: 0;
     background-color: transparent;
     font-size: 18px;
@@ -47,12 +47,12 @@ const ModalHorizontalConfirmButton = styled.button`
     }
 `
 
-function ModalHorizontalDoubleButton({cancel, confirm}) {
+function ModalHorizontalDoubleButton({cancel, confirm, top=90}) {
     return (
         <>
-            <ModalHorizontalDiv></ModalHorizontalDiv>
-            <ModalHorizontalCancelButton onClick={() => cancel()}>취소</ModalHorizontalCancelButton>
-            <ModalHorizontalConfirmButton onClick={() => confirm()}>확인</ModalHorizontalConfirmButton>
+            <ModalHorizontalDiv $top={top}></ModalHorizontalDiv>
+            <ModalHorizontalCancelButton onClick={() => cancel()} $top={top+15}>취소</ModalHorizontalCancelButton>
+            <ModalHorizontalConfirmButton onClick={() => confirm()} $top={top+15}>확인</ModalHorizontalConfirmButton>
         </>
     )
 }

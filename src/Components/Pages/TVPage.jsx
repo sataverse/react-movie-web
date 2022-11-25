@@ -31,9 +31,8 @@ function TVPage() {
         let api_key = '6199da9940f55ef72ddc1512ea6eca9a'
         let url = ''
         if (genre == 0) url = `https://api.themoviedb.org/3/tv/popular?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`
-        else if (genre == 1) url = `https://api.themoviedb.org/3/tv/popular?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`
-        else if (genre == 2) url = `https://api.themoviedb.org/3/tv/popular?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`
-        else if (genre == 3) url = `https://api.themoviedb.org/3/tv/popular?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`
+        else if (genre == 1) url = `https://api.themoviedb.org/3/tv/on_the_air?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`
+        else if (genre == 2) url = `https://api.themoviedb.org/3/tv/top_rated?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`
         else
             url = `https://api.themoviedb.org/3/discover/tv?api_key=${api_key}&language=ko&sort_by=${sort}&with_genres=${genre}&release_date.lte=${dateString}&vote_count.gte=50`
 
