@@ -84,7 +84,7 @@ function MainPage() {
     }, [])
 
     async function getPlaylistFromDB() {
-        await fetch('http://localhost:8000/v1/playlist', { method: 'GET' })
+        await fetch('http://13.209.26.226/v1/playlist', { method: 'GET' })
 
         .then((response) => response.json())
         .then((data) => {

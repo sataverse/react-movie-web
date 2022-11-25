@@ -64,7 +64,7 @@ function ModalSignIn({ hideSigninModal, switchModal }) {
 
     async function signin() {
         if (!email || !passwd) return
-        await fetch(`http://localhost:8000/v1/sign-in?email=${email}&password=${passwd}`, { method: 'POST' })
+        await fetch(`http://13.209.26.226/v1/sign-in?email=${email}&password=${passwd}`, { method: 'POST' })
             .then((response) => response.json())
             .then((data) => {
                 if (data.Id == -1) {
@@ -82,7 +82,7 @@ function ModalSignIn({ hideSigninModal, switchModal }) {
     React.useEffect(() => {
         if (!userId) return
         const id = loadJSON('user_id')
-        fetch(`http://localhost:8000/v1/favorite?id=${id}`, { method: 'GET' })
+        fetch(`http://13.209.26.226/v1/favorite?id=${id}`, { method: 'GET' })
             .then((response) => response.json())
             .then((data) => {
                 saveJSON('favorite_list', data)
@@ -94,7 +94,7 @@ function ModalSignIn({ hideSigninModal, switchModal }) {
     React.useEffect(() => {
         if (!userId) return
         const id = loadJSON('user_id')
-        fetch(`http://localhost:8000/v1/rating-list?user_id=${id}`, { method: 'GET' })
+        fetch(`http://13.209.26.226/v1/rating-list?user_id=${id}`, { method: 'GET' })
             .then((response) => response.json())
             .then((data) => {
                 saveJSON('rating_list', data)

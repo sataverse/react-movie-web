@@ -40,38 +40,38 @@ function AdministratorPage() {
 
     useEffect(() => {
         if(manageType == 1) {
-            const url = 'http://localhost:8000/v1/playlist'
+            const url = 'http://13.209.26.226/v1/playlist'
             fetchPlaylistData(url)  
         }
         else {
-            const url = 'http://localhost:8000/v1/all-user'
+            const url = 'http://13.209.26.226/v1/all-user'
             fetchUserData(url) 
         }
     }, [manageType])
 
     const addPlaylistData = (title, listString, type) => {
-        const url = `http://localhost:8000/v1/add-playlist?name=${title}&playlist=${listString}&type=${type}`
+        const url = `http://13.209.26.226/v1/add-playlist?name=${title}&playlist=${listString}&type=${type}`
         fetchPlaylistData(url)
     }
 
     const modifyPlaylistData = (id, title, listString) => {
         console.log(id, title, listString)
-        const url = `http://localhost:8000/v1/change-playlist?id=${id}&name=${title}&playlist=${listString}`
+        const url = `http://13.209.26.226/v1/change-playlist?id=${id}&name=${title}&playlist=${listString}`
         fetchPlaylistData(url)
     }
 
     const deletePlaylistData = id => {
-        const url = `http://localhost:8000/v1/delete-playlist?id=${id}`
+        const url = `http://13.209.26.226/v1/delete-playlist?id=${id}`
         fetchPlaylistData(url)
     }
 
     const updateUserData = (id, rank) => {
-        const url = `http://localhost:8000/v1/update-user?id=${id}&rank=${rank}`
+        const url = `http://13.209.26.226/v1/update-user?id=${id}&rank=${rank}`
         fetchUserData(url)
     }
 
     const deleteUserData = id => {
-        const url = `http://localhost:8000/v1/delete-user?id=${id}`
+        const url = `http://13.209.26.226/v1/delete-user?id=${id}`
         fetchUserData(url)
     }
 
