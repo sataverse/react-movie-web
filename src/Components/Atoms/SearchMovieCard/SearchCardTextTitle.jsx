@@ -1,8 +1,7 @@
 import styled from 'styled-components'
 
 const SearchCardTextTitleSpan = styled.span`
-    width: 180rem;
-    height: 23rem;
+    max-width: 300rem;
     font-family: 'Noto Sans KR';
     font-style: normal;
     font-weight: 700;

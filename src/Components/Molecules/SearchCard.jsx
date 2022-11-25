@@ -17,31 +17,25 @@ const SearchCardDiv = styled.div`
     cursor: pointer;
 `
 
-const Wrapper1 = styled.div`
-    position: absolute;
-    top: 15rem;
-    left: 112rem;
-    width: 468rem;
-    height: 23rem;
-    overflow: hidden;
-    background-color: var(--w-background);
-`
-
 function SearchCard({ id, title, desc, overview, score, posterUrl, type, showModal }) {
     if (type != 'person') {
         return (
             <SearchCardDiv
-                className='fc no-drag'
+                className='fr fsbetween no-drag'
                 onClick={() => {
                     showModal(id, type)
                 }}>
                 <SearchCardImage posterUrl={posterUrl} />
-                <Wrapper1>
-                    <SearchCardTextTitle text={title} />
-                    <SearchCardTextDesc text={desc} />
-                    <SearchCardTextScore text={score} />
-                </Wrapper1>
-                <SearchCardStory overview={overview} />
+                <div className='fc fcenter' style={{ flex: '1', margin: '16rem 16rem 16rem 16rem' }}>
+                    <div className='fr fsbetween'>
+                        <div className='fr'>
+                            <SearchCardTextTitle text={title} />
+                            <SearchCardTextDesc text={desc} />
+                        </div>
+                        <SearchCardTextScore text={score} />
+                    </div>
+                    <SearchCardStory overview={overview} />
+                </div>
             </SearchCardDiv>
         )
     } else {
@@ -52,10 +46,10 @@ function SearchCard({ id, title, desc, overview, score, posterUrl, type, showMod
                     showModal(id)
                 }}>
                 <SearchCardImagePerson posterUrl={posterUrl} />
-                <Wrapper1>
+                <div className='fr fsbetween'>
                     <SearchCardTextTitle text={title} />
                     <SearchCardTextDesc text={desc} />
-                </Wrapper1>
+                </div>
                 <SearchCardStory overview={overview} />
             </SearchCardDiv>
         )

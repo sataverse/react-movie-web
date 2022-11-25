@@ -85,6 +85,7 @@ function MainPage() {
 
     async function getPlaylistFromDB() {
         await fetch('http://localhost:8000/v1/playlist', { method: 'GET' })
+
         .then((response) => response.json())
         .then((data) => {
             playlists = []
@@ -132,16 +133,24 @@ function MainPage() {
     }
 
     useEffect(() => {
-        if(trendTvs.length == 0) return
+        if (trendTvs.length == 0) return
         getPlaylistFromDB()
     }, [trendTvs])
 
     useEffect(() => {
-        if(playlistList.length == 0) return
+        if (playlistList.length == 0) return
         getPlaylistMovieData()
     }, [playlistList])
 
-    return <MainPageTemplate trendMovies={trendMovies} trendTvs={trendTvs} playlistMovies={playlistMovies} isImageLoaded={isImageLoaded} isLoaded={isLoaded} />
+    return (
+        <MainPageTemplate
+            trendMovies={trendMovies}
+            trendTvs={trendTvs}
+            playlistMovies={playlistMovies}
+            isImageLoaded={isImageLoaded}
+            isLoaded={isLoaded}
+        />
+    )
 }
 
 export default MainPage
