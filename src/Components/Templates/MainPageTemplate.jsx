@@ -10,7 +10,7 @@ const MainPageTemplateWrapper = styled.div`
     width: 100vw;
 `
 
-function MainPageTemplate({ trendMovies, trendTvs, playlistMovies, isImageLoaded, isLoaded }) {
+function MainPageTemplate({ trendMovies, trendTvs, playlistMovies, playlistList, isImageLoaded, isLoaded }) {
     const [modal, setModal] = useState(false)
     const [noScroll, setScroll] = useState(false)
     const [id, setId] = useState(null)
@@ -60,13 +60,14 @@ function MainPageTemplate({ trendMovies, trendTvs, playlistMovies, isImageLoaded
                         showModal={showModal}
                     />
                 </div>
-                {playlistMovies.map((playlist) => (
+                {playlistMovies.map((playlist, index) => (
                     <div className='fr fcenter'>
                         <ContentSlideSection
                             sectionTitle={playlist.title}
                             datas={playlist.playlistData}
+                            list={playlistList[index]}
                             type='movie'
-                            page={'none'}
+                            page={'playlist'}
                             isImageLoaded={isImageLoaded}
                             isLoaded={isLoaded}
                             showModal={showModal}

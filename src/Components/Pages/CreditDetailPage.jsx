@@ -15,7 +15,7 @@ function CreditDetailPage() {
             await fetch(`https://api.themoviedb.org/3/person/${id}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=en-US`)
                 .then((response) => response.json())
                 .then(setCreditData)
-            await fetch(`https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=en-US`)
+            await fetch(`https://api.themoviedb.org/3/person/${id}/combined_credits?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=en-US`)
                 .then((response) => response.json())
                 .then((data) => {
                     data.cast.forEach((element) => {

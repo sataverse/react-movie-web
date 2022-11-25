@@ -53,9 +53,11 @@ const Wrapper1 = styled.div`
 function ContentCard({ id, title, desc, score, posterUrl, index, type, showModal }) {
     const navigate = useNavigate()
     const [isFavorite, setFavorite] = useState(false)
+
     useEffect(() => {
         setFavorite(UserStore.findFavoriteById(id, type))
     }, [])
+
     return (
         <ContentCardDiv
             className='fc no-drag'

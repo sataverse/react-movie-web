@@ -146,6 +146,7 @@ function MainPage() {
             trendMovies={trendMovies}
             trendTvs={trendTvs}
             playlistMovies={playlistMovies}
+            playlistList={playlistList}
             isImageLoaded={isImageLoaded}
             isLoaded={isLoaded}
         />

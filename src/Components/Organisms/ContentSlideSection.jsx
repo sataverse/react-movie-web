@@ -83,7 +83,7 @@ function ContentSlideSection({ sectionTitle, datas, type, page, isImageLoaded, i
             <div className='fr fsbetween'>
                 <ContentSlideSectionTitle text={sectionTitle} />
                 <ContentSlideSectionLinkWrapper style={{ display: LinkDisplay }}>
-                    {page == 'none' ? null : <ContentSlideSectionLink page={page} />}
+                    <ContentSlideSectionLink page={page} />
                 </ContentSlideSectionLinkWrapper>
             </div>
             <SlideWrapper1 className='fr fsevenly'>

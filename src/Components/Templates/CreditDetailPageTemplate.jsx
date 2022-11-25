@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import ContentSlideSectionTitle from '../Atoms/ContentSlideSectionTitle'
 import ContentGrid from '../Organisms/ContentGrid'
@@ -14,6 +14,7 @@ const CreditImage = styled.img`
     height: 300rem;
     object-fit: cover;
     border-radius: 6rem;
+    margin-bottom: 20rem;
 `
 
 const CreditSectionTitle = styled.span`
@@ -35,6 +36,7 @@ function CreditDetailPageTemplate({ data, creditMovieData }) {
     const [noScroll, setScroll] = useState(false)
     const [modal, setModal] = useState(false)
     const [id, setId] = useState(null)
+    const loadingImage = useRef(null)
 
     const showModal = async (id) => {
         setModal(true)
@@ -61,7 +63,14 @@ function CreditDetailPageTemplate({ data, creditMovieData }) {
                         <ContentSlideSectionTitle text={data.name} margin={0} />
                         <div className='fr fsbetween'>
                             <div style={{ width: '260rem' }}>
-                                <CreditImage src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${data.profile_path}`} />
+                                <CreditImage
+                                    ref={loadingImage}
+                                    src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${data.profile_path}`}
+                                    onError={() => {
+                                        let random = Math.floor(Math.random() * 5) + 1
+                                        loadingImage.current.src = `/skeleton/no_profile.png`
+                                    }}
+                                />
                             </div>
                             <div style={{ width: '1020rem' }} className='fc'>
                                 <CreditSectionTitle>약력</CreditSectionTitle>

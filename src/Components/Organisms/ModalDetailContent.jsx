@@ -15,6 +15,7 @@ import ModalMyScore from '../Atoms/Modal/ModalMyScore'
 import ModalDetailInfo from '../Molecules/ModalDetailInfo'
 import ModalDetailInfoWithLink from '../Molecules/ModalDetailInfoWithLink'
 import ContentSlideSectionTitle from '../Atoms/ContentSlideSectionTitle'
+import UserStore from '../../Modules/UserStore'
 
 const ModalDetailContentBackground = styled.div`
     position: fixed;
@@ -136,11 +137,16 @@ const ModalBigImageImg = styled.img`
 
 function ModalDetailContent({ id, hideModal, type }) {
     const { detailData } = getDetailContentFromAPI(id, type)
-    const { creditData } = getCreditFromApi(id)
+    const { creditData } = getCreditFromApi(id, type)
     const scrollHere1 = useRef(null)
     const scrollHere2 = useRef(null)
     const modalWrapper2 = useRef(null)
     const bigImage = useRef(null)
+    const [starRate, setStarRate] = useState(0)
+
+    useEffect(() => {
+        setStarRate(UserStore.findStarById(id, type))
+    }, [])
 
     async function scrollDownModal() {
         scrollHere2.current.scrollIntoView({ behavior: 'smooth' })
@@ -189,7 +195,7 @@ function ModalDetailContent({ id, hideModal, type }) {
                                         </ModalDetailContentTextWrapper2>
                                         <ModalDetailContentTextWrapper2 $height='40' className='fr fsbetween' style={{ marginBottom: '10rem' }}>
                                             <ModalTagline tagline={detailData.tagline} />
-                                            <ModalMyScore rate={5} />
+                                            <ModalMyScore rate={starRate} />
                                         </ModalDetailContentTextWrapper2>
                                         <ModalStory story={detailData.overview} />
                                         <HR />

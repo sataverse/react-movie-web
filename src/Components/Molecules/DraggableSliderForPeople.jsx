@@ -4,8 +4,7 @@ import DraggableSliderItemForPeople from '../Atoms/Slider/DraggableSliderItemFor
 
 const DraggableSliderForPerpleWrapper = styled.div`
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-auto-flow: column;
+
     width: 1000rem;
     height: 250rem;
     overflow-x: scroll;
@@ -21,6 +20,9 @@ const DraggableSliderForPerpleWrapper = styled.div`
     &:hover::-webkit-scrollbar-thumb {
         background: var(--w-graywhite);
     }
+    grid-auto-flow: ${(props) => (props.count <= 12 ? 'row' : 'column')};
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 `
 
 function DraggableSliderForPeople({ creditData, hideModal }) {
@@ -62,7 +64,8 @@ function DraggableSliderForPeople({ creditData, hideModal }) {
             onMouseDown={mouseDownEvent}
             onMouseUp={mouseUpEvent}
             onMouseMove={mouseMoveEvent}
-            onMouseLeave={mouseLeaveEvent}>
+            onMouseLeave={mouseLeaveEvent}
+            count={creditData.length}>
             {creditData.map((item) => {
                 return (
                     <DraggableSliderItemForPeople
