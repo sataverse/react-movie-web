@@ -18,7 +18,7 @@ function AdministratorPage() {
             const temp = []
             data.forEach(element => {
                 const arr = element.Playlist.split(',')
-                temp.push({id: element.Id, title: element.Name, playlist: arr.map(movieId => parseInt(movieId))})
+                temp.push({id: element.Id, title: element.Name, playlist: arr.map(movieId => parseInt(movieId)), type: element.Type})
             })
             setPlaylistData(temp)
         })
@@ -49,8 +49,8 @@ function AdministratorPage() {
         }
     }, [manageType])
 
-    const addPlaylistData = (title, listString) => {
-        const url = `http://localhost:8000/v1/add-playlist?name=${title}&playlist=${listString}`
+    const addPlaylistData = (title, listString, type) => {
+        const url = `http://localhost:8000/v1/add-playlist?name=${title}&playlist=${listString}&type=${type}`
         fetchPlaylistData(url)
     }
 

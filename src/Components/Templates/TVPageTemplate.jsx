@@ -14,9 +14,9 @@ const TVPageTemplateWrapper = styled.div`
 `
 
 let itemArray = [
-    ['# 현재상영작', 1],
-    ['# 개봉예정작', 2],
-    ['# 최고평점작', 3],
+    ['📺 인기 TV 프로그램', 0],
+    ['# 현재방영작', 1],
+    ['# 최고평점작', 2],
     ['⚔️ 액션 & 어드벤처', 10759],
     ['🌏 다큐멘터리', 99],
     ['🤣 코미디', 35],
@@ -33,7 +33,7 @@ let itemArray = [
     ['🎤 토크쇼', 10767],
     ['✏️ 애니메이션', 16],
     ['🐎 서부', 37],
-] // 모든영화 = 0
+]
 
 function getGenreByNum(num) {
     return itemArray.filter((element) => element[1] == num)
@@ -43,15 +43,14 @@ function TVPageTemplate({ data, changeGenre, sortType, changeSort }) {
     const [modal, setModal] = useState(false)
     const [noScroll, setScroll] = useState(false)
     const [id, setId] = useState(null)
-    //const [sortType, setSortType] = useState(1) // 1 = 평점순, 2 = 인기순, 3 = 최신순
-    const [genreText, setGenreText] = useState('📺 모든 영화')
+    const [genreText, setGenreText] = useState('📺 인기 TV 프로그램')
     const [genreType, setGenreType] = useState(0)
     const location = useLocation()
     const navigate = useNavigate()
 
     useEffect(() => {
         if (location.pathname.replaceAll('/tv', '') == '') {
-            setGenreText('📺 모든 TV 프로그램')
+            setGenreText('📺 인기 TV 프로그램')
             setGenreType(0)
             changeGenre(0)
         } else {
