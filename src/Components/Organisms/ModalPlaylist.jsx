@@ -94,7 +94,7 @@ const ModalPlaylistSliderDiv = styled.div`
     }
 `
 
-function ModalPlayList({title, playlist, newTitle, addItem, deleteItem, savePlaylist, hidePlaylistModal}) {
+function ModalPlayList({title, playlist, type, newTitle, addItem, deleteItem, savePlaylist, hidePlaylistModal}) {
     let tempTitle = title
     const [confirmModal, setConfirmModal] = React.useState(false)
     const [searchText, setSearchText] = React.useState('')
@@ -118,19 +118,29 @@ function ModalPlayList({title, playlist, newTitle, addItem, deleteItem, savePlay
 
     async function search() {
         for(let i=1;i<5;i++) {
-            await fetch(`https://api.themoviedb.org/3/search/movie?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko&query=${searchText}&page=${i}`)
+            await fetch(`https://api.themoviedb.org/3/search/${type}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko&query=${searchText}&page=${i}`)
             .then((response) => response.json())
             .then((data) => {
                 if(data.results.length == 0) return
                 data.results.forEach((element) => {
                     if (element.poster_path) {
-                        responseMovieList.push({
-                            id: element.id,
-                            title: element.title,
-                            popularity: element.popularity,
-                            vote_average: parseInt(element.vote_average*10),
-                            poster_path: element.poster_path,
-                        })
+                        if(type == 'movie'){
+                            responseMovieList.push({
+                                id: element.id,
+                                title: element.title,
+                                popularity: element.popularity,
+                                vote_average: parseInt(element.vote_average*10),
+                                poster_path: element.poster_path,
+                            })
+                        } else {
+                            responseMovieList.push({
+                                id: element.id,
+                                title: element.name,
+                                popularity: element.popularity,
+                                vote_average: parseInt(element.vote_average*10),
+                                poster_path: element.poster_path,
+                            })
+                        }
                     }
                 })
             })
@@ -156,7 +166,7 @@ function ModalPlayList({title, playlist, newTitle, addItem, deleteItem, savePlay
                     </ModalPlaylistSearchDiv>
                     <ModalPlaylistSliderDiv className='fr' style={{top: '170rem'}}>
                         {playlist.map((item, idx) => (
-                            <MiniCard key={idx} id={item} deleteThis={deleteItem} size={'medium'}/>
+                            <MiniCard key={idx} id={item} type={type} deleteThis={deleteItem} size={'medium'}/>
                         ))}
                     </ModalPlaylistSliderDiv>
                 </ModalPlaylistDiv>

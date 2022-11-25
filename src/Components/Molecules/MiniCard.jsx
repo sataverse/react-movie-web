@@ -15,6 +15,16 @@ const ModalPlaylistAddedDiv = styled.div`
     &:hover {
         cursor: pointer;
     }
+    animation: fadeInForModalSignUpDiv 1s linear;
+
+    @keyframes fadeInForModalSignUpDiv {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
 `
 
 const ModalPlaylistAddedImg = styled.img`
@@ -32,12 +42,12 @@ const ModalPlaylistAddedImg = styled.img`
     }
 `
 
-function MiniCard({id, deleteThis, size}) {
+function MiniCard({id, type, deleteThis, size}) {
     const [path, setPath] = useState('')
     const [showIcon, setShowIcon] = useState(false)
 
     useEffect(() => {
-        fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`)
+        fetch(`https://api.themoviedb.org/3/${type}/${id}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`)
         .then((response) => response.json())
         .then((data) => setPath(data.poster_path))
     })

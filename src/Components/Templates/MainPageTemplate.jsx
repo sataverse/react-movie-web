@@ -65,7 +65,7 @@ function MainPageTemplate({ trendMovies, trendTvs, playlistMovies, isImageLoaded
                         <ContentSlideSection
                             sectionTitle={playlist.title}
                             datas={playlist.playlistData}
-                            type='movie'
+                            type={playlist.type}
                             page={'none'}
                             isImageLoaded={isImageLoaded}
                             isLoaded={isLoaded}

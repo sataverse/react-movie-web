@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import ModalPlayList from './ModalPlaylist'
 import ModalSignOut from './ModalConfirm'
-import AddIcon from '../Atoms/Svg/AddIcon'
+import ModalSelectType from './ModalSelectType'
 import PenIcon from '../Atoms/Svg/PenIcon'
 import TrashIcon from '../Atoms/Svg/TrashIcon'
 import React, { useState, useEffect } from 'react'
@@ -81,12 +81,14 @@ const PlaylistAddButton = styled.div`
 function AdminPlaylist( { playlistData, modifyPlaylistData, addPlaylistData, deletePlaylistData } ) {
     const [createModal, setCreateModal] = React.useState(false)
     const [confirmModal, setConfirmModal] = React.useState(false)
+    const [selectModal, setSelectModal] = React.useState(false)
     const [showIcon, setShowIcon] = React.useState(false)
     const [noScroll, setScroll] = React.useState(false)
 
     const [index, setIndex] = React.useState(0)
     const [delteIndex, setDeleteIndex] = React.useState(0)
 
+    const [type, setType] = React.useState('movie')
     const [id, setId] = React.useState(-1)
     const [title, setTitle] = React.useState('')
     const [playlist, setPlaylist] = React.useState([])
@@ -95,7 +97,34 @@ function AdminPlaylist( { playlistData, modifyPlaylistData, addPlaylistData, del
         document.querySelector('html').style.overflowY = noScroll ? 'hidden' : 'auto'
     })
 
-    const addPlaylist = (idx) => {
+    const hidePlaylistModal = () => {
+        setCreateModal(false)
+        setScroll(false)
+    }
+
+    const hideConfirmModal = () => {
+        setConfirmModal(false)
+        setScroll(false)
+    }
+
+    const showSelectModal = () => {
+        setScroll(true)
+        setSelectModal(true)
+        document.body.style.overflow = 'none'
+    }
+
+    const hideSelectModal = () => {
+        setScroll(false)
+        setSelectModal(false)
+    }
+
+    const createPlaylist = t => {
+        setType(t)
+        hideSelectModal()
+        changePlaylist(playlistData.length)
+    }
+
+    const changePlaylist = (idx) => {
         if(idx==playlistData.length) {
             setPlaylist([])
             setTitle('')
@@ -105,6 +134,7 @@ function AdminPlaylist( { playlistData, modifyPlaylistData, addPlaylistData, del
             setPlaylist(playlistData[idx].playlist)
             setTitle(playlistData[idx].title)
             setId(playlistData[idx].id)
+            setType(playlistData[idx].type)
         }
         setIndex(idx)
         setCreateModal(true)
@@ -124,6 +154,15 @@ function AdminPlaylist( { playlistData, modifyPlaylistData, addPlaylistData, del
         hideConfirmModal()
     }
 
+    const savePlaylist = () => {
+        if(index == playlistData.length){
+            addPlaylistData(title, playlist.join(','), type)
+        } else {
+            modifyPlaylistData(id, title, playlist.join(','))
+        }
+        hidePlaylistModal()
+    }
+
     const newTitle = title => setTitle(title)
 
     const addItem = (id) => {
@@ -135,31 +174,13 @@ function AdminPlaylist( { playlistData, modifyPlaylistData, addPlaylistData, del
         setPlaylist(newList)
     }
 
-    const savePlaylist = () => {
-        if(index == playlistData.length){
-            addPlaylistData(title, playlist.join(','))
-        } else {
-            modifyPlaylistData(id, title, playlist.join(','))
-        }
-        hidePlaylistModal()
-    }
-
-    const hidePlaylistModal = () => {
-        setCreateModal(false)
-        setScroll(false)
-    }
-
-    const hideConfirmModal = () => {
-        setConfirmModal(false)
-        setScroll(false)
-    }
-
     return(
         <>
         <AdminPlaylistWrapper className='hcenter'>
             <TableTop className='fr hcenter'>
-                <TableContentInnerDataDiv key={'0-2'} $width={250} $isTop={true}>플레이리스트 이름</TableContentInnerDataDiv>
-                <TableContentInnerDataDiv key={'0-3'} $width={700} $isTop={true} style={{marginLeft: '45rem'}}>영화 목록</TableContentInnerDataDiv>
+                <TableContentInnerDataDiv key={'0-1'} $width={200} $isTop={true}>플레이리스트 이름</TableContentInnerDataDiv>
+                <TableContentInnerDataDiv key={'0-2'} $width={120} $isTop={true} style={{marginLeft: '40rem'}}>분류</TableContentInnerDataDiv>
+                <TableContentInnerDataDiv key={'0-3'} $width={600} $isTop={true} style={{marginLeft: '40rem'}}>영화 목록</TableContentInnerDataDiv>
                 <TableContentInnerDataDiv key={'0-4'} $width={100} $isTop={true}></TableContentInnerDataDiv>
                 <TableContentInnerDataDiv key={'0-5'} $width={100} $isTop={true}></TableContentInnerDataDiv>
             </TableTop>
@@ -167,25 +188,27 @@ function AdminPlaylist( { playlistData, modifyPlaylistData, addPlaylistData, del
             {playlistData.map((list, idx) => (
                 <>
                     <TableContentList key={idx} className='fr hcenter'>
-                        <TableContentInnerDataDiv key={`${idx+1}-2`} $width={250} $isTop={false}>{list.title}</TableContentInnerDataDiv>
-                        <TableContentInnerDataDiv key={`${idx+1}-3`} $width={700} $isTop={false}>{list.playlist.join(', ')}</TableContentInnerDataDiv>
-                        <TableContentInnerDataButton key={`${idx+1}-4`} onClick={() => addPlaylist(idx)} $width={100}>
-                            <PenIcon width={'30'} height={'30'}/>
+                        <TableContentInnerDataDiv key={`${idx+1}-1`} $width={200} $isTop={false}>{list.title}</TableContentInnerDataDiv>
+                        <TableContentInnerDataDiv key={`${idx+1}-2`} $width={120} $isTop={false}>{list.type=='movie' ? '영화' : 'TV프로그램'}</TableContentInnerDataDiv>
+                        <TableContentInnerDataDiv key={`${idx+1}-3`} $width={600} $isTop={false}>{list.playlist.join(', ')}</TableContentInnerDataDiv>
+                        <TableContentInnerDataButton key={`${idx+1}-4`} onClick={() => changePlaylist(idx)} $width={100}>
+                            <PenIcon className='hcenter' width={'30'} height={'30'}/>
                         </TableContentInnerDataButton>
                         <TableContentInnerDataButton key={`${idx+1}-5`} onClick={() => checkDelete(idx)} $width={100}>
-                            <TrashIcon width={'30'} height={'30'}/>
+                            <TrashIcon className='hcenter' width={'30'} height={'30'}/>
                         </TableContentInnerDataButton>
                     </TableContentList>
                     <TableHR />
                 </>
             ))}
-            <PlaylistAddButton className='hcenter' onClick={() => addPlaylist(playlistData.length)} onMouseOver={() => setShowIcon(true)} onMouseLeave={() => setShowIcon(false)} >
+            <PlaylistAddButton className='hcenter' onClick={() => showSelectModal()} onMouseOver={() => setShowIcon(true)} onMouseLeave={() => setShowIcon(false)} >
                 {showIcon ? '추가하기' : null}
             </PlaylistAddButton>
             <TableHR />
         </AdminPlaylistWrapper>
-        {createModal ? <ModalPlayList title={title} playlist={playlist} newTitle={newTitle} addItem={addItem} deleteItem={deleteItem} savePlaylist={savePlaylist} hidePlaylistModal={hidePlaylistModal}/> : null}
+        {createModal ? <ModalPlayList title={title} playlist={playlist} type={type} newTitle={newTitle} addItem={addItem} deleteItem={deleteItem} savePlaylist={savePlaylist} hidePlaylistModal={hidePlaylistModal}/> : null}
         {confirmModal ? <ModalSignOut msg={'정말로 삭제할까요?'} cancel={hideConfirmModal} confirm={deleteList}/> : null}
+        {selectModal ? <ModalSelectType msg={'플레이리스트 종류를 선택해 주세요'} cancel={hideSelectModal} confirm={createPlaylist}/> : null}
         </>
     )
 }
