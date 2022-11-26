@@ -13,20 +13,6 @@ const MainSectionWrapper = styled.div`
     background-color: var(--w-gray);
 `
 
-const MainSectionImgDiv = styled.div`
-    width: 100vw;
-    height: 300rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: right;
-    background-image: url( ${(props) => props.$path} );
-    background-repeat: no-repeat;
-    background-position-x: center;
-    background-position-y: 30%;
-    background-size: 100%;
-    filter: brightness(40%);
-`
-
 const MainSectionManager = styled.div`
     position: absolute;
     width: 40rem;
@@ -72,24 +58,9 @@ const MainSectionUserName = styled.div`
     user-select: none;
 `
 
-function MainSection({ data }) {
-    const [path, setPath] = useState()
-    const [randomIndex, setRandomIndex] = useState(0)
-
-    useEffect(() => {
-        if(data.length == 0) return
-        const rand = Math.floor(Math.random() * data.length)
-        setRandomIndex(rand)
-    }, [data])
-
-    useEffect(() => {
-        if(data.length == 0) return
-        setPath(data[randomIndex].backdrop_path)
-    }, [randomIndex])
-
+function MainSectionEmpty() {
     return (
         <MainSectionWrapper className='hcenter'>
-            <MainSectionImgDiv $path={`https://www.themoviedb.org/t/p/original/${path}`} />
             <MainSectionManager>
                 { JSON.parse(localStorage.getItem('rank')) != '회원' ? <MainNavManager /> : null }
             </MainSectionManager>
@@ -102,4 +73,4 @@ function MainSection({ data }) {
     )
 }
 
-export default MainSection
+export default MainSectionEmpty
