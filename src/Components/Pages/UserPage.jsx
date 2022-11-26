@@ -12,9 +12,18 @@ function UserPage() {
     const [ratedListData, setRatedListData] = useState([])
 
     useEffect(() => {
+        async function clearArray() {
+            tempLikedListData = []
+            tempRatedListData = []
+        }
+        clearArray()
+    }, [])
+
+    useEffect(() => {
+        if (!likedList || likedList.length == 0) return
         async function getLikedListData() {
             for (const element of likedList) {
-                await fetch(`https://api.themoviedb.org/3/${element.Type}/${element.Id}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`)
+                fetch(`https://api.themoviedb.org/3/${element.Type}/${element.Id}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`)
                     .then((response) => response.json())
                     .then((response) => {
                         response.type = element.Type
@@ -23,6 +32,11 @@ function UserPage() {
             }
             setLikedListData(tempLikedListData)
         }
+        getLikedListData()
+    }, [likedList])
+
+    useEffect(() => {
+        if (!ratedList || ratedList.length == 0) return
         async function getRatedListData() {
             for (const element of ratedList) {
                 await fetch(`https://api.themoviedb.org/3/${element.Type}/${element.Id}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`)
@@ -34,15 +48,8 @@ function UserPage() {
             }
             setRatedListData(tempRatedListData)
         }
-        async function clearArray() {
-            tempLikedListData = []
-            tempRatedListData = []
-        }
-
-        clearArray()
-        getLikedListData()
         getRatedListData()
-    }, [])
+    }, [ratedList])
 
     return <UserPageTemplate likedListData={likedListData} ratedListData={ratedListData} />
 }
