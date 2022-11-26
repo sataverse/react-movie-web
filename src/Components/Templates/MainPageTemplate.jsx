@@ -66,7 +66,7 @@ function MainPageTemplate({ trendMovies, trendTvs, playlistMovies, playlistList,
                             sectionTitle={playlist.title}
                             datas={playlist.playlistData}
                             list={playlistList[index]}
-                            type='movie'
+                            type={playlist.type}
                             page={'playlist'}
                             isImageLoaded={isImageLoaded}
                             isLoaded={isLoaded}
