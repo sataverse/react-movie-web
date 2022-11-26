@@ -55,7 +55,7 @@ const SlideWrapper2 = styled.div`
     position: relative;
 `
 
-function ContentSlideSection({ sectionTitle, datas, type, page, isImageLoaded, isLoaded, showModal }) {
+function ContentSlideSection({ sectionTitle, datas, type, page, isImageLoaded, isLoaded, showModal, index }) {
     const [slideIndex, setSlideIndex] = useState(0)
     const [LinkDisplay, setLinkDisplay] = useState('none')
 
@@ -127,7 +127,7 @@ function ContentSlideSection({ sectionTitle, datas, type, page, isImageLoaded, i
                                         datasLength={datas.length}
                                         overview={element.overview}
                                         type={type}
-                                        key={`main-content=${element.id}`}
+                                        key={`main-page-playlist-${index}-${element.id}`}
                                         isImageLoaded={isImageLoaded}
                                         showModal={showModal}
                                     />
@@ -155,7 +155,7 @@ function ContentSlideSection({ sectionTitle, datas, type, page, isImageLoaded, i
                                         makeNormalForLastIndex={makeNormalForLastIndex}
                                         datasLength={datas.length}
                                         overview={element.overview}
-                                        key={`main-content=${element.id}`}
+                                        key={`main-page-playlist-${index}-${element.id}`}
                                         isImageLoaded={isImageLoaded}
                                         showModal={showModal}
                                     />
@@ -178,7 +178,7 @@ function ContentSlideSection({ sectionTitle, datas, type, page, isImageLoaded, i
                                         makeNormalForLastIndex={makeNormalForLastIndex}
                                         datasLength={datas.length}
                                         overview={element.overview}
-                                        key={`main-content=${element.id}`}
+                                        key={`main-page-playlist-${index}-${element.id}`}
                                         isImageLoaded={isImageLoaded}
                                         showModal={showModal}
                                     />

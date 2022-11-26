@@ -70,3 +70,12 @@ export const getCreditFromApi = (id, type) => {
     }, [id])
     return { creditData }
 }
+
+export const getRandomColor = () => {
+    let random = Math.floor(Math.random() * 5) + 1
+    if (random == 1) return '#937B7B'
+    if (random == 2) return '#58DAB5'
+    if (random == 3) return '#5987E2'
+    if (random == 4) return '#9C71BE'
+    if (random == 5) return '#FF7669'
+}

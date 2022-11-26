@@ -61,7 +61,7 @@ function ModalDetailInfoWithLink({ text1, genres, hideModal, type }) {
     return (
         <ModalDetailInfoWrapper className='fc fsevenly'>
             <div>
-                <ModalDetailInfoText1>{text1}</ModalDetailInfoText1>
+                {genres.length != 0 && <ModalDetailInfoText1>{text1}</ModalDetailInfoText1>}
                 <div className='fr'>
                     {genres != undefined &&
                         genres.map((element) => {

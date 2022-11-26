@@ -85,22 +85,21 @@ function MainPage() {
 
     async function getPlaylistFromDB() {
         await fetch('http://13.209.26.226/v1/playlist', { method: 'GET' })
-
-        .then((response) => response.json())
-        .then((data) => {
-            playlists = []
-            if(!data) {
-                setPlaylistList(playlists)
-                return
-            }
-            data.forEach(element => {
-                if (element.Playlist.length != 0) {
-                    const arr = element.Playlist.split(',')
-                    playlists.push({id: element.Id, title: element.Name, playlist: arr, type: element.Type})
+            .then((response) => response.json())
+            .then((data) => {
+                playlists = []
+                if (!data) {
                     setPlaylistList(playlists)
+                    return
                 }
+                data.forEach((element) => {
+                    if (element.Playlist.length != 0) {
+                        const arr = element.Playlist.split(',')
+                        playlists.push({ id: element.Id, title: element.Name, playlist: arr, type: element.Type })
+                        setPlaylistList(playlists)
+                    }
+                })
             })
-        })
     }
 
     async function getPlaylistMovieData() {
@@ -117,7 +116,9 @@ function MainPage() {
                             if (data.overview == '') ifNoOverview = true
                         })
                     if (ifNoOverview == true) {
-                        await fetch(`https://api.themoviedb.org/3/${playlist.type}/${element}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=en-US`)
+                        await fetch(
+                            `https://api.themoviedb.org/3/${playlist.type}/${element}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=en-US`
+                        )
                             .then((response) => response.json())
                             .then((data) => {
                                 elementResult.overview = data.overview
@@ -126,7 +127,7 @@ function MainPage() {
                     resultPlaylistArray.push(elementResult)
                 } catch (error) {}
             }
-            playlistMovieData.push({title: playlist.title, type: playlist.type, playlistData: resultPlaylistArray})
+            playlistMovieData.push({ title: playlist.title, type: playlist.type, playlistData: resultPlaylistArray })
         }
         CardStore.increaseMaxCount(playlistMovieData.length)
         setPlaylistMovies(playlistMovieData)

@@ -18,18 +18,23 @@ const UserStore = observable({
 
     // 하나씩 추가하고싶을때
     insertFavorite(id, type) {
-        this.findFavoriteById(id, type) == false ? this.favorites.push({ id: id, type: type }) : null
+        this.findFavoriteById(id, type) == false ? this.favorites.push({ Id: id, Type: type }) : null
     },
 
     // ID로 리스트에서 지우기
-    deleteFavoriteById(id) {
-        this.favorites = this.favorites.filter((element) => element.id != id)
+    deleteFavoriteById(id, type) {
+        this.favorites = this.favorites.filter((element) => element.Id != id && element.Type != type)
     },
 
+    // 있으면 true 리턴
     findFavoriteById(id, type) {
         if (this.favorites.length != 0) {
-            return this.favorites.filter((element) => element.id == id && element.type == type).length != 0 ? true : false
+            return this.favorites.filter((element) => element.Id == id && element.Type == type).length != 0 ? true : false
         }
+    },
+
+    deleteAllFavorite() {
+        this.favorites = []
     },
 
     getStars() {
@@ -43,7 +48,11 @@ const UserStore = observable({
 
     // 하나씩 추가하고싶을때
     insertStar(id, type, rate) {
-        this.findFavoriteById(id, type) == false ? this.stars.push({ id: id, type: type, rate: rate }) : null
+        this.isThereStar(id, type) == false
+            ? this.stars.push({ id: id, type: type, rate: rate })
+            : this.stars.forEach((element, index) => {
+                  if (element.id == id && element.type == type) this.stars[index].rate = rate
+              })
     },
 
     // ID로 리스트에서 지우기
@@ -57,6 +66,12 @@ const UserStore = observable({
             if (filterArray.length != 0) {
                 return filterArray[0].rate
             }
+        }
+    },
+
+    isThereStar(id, type) {
+        if (this.stars.length != 0) {
+            return this.stars.filter((element) => element.id == id && element.type == type).length != 0 ? true : false
         }
     },
 })

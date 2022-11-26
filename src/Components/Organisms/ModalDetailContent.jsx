@@ -142,10 +142,13 @@ function ModalDetailContent({ id, hideModal, type }) {
     const scrollHere2 = useRef(null)
     const modalWrapper2 = useRef(null)
     const bigImage = useRef(null)
-    const [starRate, setStarRate] = useState(0)
+    const [myRate, setMyRate] = useState(0)
+    const [myRateDate, setMyRateDate] = useState('')
+
+    console.log(detailData)
 
     useEffect(() => {
-        setStarRate(UserStore.findStarById(id, type))
+        setMyRate(UserStore.findStarById(id, type))
     }, [])
 
     async function scrollDownModal() {
@@ -195,7 +198,7 @@ function ModalDetailContent({ id, hideModal, type }) {
                                         </ModalDetailContentTextWrapper2>
                                         <ModalDetailContentTextWrapper2 $height='40' className='fr fsbetween' style={{ marginBottom: '10rem' }}>
                                             <ModalTagline tagline={detailData.tagline} />
-                                            <ModalMyScore rate={starRate} />
+                                            <ModalMyScore id={id} type={type} myRate={myRate} date={myRateDate} />
                                         </ModalDetailContentTextWrapper2>
                                         <ModalStory story={detailData.overview} />
                                         <HR />

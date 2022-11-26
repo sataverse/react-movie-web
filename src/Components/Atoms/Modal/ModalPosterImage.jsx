@@ -1,5 +1,6 @@
-import { useRef } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
+import { getRandomColor } from '../../../Modules/utils'
 
 const ModalPosterImageImg = styled.img`
     position: relative;
@@ -8,17 +9,28 @@ const ModalPosterImageImg = styled.img`
     border-radius: 6rem;
 `
 
+const SkeletonDiv = styled.div`
+    width: 240rem;
+    height: 360rem;
+    transition: all 0.3s;
+    background-color: ${(props) => props.color};
+    border-radius: 6rem;
+`
+
 function ModalPosterImage({ url }) {
-    const loadingImage = useRef(null)
+    const [imageStatus, setImageStatus] = useState(true)
     return (
-        <ModalPosterImageImg
-            ref={loadingImage}
-            src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${url}`}
-            onError={() => {
-                let random = Math.floor(Math.random() * 5) + 1
-                loadingImage.current.src = `/skeleton/no_image_${random}.png`
-            }}
-        />
+        <div>
+            {imageStatus && (
+                <ModalPosterImageImg
+                    src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${url}`}
+                    onError={() => {
+                        setImageStatus(false)
+                    }}
+                />
+            )}
+            {!imageStatus && <SkeletonDiv color={getRandomColor()} />}
+        </div>
     )
 }
 

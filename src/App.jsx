@@ -15,7 +15,6 @@ import { useEffect } from 'react'
 function App() {
     useEffect(() => {
         // 테스트용 좋아요 세팅
-        UserStore.setFavorites([{ id: 436270, type: 'movie' }])
         UserStore.setStars([{ id: 436270, type: 'movie', rate: 8 }])
     }, [])
 

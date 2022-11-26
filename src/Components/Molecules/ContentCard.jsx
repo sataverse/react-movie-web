@@ -6,8 +6,7 @@ import CardTextDesc from '../Atoms/Card/CardTextDesc'
 import CardTextScore from '../Atoms/Card/CardTextScore'
 import CardIndex from '../Atoms/Card/CardIndex'
 import UserStore from '../../Modules/UserStore'
-import { useState } from 'react'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 const ContentCardLikeIcon = styled.button`
     position: absolute;
@@ -73,7 +72,7 @@ function ContentCard({ id, title, desc, score, posterUrl, index, type, showModal
                         setFavorite(true)
                     } else {
                         // 좋아요 취소
-                        UserStore.deleteFavoriteById(id)
+                        UserStore.deleteFavoriteById(id, type)
                         setFavorite(false)
                     }
                     event.stopPropagation()

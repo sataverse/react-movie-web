@@ -50,6 +50,7 @@ function SearchPage() {
                             })
                         let ids = hasMovieId.filter((id) => id === element.id)
                         if (ids.length == 0) {
+                            elementResult.type = 'movie'
                             searchMovieData.push(elementResult)
                             hasMovieId.push(element.id)
                         }
@@ -84,6 +85,7 @@ function SearchPage() {
                         }
                         let ids = hasTVId.filter((id) => id === element.id)
                         if (ids.length == 0) {
+                            elementResult.type = 'tv'
                             searchTVData.push(elementResult)
                             hasTVId.push(element.id)
                         }
@@ -103,13 +105,19 @@ function SearchPage() {
                 for (const element of enPersonData.results) {
                     cnt++
                     let elementResult
+                    let ifNoBiography = false
                     try {
                         await fetch(`https://api.themoviedb.org/3/person/${element.id}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`)
                             .then((response) => response.json())
                             .then((data) => {
                                 elementResult = data
+                                if (data.biography == '') ifNoBiography = true
                             })
-
+                        if (ifNoBiography == true) {
+                            await fetch(`https://api.themoviedb.org/3/person/${element.id}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=en-US`)
+                                .then((response) => response.json())
+                                .then((data) => (elementResult.biography = data.biography))
+                        }
                         if (element.known_for_department != 'Acting') continue
 
                         let ids = hasPersonId.filter((id) => id === element.id)

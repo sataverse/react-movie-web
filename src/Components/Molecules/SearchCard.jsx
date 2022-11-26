@@ -4,7 +4,6 @@ import SearchCardTextTitle from '../Atoms/SearchMovieCard/SearchCardTextTitle'
 import SearchCardStory from '../Atoms/SearchMovieCard/SearchCardStory'
 import SearchCardTextScore from '../Atoms/SearchMovieCard/SearchCardTextScore'
 import SearchCardTextDesc from '../Atoms/SearchMovieCard/SearchCardTextDesc'
-import SearchCardImagePerson from '../Atoms/SearchMovieCard/SearchCardImagePerson'
 
 const SearchCardDiv = styled.div`
     position: relative;
@@ -41,16 +40,18 @@ function SearchCard({ id, title, desc, overview, score, posterUrl, type, showMod
     } else {
         return (
             <SearchCardDiv
-                className='fc no-drag'
+                className='fr fsbetween no-drag'
                 onClick={() => {
                     showModal(id)
                 }}>
-                <SearchCardImagePerson posterUrl={posterUrl} />
-                <div className='fr fsbetween'>
-                    <SearchCardTextTitle text={title} />
-                    <SearchCardTextDesc text={desc} />
+                <SearchCardImage posterUrl={posterUrl} />
+                <div className='fc fcenter' style={{ flex: '1', margin: '16rem 16rem 16rem 16rem' }}>
+                    <div className='fr fsbetween'>
+                        <SearchCardTextTitle text={title} />
+                        <SearchCardTextDesc text={desc} />
+                    </div>
+                    <SearchCardStory overview={overview} />
                 </div>
-                <SearchCardStory overview={overview} />
             </SearchCardDiv>
         )
     }

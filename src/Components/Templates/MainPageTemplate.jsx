@@ -61,16 +61,17 @@ function MainPageTemplate({ trendMovies, trendTvs, playlistMovies, playlistList,
                     />
                 </div>
                 {playlistMovies.map((playlist, index) => (
-                    <div className='fr fcenter'>
+                    <div className='fr fcenter' key={`playlist-${index}`}>
                         <ContentSlideSection
                             sectionTitle={playlist.title}
                             datas={playlist.playlistData}
                             list={playlistList[index]}
-                            type='movie'
+                            type={playlist.type}
                             page={'playlist'}
                             isImageLoaded={isImageLoaded}
                             isLoaded={isLoaded}
                             showModal={showModal}
+                            index={index}
                         />
                     </div>
                 ))}

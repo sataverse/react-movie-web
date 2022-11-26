@@ -1,59 +1,28 @@
-import { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { useRef, useEffect } from 'react'
 
-const StarDiv = styled.div`
-    margin-left: 2rem;
-    margin-right: 2rem;
-`
-
-function Star({ beforeRate, afterRate, index, mouseOverStar, mouseClickStar }) {
-    const [leftColor, setLeftColor] = useState('#D8D8D8')
-    const [rightColor, setRightColor] = useState('#D8D8D8')
+function Star({ realLeft, realRight, tempLeft, tempRight }) {
+    const leftStar = useRef(null)
+    const rightStar = useRef(null)
 
     useEffect(() => {
-        if (afterRate - index == 0) {
-            setLeftColor('#FF9900')
-            setRightColor('#D8D8D8')
-        } else if (afterRate - index >= 1) {
-            setLeftColor('#FF9900')
-            setRightColor('#FF9900')
-        } else if (afterRate - index <= -1) {
-            setLeftColor('#D8D8D8')
-            setRightColor('#D8D8D8')
-        }
-    })
+        if (realLeft) leftStar.current.style.fill = '#FF9900'
+        else if (tempLeft) leftStar.current.style.fill = '#a0a0a0'
+        else leftStar.current.style.fill = '#D8D8D8'
+        if (realRight) rightStar.current.style.fill = '#FF9900'
+        else if (tempRight) rightStar.current.style.fill = '#a0a0a0'
+        else rightStar.current.style.fill = '#D8D8D8'
+    }, [realLeft, realRight, tempLeft, tempRight])
 
-    function changeColorWhenMouseOver(e) {
-        if (e.target.id == 'left-star') {
-            mouseOverStar(index)
-        } else if (e.target.id == 'right-star') {
-            mouseOverStar(index + 1)
-        }
-    }
-    
     return (
-        <StarDiv>
-            <svg id='left-star' width='10' height='20' viewBox='0 0 10 20' fill='none' xmlns='http://www.w3.org/2000/svg'
-                onMouseOver={changeColorWhenMouseOver}
-                onClick={() => mouseClickStar()}>
-                <g clipPath='url(#clip0_229_516)'>
-                    <path
-                        d='M10 15.31V0L7.57 8H0L6.18 12.41L3.83 20L10 15.31Z'
-                        fill={leftColor}
-                    />
-                </g>
+        <div style={{ marginTop: '5rem' }}>
+            <svg width='10' height='20' viewBox='0 0 10 20' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                <path d='M10 15.31V0L7.57 8H0L6.18 12.41L3.83 20L10 15.31Z' fill='#D8D8D8' ref={leftStar} />
             </svg>
-            <svg id='right-star' width='10' height='20' viewBox='0 0 10 20' fill='none' xmlns='http://www.w3.org/2000/svg'
-                onMouseOver={changeColorWhenMouseOver}
-                onClick={() => mouseClickStar()}>
-                <g clipPath='url(#clip0_229_520)'>
-                    <path
-                        d='M0 15.31V0L2.43 8H10L3.82 12.41L6.17 20L0 15.31Z'
-                        fill={rightColor}
-                    />
-                </g>
+            <svg width='10' height='20' viewBox='0 0 10 20' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                <path d='M0 15.31V0L2.43 8H10L3.82 12.41L6.17 20L0 15.31Z' fill='#D8D8D8' ref={rightStar} />
             </svg>
-        </StarDiv>
+        </div>
     )
 }
 

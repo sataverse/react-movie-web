@@ -7,6 +7,7 @@ const ContentSearchGridDiv = styled.div`
     display: grid;
     grid-template-rows: 1fr;
     row-gap: 20rem;
+    margin-bottom: 20rem;
 `
 
 function ContentSearchGrid({ data, showModal, type }) {
@@ -59,6 +60,7 @@ function ContentSearchGrid({ data, showModal, type }) {
                             />
                         )
                     } else if (type == 'person') {
+                        console.log(data)
                         return (
                             <SearchCard
                                 key={`search-grid-content-${element.id}`}

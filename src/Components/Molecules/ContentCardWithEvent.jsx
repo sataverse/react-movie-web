@@ -84,7 +84,7 @@ function ContentCardWithEvent({
                         setFavorite(true)
                     } else {
                         // 좋아요 취소
-                        UserStore.deleteFavoriteById(id)
+                        UserStore.deleteFavoriteById(id, type)
                         setFavorite(false)
                     }
                     event.stopPropagation()

@@ -5,6 +5,7 @@ import ModalHorizontalCloseButton from '../Atoms/Modal/ModalHorizontalCloseButto
 import ModalAlert from './ModalAlert'
 import ModalInput from '../Atoms/Modal/ModalInput'
 import ModalSignButton from '../Atoms/Modal/ModalSignButton'
+import UserStore from '../../Modules/UserStore'
 
 const ModalSignInBackground = styled.div`
     position: fixed;
@@ -85,7 +86,9 @@ function ModalSignIn({ hideSigninModal, switchModal }) {
         fetch(`http://13.209.26.226/v1/favorite?id=${id}`, { method: 'GET' })
             .then((response) => response.json())
             .then((data) => {
+                if (data != undefined) UserStore.setFavorites(data)
                 saveJSON('favorite_list', data)
+
                 if (!data) setUserFavorite([])
                 else setUserFavorite(data)
             })
