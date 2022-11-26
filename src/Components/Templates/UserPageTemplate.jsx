@@ -61,7 +61,6 @@ function UserPageTemplate({ likedListData, ratedListData }) {
 
     return (
         <>
-            <MainHeader />
             {likedListData.length == 0 ? <MainSectionEmpty /> : <MainSection data={likedListData} />}
             <UserPageTemplateWrapper className='fc fleft'>
                 <Tab tabType={tabType} changeTab={changeTab} />
