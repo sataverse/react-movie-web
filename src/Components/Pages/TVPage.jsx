@@ -8,7 +8,7 @@ let month = ('0' + (today.getMonth() + 1)).slice(-2)
 let day = ('0' + today.getDate()).slice(-2)
 let dateString = year + '-' + month + '-' + day
 
-function TVPage() {
+function TVPage({ loginStatus }) {
     const [tvData, setTVData] = useState([])
     const [isFetching, setFetching] = useState(false)
     const [index, setIndex] = useState(0)
@@ -61,7 +61,7 @@ function TVPage() {
     }, [currentGenre, currentSort])
 
     window.addEventListener('scroll', function () {
-        if (window.innerHeight + window.scrollY > document.body.offsetHeight - 1000) {
+        if (window.innerHeight + window.scrollY > document.body.offsetHeight - 1000 && index != 0) {
             setFetching(true)
         }
     })
@@ -70,7 +70,7 @@ function TVPage() {
         if (isFetching) getTV({ sort: currentSort, genre: currentGenre })
     }, [isFetching])
 
-    return <TVPageTemplate data={tvData} changeGenre={changeGenre} sortType={currentSort} changeSort={changeSort} />
+    return <TVPageTemplate data={tvData} changeGenre={changeGenre} sortType={currentSort} changeSort={changeSort} loginStatus={loginStatus} />
 }
 
 export default TVPage

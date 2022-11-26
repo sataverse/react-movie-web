@@ -49,13 +49,16 @@ const Wrapper1 = styled.div`
     height: 70rem;
 `
 
-function ContentCard({ id, title, desc, score, posterUrl, index, type, showModal }) {
+function ContentCard({ id, title, desc, score, posterUrl, index, type, showModal, loginStatus }) {
     const navigate = useNavigate()
     const [isFavorite, setFavorite] = useState(false)
 
     useEffect(() => {
         setFavorite(UserStore.findFavoriteById(id, type))
     }, [])
+    useEffect(() => {
+        setFavorite(UserStore.findFavoriteById(id, type))
+    }, [loginStatus])
 
     return (
         <ContentCardDiv

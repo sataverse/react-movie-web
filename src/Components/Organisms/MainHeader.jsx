@@ -8,7 +8,6 @@ import ModalConfirm from './ModalConfirm'
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import UserStore from '../../Modules/UserStore'
-import ContentCardWithEvent from '../Molecules/ContentCardWithEvent'
 
 const MainHeaderWrapper = styled.div`
     position: sticky;
@@ -94,7 +93,7 @@ const SignButton = styled.button`
     }
 `
 
-function MainHeader({ backgroundColor = 'auto' }) {
+function MainHeader({ backgroundColor = 'auto', loginStatus, setGlobalLoginStatus }) {
     const navigate = useNavigate()
 
     const [signinModal, setSigninModal] = useState(false)
@@ -102,8 +101,6 @@ function MainHeader({ backgroundColor = 'auto' }) {
     const [signoutModal, setSignoutModal] = useState(false)
     const [noScroll, setScroll] = useState(false)
     const [isSignIn, setIsSignIn] = useState(false)
-
-    const loadJSON = (key) => key && JSON.parse(localStorage.getItem(key))
 
     const showSigninModal = (async) => {
         setSigninModal(true)
@@ -138,11 +135,8 @@ function MainHeader({ backgroundColor = 'auto' }) {
     }
     const signOut = () => {
         navigate('/')
-        localStorage.removeItem('user_id')
-        localStorage.removeItem('user_email')
-        localStorage.removeItem('user_nickname')
-        localStorage.removeItem('favorite_list')
-        localStorage.removeItem('rating_list')
+        setGlobalLoginStatus(false)
+        UserStore.signOut()
         setIsSignIn(false)
         setSignoutModal(false)
         setScroll(false)
@@ -153,13 +147,12 @@ function MainHeader({ backgroundColor = 'auto' }) {
     })
 
     useEffect(() => {
-        const id = loadJSON('user_id')
-        if (!id) {
-            setIsSignIn(false)
-        } else {
+        if (loginStatus) {
             setIsSignIn(true)
+        } else {
+            setIsSignIn(false)
         }
-    })
+    }, [loginStatus])
 
     return (
         <>
@@ -175,7 +168,12 @@ function MainHeader({ backgroundColor = 'auto' }) {
                     </MainNavWrapper>
                     <button
                         onClick={() => {
-                            //console.log(UserStore.getFavorites())
+                            console.log(UserStore.userId)
+                            console.log(UserStore.nickname)
+                            console.log(UserStore.email)
+                            console.log(UserStore.rank)
+                            console.log(UserStore.getFavorites())
+                            console.log(UserStore.getStars())
                         }}>
                         테스트
                     </button>
@@ -201,8 +199,10 @@ function MainHeader({ backgroundColor = 'auto' }) {
                 </MainHeaderContentWrapper>
                 <MainHeaderHr $backgroundColor={backgroundColor} />
             </MainHeaderWrapper>
-            {signinModal ? <ModalSignIn hideSigninModal={hideSigninModal} switchModal={switchModal} /> : null}
-            {signupModal ? <ModalSignUp hideSignupModal={hideSignupModal} /> : null}
+            {signinModal ? (
+                <ModalSignIn hideSigninModal={hideSigninModal} switchModal={switchModal} setGlobalLoginStatus={setGlobalLoginStatus} />
+            ) : null}
+            {signupModal ? <ModalSignUp hideSignupModal={hideSignupModal} setGlobalLoginStatus={setGlobalLoginStatus} /> : null}
             {signoutModal ? <ModalConfirm msg={'로그아웃 할까요?'} cancel={cancelSignOut} confirm={signOut} /> : null}
         </>
     )

@@ -64,11 +64,15 @@ function ContentCardWithEvent({
     type,
     isImageLoaded,
     showModal,
+    loginStatus,
 }) {
     const [isFavorite, setFavorite] = useState(false)
     useEffect(() => {
         setFavorite(UserStore.findFavoriteById(id, type))
     }, [])
+    useEffect(() => {
+        setFavorite(UserStore.findFavoriteById(id, type))
+    }, [loginStatus])
     return (
         <ContentCardDiv
             className='fc no-drag'

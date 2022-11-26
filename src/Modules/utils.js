@@ -59,12 +59,12 @@ export const getDetailContentFromAPI = (id, type) => {
 }
 
 export const getCreditFromApi = (id, type) => {
-    const [creditData, setCreditData] = useState([])
+    let creditData = []
     useEffect(() => {
         async function getCredit(id) {
             fetch(`https://api.themoviedb.org/3/${type}/${id}/credits?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`)
                 .then((response) => response.json())
-                .then((data) => setCreditData(data.cast))
+                .then((data) => (creditData = data.cast))
         }
         getCredit(id)
     }, [id])

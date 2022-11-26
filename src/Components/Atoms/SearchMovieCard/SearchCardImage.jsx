@@ -23,7 +23,7 @@ const SkeletonDiv = styled.div`
 function SearchCardImage({ posterUrl }) {
     const [imageStatus, setImageStatus] = useState(true)
     return (
-        <div>
+        <>
             {imageStatus && (
                 <SearchCardImageImg
                     className='no-drag'
@@ -35,7 +35,7 @@ function SearchCardImage({ posterUrl }) {
                 />
             )}
             {!imageStatus && <SkeletonDiv color={getRandomColor()} />}
-        </div>
+        </>
     )
 }
 

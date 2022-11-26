@@ -25,7 +25,7 @@ function CardImage({ posterUrl }) {
     const loadingImage = useRef(null)
     const [imageStatus, setImageStatus] = useState(true)
     return (
-        <div>
+        <>
             {imageStatus && (
                 <CardImageImg
                     ref={loadingImage}
@@ -39,7 +39,7 @@ function CardImage({ posterUrl }) {
                 />
             )}
             {!imageStatus && <SkeletonDiv color={getRandomColor()} />}
-        </div>
+        </>
     )
 }
 

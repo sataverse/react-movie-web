@@ -7,7 +7,7 @@ let koTVData = []
 let playlists = []
 let playlistMovieData = []
 
-function MainPage() {
+function MainPage({ loginStatus }) {
     const [trendMovies, setTrendMovies] = useState([])
     const [trendTvs, setTrendTvs] = useState([])
     const [playlistList, setPlaylistList] = useState([])
@@ -151,6 +151,7 @@ function MainPage() {
             playlistList={playlistList}
             isImageLoaded={isImageLoaded}
             isLoaded={isLoaded}
+            loginStatus={loginStatus}
         />
     )
 }

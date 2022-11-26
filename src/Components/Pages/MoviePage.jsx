@@ -9,7 +9,7 @@ let month = ('0' + (today.getMonth() + 1)).slice(-2)
 let day = ('0' + today.getDate()).slice(-2)
 let dateString = year + '-' + month + '-' + day
 
-function MoviePage() {
+function MoviePage({ loginStatus }) {
     const getCurrentGenreFromPath = (path) => {
         if (location.pathname.replaceAll('/movie', '') == '') return 0
         else return location.pathname.replaceAll('/movie/genre-', '')
@@ -65,7 +65,7 @@ function MoviePage() {
     }, [currentGenre, currentSort])
 
     window.addEventListener('scroll', function () {
-        if (window.innerHeight + window.scrollY > document.body.offsetHeight - 1000) {
+        if (window.innerHeight + window.scrollY > document.body.offsetHeight - 1000 && index != 0) {
             setFetching(true)
         }
     })
@@ -74,7 +74,7 @@ function MoviePage() {
         if (isFetching) getMovie({ sort: currentSort, genre: currentGenre })
     }, [isFetching])
 
-    return <MoviePageTemplate data={movieData} changeGenre={changeGenre} sortType={currentSort} changeSort={changeSort} />
+    return <MoviePageTemplate data={movieData} changeGenre={changeGenre} sortType={currentSort} changeSort={changeSort} loginStatus={loginStatus} />
 }
 
 export default MoviePage

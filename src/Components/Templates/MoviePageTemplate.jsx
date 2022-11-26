@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import MainHeader from '../Organisms/MainHeader'
 import ContentGrid from '../Organisms/ContentGrid'
 import ContentSlideSectionTitle from '../Atoms/ContentSlideSectionTitle'
 import ScrollTopButton from '../Atoms/ScrollTopButton'
@@ -43,7 +42,7 @@ function getGenreByNum(num) {
     return itemArray.filter((element) => element[1] == num)
 }
 
-function MoviePageTemplate({ data, changeGenre, sortType, changeSort }) {
+function MoviePageTemplate({ data, changeGenre, sortType, changeSort, loginStatus }) {
     const [modal, setModal] = useState(false)
     const [noScroll, setScroll] = useState(false)
     const [id, setId] = useState(null)
@@ -88,7 +87,6 @@ function MoviePageTemplate({ data, changeGenre, sortType, changeSort }) {
 
     return (
         <>
-            <MainHeader />
             <MoviePageTemplateWrapper className='fc fleft'>
                 <div style={{ width: '1280rem' }} className='hcenter'>
                     <ContentSlideSectionTitle text={genreText} margin={0} />
@@ -96,7 +94,7 @@ function MoviePageTemplate({ data, changeGenre, sortType, changeSort }) {
                         <DraggableSlider itemArray={itemArray} changeGenreType={changeGenreType} />
                         {genreType > 3 ? <SortList sortType={sortType} changeSortType={changeSort} /> : null}
                     </div>
-                    <ContentGrid data={data} type={'movie'} showModal={showModal} noScroll={noScroll} />
+                    <ContentGrid data={data} type={'movie'} showModal={showModal} noScroll={noScroll} loginStatus={loginStatus} />
                 </div>
             </MoviePageTemplateWrapper>
             <ScrollTopButton />
