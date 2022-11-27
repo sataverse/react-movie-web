@@ -71,6 +71,25 @@ function MainPage() {
             setTrendTvs(koTVData)
         }
 
+        async function getPlaylistFromDB() {
+            await fetch('http://13.209.26.226/v1/playlist', { method: 'GET' })
+                .then((response) => response.json())
+                .then((data) => {
+                    playlists = []
+                    if (!data) {
+                        setPlaylistList(playlists)
+                        return
+                    }
+                    data.forEach((element) => {
+                        if (element.Playlist.length != 0) {
+                            const arr = element.Playlist.split(',')
+                            playlists.push({ id: element.Id, title: element.Name, playlist: arr, type: element.Type })
+                            setPlaylistList(playlists)
+                        }
+                    })
+                })
+        }
+
         async function clearArray() {
             koMovieData = []
             koTVData = []
@@ -81,26 +100,8 @@ function MainPage() {
         clearArray()
         getMovieData()
         getTVData()
+        getPlaylistFromDB()
     }, [])
-
-    async function getPlaylistFromDB() {
-        await fetch('http://13.209.26.226/v1/playlist', { method: 'GET' })
-            .then((response) => response.json())
-            .then((data) => {
-                playlists = []
-                if (!data) {
-                    setPlaylistList(playlists)
-                    return
-                }
-                data.forEach((element) => {
-                    if (element.Playlist.length != 0) {
-                        const arr = element.Playlist.split(',')
-                        playlists.push({ id: element.Id, title: element.Name, playlist: arr, type: element.Type })
-                        setPlaylistList(playlists)
-                    }
-                })
-            })
-    }
 
     async function getPlaylistMovieData() {
         for (const playlist of playlistList) {
@@ -132,11 +133,6 @@ function MainPage() {
         CardStore.increaseMaxCount(playlistMovieData.length)
         setPlaylistMovies(playlistMovieData)
     }
-
-    useEffect(() => {
-        if (trendTvs.length == 0) return
-        getPlaylistFromDB()
-    }, [trendTvs])
 
     useEffect(() => {
         if (playlistList.length == 0) return
