@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import MainHeader from '../Organisms/MainHeader'
 import { useState, useEffect } from 'react'
 import ContentSlideSectionTitle from '../Atoms/ContentSlideSectionTitle'
 import ContentGrid from '../Organisms/ContentGrid'
@@ -17,7 +16,6 @@ function PersonPageTemplate({ data }) {
 
     return (
         <>
-            <MainHeader />
             <PersonPageTemplateWrapper className='fc fleft'>
                 <div style={{ width: '1280rem' }} className='hcenter'>
                     <ContentSlideSectionTitle text={'😎 인물'} margin={0} />

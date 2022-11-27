@@ -51,59 +51,54 @@ const ModalSignUpButton = styled.div`
     cursor: pointer;
 `
 
-function ModalSignIn({ hideSigninModal, switchModal }) {
-    const loadJSON = (key) => key && JSON.parse(localStorage.getItem(key))
-    const saveJSON = (key, data) => localStorage.setItem(key, JSON.stringify(data))
-
-    const [signinFailedModal, setSigninFailedModal] = React.useState(false)
-    const [email, setEmail] = React.useState()
-    const [passwd, setPasswd] = React.useState()
-    const [userId, setUserId] = React.useState(loadJSON('user_id'))
-    const [userFavorite, setUserFavorite] = React.useState(loadJSON('favorite_list'))
-
+function ModalSignIn({ hideSigninModal, switchModal, setGlobalLoginStatus }) {
+    const [signinFailedModal, setSigninFailedModal] = useState(null)
+    const [email, setEmail] = useState()
+    const [passwd, setPasswd] = useState()
     const hideSigninFailedModal = () => setSigninFailedModal(false)
 
-    async function signin() {
+    function signin() {
         if (!email || !passwd) return
-        await fetch(`http://13.209.26.226/v1/sign-in?email=${email}&password=${passwd}`, { method: 'POST' })
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.Id == -1) {
-                    setSigninFailedModal(true)
-                } else {
-                    saveJSON('user_id', data.Id)
-                    saveJSON('user_email', data.Email)
-                    saveJSON('user_nickname', data.Nickname)
-                    saveJSON('rank', data.Rank)
-                    setUserId(data.Id)
-                }
-            })
+        async function getUserInfo() {
+            await fetch(`http://13.209.26.226/v1/sign-in?email=${email}&password=${passwd}`, { method: 'POST' })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.Id == -1) {
+                        setSignInStatus(false)
+                        setSigninFailedModal(true)
+                    } else {
+                        UserStore.userId = data.Id
+                        UserStore.nickname = data.Email
+                        UserStore.email = data.Nickname
+                        UserStore.rank = data.Rank
+                    }
+                })
+        }
+        async function getUserFavorite() {
+            await fetch(`http://13.209.26.226/v1/favorite?id=${UserStore.userId}`, { method: 'GET' })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data != undefined) UserStore.setFavorites(data)
+                })
+        }
+        async function getUserRate() {
+            await fetch(`http://13.209.26.226/v1/rating-list?user_id=${UserStore.userId}`, { method: 'GET' })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data != undefined) UserStore.setStars(data)
+                    setGlobalLoginStatus(true)
+                })
+        }
+
+        async function getInfo() {
+            await getUserInfo()
+            await getUserFavorite()
+            await getUserRate()
+            hideSigninModal()
+        }
+
+        getInfo()
     }
-
-    React.useEffect(() => {
-        if (!userId) return
-        const id = loadJSON('user_id')
-        fetch(`http://13.209.26.226/v1/favorite?id=${id}`, { method: 'GET' })
-            .then((response) => response.json())
-            .then((data) => {
-                if (data != undefined) UserStore.setFavorites(data)
-                saveJSON('favorite_list', data)
-
-                if (!data) setUserFavorite([])
-                else setUserFavorite(data)
-            })
-    }, [userId])
-
-    React.useEffect(() => {
-        if (!userId) return
-        const id = loadJSON('user_id')
-        fetch(`http://13.209.26.226/v1/rating-list?user_id=${id}`, { method: 'GET' })
-            .then((response) => response.json())
-            .then((data) => {
-                saveJSON('rating_list', data)
-                hideSigninModal()
-            })
-    }, [userFavorite])
 
     return (
         <>
@@ -112,7 +107,11 @@ function ModalSignIn({ hideSigninModal, switchModal }) {
                     <ModalMainLogo className='fr fcenter' style={{ height: '140rem' }} />
                     <ModalInput type='text' placeholder='이메일' maxLength='50' onChange={(e) => setEmail(e.target.value)} className='hcenter' />
                     <ModalInput type='password' placeholder='비밀번호' onChange={(e) => setPasswd(e.target.value)} className='hcenter' />
-                    <ModalSignButton onClick={() => signin()} className='hcenter'>
+                    <ModalSignButton
+                        onClick={() => {
+                            signin()
+                        }}
+                        className='hcenter'>
                         로그인
                     </ModalSignButton>
                     <div className='fc fsevenly' style={{ height: '70rem', margin: '12rem' }}>

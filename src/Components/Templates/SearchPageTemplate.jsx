@@ -1,6 +1,4 @@
 import styled from 'styled-components'
-import MainHeader from '../Organisms/MainHeader'
-import SubHeader from '../Organisms/SubHeader'
 import SearchFromLarge from '../Molecules/SearchFormLarge'
 import ContentSearchGrid from '../Organisms/ContentSearchGrid'
 import ModalDetailContent from '../Organisms/ModalDetailContent'
@@ -50,7 +48,6 @@ function SearchPageTemplate({ movieData, tvData, personData, onChange = (f) => f
 
     return (
         <>
-            <MainHeader />
             <SearchPageTemplateWrapper className='fc fleft'>
                 <div style={{ width: '600rem' }} className='hcenter'>
                     <SearchFromLarge onChange={onChange} className='hcenter' />

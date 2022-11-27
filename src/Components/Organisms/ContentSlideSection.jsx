@@ -55,7 +55,7 @@ const SlideWrapper2 = styled.div`
     position: relative;
 `
 
-function ContentSlideSection({ sectionTitle, datas, type, page, isImageLoaded, isLoaded, showModal, index }) {
+function ContentSlideSection({ sectionTitle, datas, type, page, isImageLoaded, isLoaded, showModal, index, loginStatus }) {
     const [slideIndex, setSlideIndex] = useState(0)
     const [LinkDisplay, setLinkDisplay] = useState('none')
 
@@ -130,6 +130,7 @@ function ContentSlideSection({ sectionTitle, datas, type, page, isImageLoaded, i
                                         key={`main-page-playlist-${index}-${element.id}`}
                                         isImageLoaded={isImageLoaded}
                                         showModal={showModal}
+                                        loginStatus={loginStatus}
                                     />
                                 )
                             } else if (type == 'tv') {
@@ -158,6 +159,7 @@ function ContentSlideSection({ sectionTitle, datas, type, page, isImageLoaded, i
                                         key={`main-page-playlist-${index}-${element.id}`}
                                         isImageLoaded={isImageLoaded}
                                         showModal={showModal}
+                                        loginStatus={loginStatus}
                                     />
                                 )
                             } else if (type == undefined) {
@@ -181,6 +183,7 @@ function ContentSlideSection({ sectionTitle, datas, type, page, isImageLoaded, i
                                         key={`main-page-playlist-${index}-${element.id}`}
                                         isImageLoaded={isImageLoaded}
                                         showModal={showModal}
+                                        loginStatus={loginStatus}
                                     />
                                 )
                             }

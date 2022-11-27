@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import ContentSlideSectionTitle from '../Atoms/ContentSlideSectionTitle'
 import ContentGrid from '../Organisms/ContentGrid'
-import MainHeader from '../Organisms/MainHeader'
 import ModalDetailContent from '../Organisms/ModalDetailContent'
 
 const CreditDetailPageTemplateWrapper = styled.div`
@@ -56,7 +55,6 @@ function CreditDetailPageTemplate({ data, creditMovieData }) {
 
     return (
         <>
-            <MainHeader />
             {data.length != 0 && creditMovieData.length != 0 && (
                 <CreditDetailPageTemplateWrapper>
                     <div style={{ width: '1280rem' }} className='hcenter'>

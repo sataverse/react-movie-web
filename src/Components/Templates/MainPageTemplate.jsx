@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 import ContentSlideSection from '../Organisms/ContentSlideSection'
-import MainHeader from '../Organisms/MainHeader'
-import SubHeader from '../Organisms/SubHeader'
 import ModalDetailContent from '../Organisms/ModalDetailContent'
 import Footer from '../Organisms/Footer'
 import { useState, useEffect } from 'react'
@@ -10,7 +8,7 @@ const MainPageTemplateWrapper = styled.div`
     width: 100vw;
 `
 
-function MainPageTemplate({ trendMovies, trendTvs, playlistMovies, playlistList, isImageLoaded, isLoaded }) {
+function MainPageTemplate({ trendMovies, trendTvs, playlistMovies, playlistList, isImageLoaded, isLoaded, loginStatus }) {
     const [modal, setModal] = useState(false)
     const [noScroll, setScroll] = useState(false)
     const [id, setId] = useState(null)
@@ -36,7 +34,6 @@ function MainPageTemplate({ trendMovies, trendTvs, playlistMovies, playlistList,
 
     return (
         <>
-            <MainHeader />
             <MainPageTemplateWrapper className='fc fleft'>
                 <div className='fr fcenter'>
                     <ContentSlideSection
@@ -47,6 +44,7 @@ function MainPageTemplate({ trendMovies, trendTvs, playlistMovies, playlistList,
                         isImageLoaded={isImageLoaded}
                         isLoaded={isLoaded}
                         showModal={showModal}
+                        loginStatus={loginStatus}
                     />
                 </div>
                 <div className='fr fcenter'>
@@ -58,6 +56,7 @@ function MainPageTemplate({ trendMovies, trendTvs, playlistMovies, playlistList,
                         isImageLoaded={isImageLoaded}
                         isLoaded={isLoaded}
                         showModal={showModal}
+                        loginStatus={loginStatus}
                     />
                 </div>
                 {playlistMovies.map((playlist, index) => (
@@ -72,6 +71,7 @@ function MainPageTemplate({ trendMovies, trendTvs, playlistMovies, playlistList,
                             isLoaded={isLoaded}
                             showModal={showModal}
                             index={index}
+                            loginStatus={loginStatus}
                         />
                     </div>
                 ))}

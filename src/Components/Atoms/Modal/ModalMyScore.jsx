@@ -14,6 +14,8 @@ const DateText = styled.div`
     margin-right: -12rem;
     margin-top: 2rem;
     text-align: center;
+    font-size: 10rem;
+    color: var(--w-black);
 `
 
 function findRateByX(x) {
@@ -42,10 +44,10 @@ function findRateByX(x) {
     }
 }
 
-function ModalMyScore({ id, type, myRate, date }) {
+function ModalMyScore({ id, type, myRate = [0, ''] }) {
     const starsWrapper = useRef(null)
     const [tempRate, setTempRate] = useState(0)
-    const [rate, setRate] = useState(myRate)
+    const [rate, setRate] = useState(myRate[0])
     function hoverStars() {
         let bounds = starsWrapper.current.getBoundingClientRect()
         let x = event.clientX - bounds.left
@@ -74,8 +76,8 @@ function ModalMyScore({ id, type, myRate, date }) {
                 <Star realLeft={rate >= 9} realRight={rate >= 10} tempLeft={tempRate >= 9} tempRight={tempRate >= 10} />
             </Stars>
             <DateText>
-                {date.replace('-', '년 ').replace('-', '월 ')}
-                {date != '' ? '일에 평가함' : ''}
+                {myRate[1].replace('-', '년 ').replace('-', '월 ')}
+                {myRate[1] != '' ? '일에 평가함' : ''}
             </DateText>
         </div>
     )

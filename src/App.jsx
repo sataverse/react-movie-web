@@ -8,31 +8,32 @@ import UserPage from './Components/Pages/UserPage'
 import SearchPage from './Components/Pages/SearchPage'
 import AdministratorPage from './Components/Pages/AdministratorPage'
 import SubHeader from './Components/Organisms/SubHeader'
-
-import UserStore from './Modules/UserStore'
-import { useEffect } from 'react'
+import { useState } from 'react'
+import MainHeader from './Components/Organisms/MainHeader'
 
 function App() {
-    useEffect(() => {
-        // 테스트용 좋아요 세팅
-        UserStore.setStars([{ id: 436270, type: 'movie', rate: 8 }])
-    }, [])
+    const [loginStatus, setLoginStatus] = useState(false)
+
+    async function setGlobalLoginStatus(status) {
+        setLoginStatus(status)
+    }
 
     return (
         <>
             <SubHeader />
             <BrowserRouter>
+                <MainHeader loginStatus={loginStatus} setGlobalLoginStatus={setGlobalLoginStatus} />
                 <Routes>
-                    <Route path='/' element={<MainPage />} />
-                    <Route path='/movie' element={<MoviePage />} />
-                    <Route path='/movie/:genre' element={<MoviePage />} />
-                    <Route path='/tv' element={<TVPage />} />
-                    <Route path='/tv/:genre' element={<TVPage />} />
+                    <Route path='/' element={<MainPage loginStatus={loginStatus} />} />
+                    <Route path='/movie' element={<MoviePage loginStatus={loginStatus} />} />
+                    <Route path='/movie/:genre' element={<MoviePage loginStatus={loginStatus} />} />
+                    <Route path='/tv' element={<TVPage loginStatus={loginStatus} />} />
+                    <Route path='/tv/:genre' element={<TVPage loginStatus={loginStatus} />} />
                     <Route path='/credit' element={<CreditPage />} />
                     <Route path='/credit/:id' element={<CreditDetailPage />} />
-                    <Route path='/user' element={<UserPage />}></Route>
-                    <Route path='/search' element={<SearchPage />}></Route>
-                    <Route path='/admin' element={<AdministratorPage />} />
+                    <Route path='/user' element={<UserPage loginStatus={loginStatus} />} />
+                    <Route path='/search' element={<SearchPage />} />
+                    <Route path='/admin' element={<AdministratorPage loginStatus={loginStatus} />} />
                 </Routes>
             </BrowserRouter>
         </>

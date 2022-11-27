@@ -13,7 +13,7 @@ const ContentGridDiv = styled.div`
     column-gap: 40rem;
 `
 
-function ContentGrid({ data, showModal }) {
+function ContentGrid({ data, showModal, loginStatus }) {
     return (
         <ContentGridDiv className='hcenter'>
             {data != undefined &&
@@ -37,6 +37,7 @@ function ContentGrid({ data, showModal }) {
                                 index={index}
                                 type={element.type}
                                 showModal={showModal}
+                                loginStatus={loginStatus}
                             />
                         )
                     } else if (element.type == 'tv') {
@@ -58,6 +59,7 @@ function ContentGrid({ data, showModal }) {
                                 index={index}
                                 type={element.type}
                                 showModal={showModal}
+                                loginStatus={loginStatus}
                             />
                         )
                     } else if (element.type == 'credit') {
@@ -72,6 +74,7 @@ function ContentGrid({ data, showModal }) {
                                 index={index}
                                 type={element.type}
                                 showModal={showModal}
+                                loginStatus={loginStatus}
                             />
                         )
                     }

@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import Tab from '../Molecules/Tab'
-import MainHeader from '../Organisms/MainHeader'
 import MainSection from '../Organisms/MainSection'
 import MainSectionEmpty from '../Organisms/MainSectionEmpty'
 import ContentGrid from '../Organisms/ContentGrid'
@@ -37,7 +36,7 @@ function UserPageTemplate({ likedListData, ratedListData }) {
     useEffect(() => {
         document.querySelector('html').style.overflowY = noScroll ? 'hidden' : 'auto'
     })
-    
+
     const showModal = async (id, type) => {
         setId(id)
         setType(type)
@@ -54,17 +53,14 @@ function UserPageTemplate({ likedListData, ratedListData }) {
     async function changeTab(num) {
         setTabType(num)
         if (num == 1) {
-            console.log('1')
             twoGridWrapper.current.scrollBy({ left: -1280, behavior: 'smooth' })
         } else if (num == 2) {
-            console.log('2')
             twoGridWrapper.current.scrollBy({ left: 1280, behavior: 'smooth' })
         }
     }
 
     return (
         <>
-            <MainHeader />
             {likedListData.length == 0 ? <MainSectionEmpty /> : <MainSection data={likedListData} />}
             <UserPageTemplateWrapper className='fc fleft'>
                 <Tab tabType={tabType} changeTab={changeTab} />
@@ -77,7 +73,7 @@ function UserPageTemplate({ likedListData, ratedListData }) {
                     </div>
                 </TwoGrid>
             </UserPageTemplateWrapper>
-            {modal ? <ModalDetailContent id={id} hideModal={hideModal} type={type}/> : null}
+            {modal ? <ModalDetailContent id={id} hideModal={hideModal} type={type} /> : null}
             <Footer />
         </>
     )

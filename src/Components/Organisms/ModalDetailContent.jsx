@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import styled from 'styled-components'
-import { getDetailContentFromAPI, getCreditFromApi } from '../../Modules/utils'
-import ModalBigImage from '../Atoms/Modal/ModalBigImage'
+import { getDetailContentFromAPI } from '../../Modules/utils'
 import ModalCloseButton from '../Atoms/Modal/ModalCloseButton'
 import DraggableSliderForPeople from '../Molecules/DraggableSliderForPeople'
 import ModalPosterImage from '../Atoms/Modal/ModalPosterImage'
@@ -137,18 +136,33 @@ const ModalBigImageImg = styled.img`
 
 function ModalDetailContent({ id, hideModal, type }) {
     const { detailData } = getDetailContentFromAPI(id, type)
-    const { creditData } = getCreditFromApi(id, type)
+    const [creditData, setCreditData] = useState([])
     const scrollHere1 = useRef(null)
     const scrollHere2 = useRef(null)
     const modalWrapper2 = useRef(null)
     const bigImage = useRef(null)
-    const [myRate, setMyRate] = useState(0)
-    const [myRateDate, setMyRateDate] = useState('')
+    const [myRate, setMyRate] = useState([])
 
-    console.log(detailData)
+    async function getCredit() {
+        fetch(`https://api.themoviedb.org/3/${type}/${id}/credits?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`)
+            .then((response) => response.json())
+            .then((data) => {
+                let newArray = data.cast.reduce(function (acc, current) {
+                    if (acc.findIndex(({ id }) => id === current.id) === -1) {
+                        acc.push(current)
+                    }
+                    return acc
+                }, [])
+                return newArray
+            })
+            .then((newArray) => {
+                setCreditData(newArray)
+            })
+    }
 
     useEffect(() => {
         setMyRate(UserStore.findStarById(id, type))
+        getCredit()
     }, [])
 
     async function scrollDownModal() {
@@ -176,7 +190,7 @@ function ModalDetailContent({ id, hideModal, type }) {
                 }}>
                 <ModalDetailContentScrollArea className='fc fleft'>
                     <div style={{ width: '0', height: '0' }} ref={scrollHere1} />
-                    {detailData != undefined && (
+                    {detailData != undefined && detailData.backdrop_path != null && (
                         <ModalBigImageImg
                             ref={bigImage}
                             src={`https://www.themoviedb.org/t/p/original/${detailData.backdrop_path}`}
@@ -184,9 +198,11 @@ function ModalDetailContent({ id, hideModal, type }) {
                         />
                     )}
                     <ModalDetailContentWrapper1 className='fc fleft'>
-                        <ModalScrollDownButtonWrapper>
-                            <ModalScrollDownButton scrollDownModal={scrollDownModal} />
-                        </ModalScrollDownButtonWrapper>
+                        {detailData != undefined && detailData.backdrop_path != null && (
+                            <ModalScrollDownButtonWrapper>
+                                <ModalScrollDownButton scrollDownModal={scrollDownModal} />
+                            </ModalScrollDownButtonWrapper>
+                        )}
                         {detailData != undefined && type != undefined && (
                             <ModalDetailContentWrapper2 ref={scrollHere2}>
                                 <ModalDetailContentWrapper3 className='fr fsbetween'>
@@ -198,16 +214,18 @@ function ModalDetailContent({ id, hideModal, type }) {
                                         </ModalDetailContentTextWrapper2>
                                         <ModalDetailContentTextWrapper2 $height='40' className='fr fsbetween' style={{ marginBottom: '10rem' }}>
                                             <ModalTagline tagline={detailData.tagline} />
-                                            <ModalMyScore id={id} type={type} myRate={myRate} date={myRateDate} />
+                                            <ModalMyScore id={id} type={type} myRate={myRate} />
                                         </ModalDetailContentTextWrapper2>
                                         <ModalStory story={detailData.overview} />
                                         <HR />
                                         <ModalDetailInfoGrid>
-                                            {type == 'movie' ? (
-                                                <ModalDetailInfo text1={'개봉일'} text2={detailData.release_date} />
-                                            ) : (
-                                                <ModalDetailInfo text1={'방영일'} text2={detailData.first_air_date} />
-                                            )}
+                                            {type == 'movie'
+                                                ? detailData.release_date != '' && (
+                                                      <ModalDetailInfo text1={'개봉일'} text2={detailData.release_date} />
+                                                  )
+                                                : detailData.first_air_date != '' && (
+                                                      <ModalDetailInfo text1={'방영일'} text2={detailData.first_air_date} />
+                                                  )}
                                             {type == 'movie' ? (
                                                 detailData.production_countries.length != 0 ? (
                                                     <ModalDetailInfo

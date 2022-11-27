@@ -38,7 +38,7 @@ const ModalSignUpDiv = styled.div`
     }
 `
 
-function ModalSignUp({ hideSignupModal }) {
+function ModalSignUp({ hideSignupModal, setGlobalLoginStatus }) {
     const loadJSON = (key) => key && JSON.parse(localStorage.getItem(key))
     const saveJSON = (key, data) => localStorage.setItem(key, JSON.stringify(data))
 
@@ -83,6 +83,7 @@ function ModalSignUp({ hideSignupModal }) {
             .then((response) => response.json())
             .then((data) => {
                 if (data.Id == -1) return
+                setGlobalLoginStatus(true)
                 saveJSON('user_id', data.Id)
                 saveJSON('user_email', data.Email)
                 saveJSON('user_nickname', data.Nickname)
