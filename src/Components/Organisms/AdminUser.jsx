@@ -98,7 +98,7 @@ function AdminUser({userData, updateUserData, deleteUserData}) {
                 <TableContentInnerDataDiv key={'0-4'} $width={250} $isTop={true}>가입일</TableContentInnerDataDiv>
                 <TableContentInnerDataDiv key={'0-5'} $width={150} $isTop={true}></TableContentInnerDataDiv>
             </TableTop>
-            <TableHR />   
+            <TableHR key={'header'}/>   
             {userData.map((list, idx) => (
                 <>
                     <TableContentList key={idx} className='fr hcenter'>
@@ -110,7 +110,7 @@ function AdminUser({userData, updateUserData, deleteUserData}) {
                         <TableContentInnerDataDiv key={`${idx+1}-4`} $width={250} $isTop={false}>{list.signupDate}</TableContentInnerDataDiv>
                         {list.rank == '회원' ? <TableContentInnerDataButton onClick={() => checkDelete(idx)} key={`${idx+1}-5`} $width={150} $color={'red'}><DeleteIcon width={'30'} height={'30'}/></TableContentInnerDataButton> : null}
                     </TableContentList>
-                    <TableHR />
+                    <TableHR key={`body-${idx+1}`}/>
                 </>
             ))}
         </AdminUserWrapper>

@@ -3,13 +3,11 @@ import React, { useState, useEffect } from 'react'
 import Logo from '../Atoms/Svg/Logo'
 import ModalInputLine from '../Atoms/Modal/ModalInputLine'
 import ModalConfirm from './ModalConfirmTriple'
-import MiniSearch from '../Molecules/MiniSearch'
-import MiniCard from '../Molecules/MiniCard'
+import MiniSearchBanner from '../Molecules/MiniSearchBanner'
 
-let tempPlaylistMovieList = []
 let responseMovieList = []
 
-const ModalPlaylistBackground = styled.div`
+const ModalBannerBackground = styled.div`
     position: fixed;
     top: 0px;
     left: 0px;
@@ -28,10 +26,10 @@ const fadeIn = keyframes`
     }
 `
 
-const ModalPlaylistDiv = styled.div`
+const ModalBannerDiv = styled.div`
     position: relative;
     width: 600rem;
-    height: 800rem;
+    height: 700rem;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -40,7 +38,7 @@ const ModalPlaylistDiv = styled.div`
     animation: ${fadeIn} 0.3s linear;
 `
 
-const PlayList = styled.span`
+const Banner = styled.span`
     position: relative;
     font-family: 'PT Sans', sans-serif !important;
     font-style: normal;
@@ -51,6 +49,46 @@ const PlayList = styled.span`
     line-height: 120rem;
     &:hover {
         cursor: default;
+    }
+`
+
+const ModalSelectRadioLeft = styled.div`
+    position: absolute;
+    width: 150rem;
+    height: 40rem;
+    line-height: 40rem;
+    left: 100rem;
+    top: 130rem;
+    border-radius: 10rem;
+    background-color: ${(props) => {
+        if(props.$selected) return '#fda7a7'
+        else return 'transparent'
+    }};
+    font-size: 16rem;
+    text-align: center;
+
+    &:hover{
+        cursor: pointer;
+    }
+`
+
+const ModalSelectRadioRight = styled.div`
+    position: absolute;
+    width: 150rem;
+    height: 40rem;
+    line-height: 40rem;
+    right: 100rem;
+    top: 130rem;
+    border-radius: 10rem;
+    background-color: ${(props) => {
+        if(props.$selected) return '#fda7a7'
+        else return 'transparent'
+    }};
+    font-size: 16rem;
+    text-align: center;
+
+    &:hover{
+        cursor: pointer;
     }
 `
 
@@ -67,7 +105,7 @@ const CloseButton = styled.button`
     cursor: pointer;
 `
 
-const ModalPlaylistSearchDiv = styled.div`
+const ModalBannerSearchDiv = styled.div`
     position: relative;
     width: 411rem;
     height: 300rem;
@@ -79,32 +117,23 @@ const ModalPlaylistSearchDiv = styled.div`
     overflow: auto;
 `
 
-const ModalPlaylistSliderDiv = styled.div`
-    position: relative;
-    width: 550rem;
-    height: 220rem;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 10rem;
-    overflow: auto;
+function ModalPlayList({title, type, comment, newMovieId, newTitle, newType, newComment, saveBanner, hideBannerModal}) {
+    let tempComment = comment
 
-    ::-webkit-scrollbar {
-        height: 10px;
-    }
-`
-
-function ModalPlayList({title, playlist, type, newTitle, addItem, deleteItem, savePlaylist, hidePlaylistModal}) {
-    let tempTitle = title
     const [confirmModal, setConfirmModal] = React.useState(false)
     const [searchText, setSearchText] = React.useState('')
     const [searchMovies, setSearchMovies] = React.useState([])
 
     const showConfirmModal = () => setConfirmModal(true)
     const hideConfirmModal = () => setConfirmModal(false)
-    const titleChange = e => newTitle(e.target.value)
+
     const searchEnter = e => {
         if(e.keyCode == 13) setSearchText(e.target.value)
+    }
+
+    const setItem = (id, title) => {
+        newMovieId(id)
+        newTitle(title)
     }
 
     useEffect(() => {
@@ -151,27 +180,25 @@ function ModalPlayList({title, playlist, type, newTitle, addItem, deleteItem, sa
 
     return (
         <>
-            <ModalPlaylistBackground onClick={() => showConfirmModal()}>
-                <ModalPlaylistDiv className='fc fleft' onClick={(event) => event.stopPropagation()}>
-                    <PlayList className='fr fcenter' style={{ top: '20rem', height: '60rem' }}><Logo width={150} height={60} /></PlayList>
+            <ModalBannerBackground onClick={() => showConfirmModal()}>
+                <ModalBannerDiv className='fc fleft' onClick={(event) => event.stopPropagation()}>
+                    <Banner className='fr fcenter' style={{ top: '20rem', height: '60rem' }}><Logo width={150} height={60} /></Banner>
                     <CloseButton onClick={() => showConfirmModal()}>닫기</CloseButton>
-                    <ModalInputLine value={tempTitle} onChange={e => titleChange(e)} type='text' placeholder='플레이리스트 이름을 지어주세요' className='hcenter' maxLength='50' style={{ width: '400rem', top: '50rem'}}/>
-                    <ModalInputLine onKeyDown={e => searchEnter(e)} type='text' placeholder='영화나 TV프로그램을 검색해보세요' className='hcenter' style={{width: '400rem', top: '50rem'}}/>
-                    <ModalPlaylistSearchDiv style={{top: '200rem'}}>
+                    <ModalSelectRadioLeft $selected={type=='movie'} onClick={() => newType('movie')}>영화</ModalSelectRadioLeft>
+                    <ModalSelectRadioRight $selected={type=='tv'} onClick={() => newType('tv')}>TV프로그램</ModalSelectRadioRight>
+                    <ModalInputLine value={tempComment} onChange={e => newComment(e.target.value)} type='text' placeholder='문구를 남겨보세요' className='hcenter' maxLength='100' style={{width: '400rem', top: '130rem'}}/>
+                    <ModalInputLine value={title} type='text' placeholder='제목' className='hcenter not-selected' maxLength='100' style={{ width: '400rem', top: '130rem'}} readOnly />
+                    <ModalInputLine onKeyDown={e => searchEnter(e)} type='text' placeholder='영화나 TV프로그램을 검색해보세요' className='hcenter' style={{width: '400rem', top: '130rem'}}/>
+                    <ModalBannerSearchDiv style={{top: '280rem'}}>
                         {searchMovies.map((item, idx) => (
                             <div className='fr' key={idx}>
-                                <MiniSearch item={item} playlist={playlist} addThis={addItem}/>
+                                <MiniSearchBanner item={item} setThis={setItem}/>
                             </div>
                         ))}
-                    </ModalPlaylistSearchDiv>
-                    <ModalPlaylistSliderDiv className='fr' style={{top: '170rem'}}>
-                        {playlist.map((item, idx) => (
-                            <MiniCard key={idx} id={item} type={type} deleteThis={deleteItem} size={'medium'}/>
-                        ))}
-                    </ModalPlaylistSliderDiv>
-                </ModalPlaylistDiv>
-            </ModalPlaylistBackground>
-            {confirmModal ? <ModalConfirm msg='저장할까요?' save={savePlaylist} notsave={hidePlaylistModal} cancel={hideConfirmModal} /> : null}
+                    </ModalBannerSearchDiv>
+                </ModalBannerDiv>
+            </ModalBannerBackground>
+            {confirmModal ? <ModalConfirm msg='저장할까요?' save={saveBanner} notsave={hideBannerModal} cancel={hideConfirmModal} /> : null}
         </>
     )
 }

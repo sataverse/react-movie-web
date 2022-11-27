@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import Logo from '../Svg/Logo'
 
 const MainLogo = styled.span`
     font-family: 'PT Sans', sans-serif !important;
@@ -14,7 +15,11 @@ const MainLogo = styled.span`
 `
 
 function ModalMainLogo() {
-    return <MainLogo>MOVIE</MainLogo>
+    return (
+        <MainLogo>
+            <Logo width={150} height={60} />
+        </MainLogo>
+    )
 }
 
 export default ModalMainLogo

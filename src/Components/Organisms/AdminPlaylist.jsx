@@ -184,7 +184,7 @@ function AdminPlaylist( { playlistData, modifyPlaylistData, addPlaylistData, del
                 <TableContentInnerDataDiv key={'0-4'} $width={100} $isTop={true}></TableContentInnerDataDiv>
                 <TableContentInnerDataDiv key={'0-5'} $width={100} $isTop={true}></TableContentInnerDataDiv>
             </TableTop>
-            <TableHR />   
+            <TableHR key={'header'}/>   
             {playlistData.map((list, idx) => (
                 <>
                     <TableContentList key={idx} className='fr hcenter'>
@@ -198,13 +198,13 @@ function AdminPlaylist( { playlistData, modifyPlaylistData, addPlaylistData, del
                             <TrashIcon className='hcenter' width={'30'} height={'30'}/>
                         </TableContentInnerDataButton>
                     </TableContentList>
-                    <TableHR />
+                    <TableHR key={`body-${idx+1}`}/>
                 </>
             ))}
             <PlaylistAddButton className='hcenter' onClick={() => showSelectModal()} onMouseOver={() => setShowIcon(true)} onMouseLeave={() => setShowIcon(false)} >
                 {showIcon ? '추가하기' : null}
             </PlaylistAddButton>
-            <TableHR />
+            <TableHR key={'footer'}/>
         </AdminPlaylistWrapper>
         {createModal ? <ModalPlayList title={title} playlist={playlist} type={type} newTitle={newTitle} addItem={addItem} deleteItem={deleteItem} savePlaylist={savePlaylist} hidePlaylistModal={hidePlaylistModal}/> : null}
         {confirmModal ? <ModalSignOut msg={'정말로 삭제할까요?'} cancel={hideConfirmModal} confirm={deleteList}/> : null}
