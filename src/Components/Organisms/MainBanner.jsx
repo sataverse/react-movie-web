@@ -11,6 +11,7 @@ const BannerWrapper = styled.div`
     &::-webkit-scrollbar {
         display: none;
     }
+    margin-top: 20rem;
 `
 const BannerSlider = styled.div`
     width: max-content;

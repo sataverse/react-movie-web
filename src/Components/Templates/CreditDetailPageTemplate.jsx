@@ -31,16 +31,18 @@ const CreditBiography = styled.span`
     margin-bottom: 20rem;
 `
 
-function CreditDetailPageTemplate({ data, creditMovieData }) {
+function CreditDetailPageTemplate({ data, creditMovieData}) {
     const [noScroll, setScroll] = useState(false)
     const [modal, setModal] = useState(false)
     const [id, setId] = useState(null)
+    const [type, setType] = useState(null)
     const loadingImage = useRef(null)
 
-    const showModal = async (id) => {
+    const showModal = async (id, type) => {
         setModal(true)
         setScroll(true)
         setId(id)
+        setType(type)
         document.body.style.overflow = 'none'
     }
 
@@ -81,7 +83,7 @@ function CreditDetailPageTemplate({ data, creditMovieData }) {
                     </div>
                 </CreditDetailPageTemplateWrapper>
             )}
-            {modal ? <ModalDetailContent id={id} hideModal={hideModal} type={'movie'} /> : null}
+            {modal ? <ModalDetailContent id={id} hideModal={hideModal} type={type} /> : null}
         </>
     )
 }
