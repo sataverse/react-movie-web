@@ -27,7 +27,10 @@ const UserStore = observable({
 
     // ID로 리스트에서 지우기
     deleteFavoriteById(id, type) {
-        this.favorites = this.favorites.filter((element) => element.Id != id && element.Type != type)
+        console.log(id, type)
+        console.log(this.getFavorites())
+        this.favorites = this.favorites.filter((element) => !(element.Id == id && element.Type == type))
+        console.log(this.getFavorites())
         fetch(`http://13.209.26.226/v1/toggle-fav?user_id=${this.userId}&movie_id=${id}&is_liked=0&type=${type}`)
     },
 
