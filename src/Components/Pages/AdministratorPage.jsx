@@ -6,67 +6,73 @@ function AdministratorPage() {
     const [playlistData, setPlaylistData] = useState([])
     const [userData, setUserData] = useState([])
     const [manageType, setManageType] = useState(0)
-    const changeManageType = num => setManageType(num)
+    const changeManageType = (num) => setManageType(num)
 
-    const fetchBannerData = url => {
+    const fetchBannerData = (url) => {
         fetch(url, { method: 'GET' })
-        .then((response) => response.json())
-        .then((data) => {
-            if(!data) {
-                setBannerData([])
-                return
-            }
-            const temp = []
-            data.forEach(element => 
-                temp.push({id: element.Id, movieId: element.MovieId, title: element.Title, type: element.Type, comment: element.Comment})
-            )
-            setBannerData(temp)
-        })
-    }
-
-    const fetchPlaylistData = url => {
-        fetch(url, { method: 'GET' })
-        .then((response) => response.json())
-        .then((data) => {
-            if(!data) {
-                setPlaylistData([])
-                return
-            }
-            const temp = []
-            data.forEach(element => {
-                const arr = element.Playlist.split(',')
-                temp.push({id: element.Id, title: element.Name, playlist: arr.map(movieId => parseInt(movieId)), type: element.Type})
+            .then((response) => response.json())
+            .then((data) => {
+                if (!data) {
+                    setBannerData([])
+                    return
+                }
+                const temp = []
+                data.forEach((element) =>
+                    temp.push({ id: element.Id, movieId: element.MovieId, title: element.Title, type: element.Type, comment: element.Comment })
+                )
+                setBannerData(temp)
             })
-            setPlaylistData(temp)
-        })
     }
 
-    const fetchUserData = url => {
+    const fetchPlaylistData = (url) => {
         fetch(url, { method: 'GET' })
-        .then((response) => response.json())
-        .then((data) => {
-            if(!data) {
-                setUserData([])
-                return
-            }
-            const temp = []
-            data.forEach(element => temp.push({id: element.Id, email: element.Email, nickname: element.Nickname, rank: element.Rank, signupDate: element.SignUpDate}))
-            setUserData(temp)
-        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (!data) {
+                    setPlaylistData([])
+                    return
+                }
+                const temp = []
+                data.forEach((element) => {
+                    const arr = element.Playlist.split(',')
+                    temp.push({ id: element.Id, title: element.Name, playlist: arr.map((movieId) => parseInt(movieId)), type: element.Type })
+                })
+                setPlaylistData(temp)
+            })
+    }
+
+    const fetchUserData = (url) => {
+        fetch(url, { method: 'GET' })
+            .then((response) => response.json())
+            .then((data) => {
+                if (!data) {
+                    setUserData([])
+                    return
+                }
+                const temp = []
+                data.forEach((element) =>
+                    temp.push({
+                        id: element.Id,
+                        email: element.Email,
+                        nickname: element.Nickname,
+                        rank: element.Rank,
+                        signupDate: element.SignUpDate,
+                    })
+                )
+                setUserData(temp)
+            })
     }
 
     useEffect(() => {
-        if(manageType == 0) {
+        if (manageType == 0) {
             const url = 'http://13.209.26.226/v1/banner'
-            fetchBannerData(url)  
-        }
-        else if(manageType == 1) {
+            fetchBannerData(url)
+        } else if (manageType == 1) {
             const url = 'http://13.209.26.226/v1/playlist'
-            fetchPlaylistData(url)  
-        }
-        else {
+            fetchPlaylistData(url)
+        } else {
             const url = 'http://13.209.26.226/v1/all-user'
-            fetchUserData(url) 
+            fetchUserData(url)
         }
     }, [manageType])
 
@@ -80,7 +86,7 @@ function AdministratorPage() {
         fetchBannerData(url)
     }
 
-    const deleteBannerData = id => {
+    const deleteBannerData = (id) => {
         const url = `http://13.209.26.226/v1/delete-banner?id=${id}`
         fetchBannerData(url)
     }
@@ -91,12 +97,11 @@ function AdministratorPage() {
     }
 
     const modifyPlaylistData = (id, title, listString) => {
-        console.log(id, title, listString)
         const url = `http://13.209.26.226/v1/change-playlist?id=${id}&name=${title}&playlist=${listString}`
         fetchPlaylistData(url)
     }
 
-    const deletePlaylistData = id => {
+    const deletePlaylistData = (id) => {
         const url = `http://13.209.26.226/v1/delete-playlist?id=${id}`
         fetchPlaylistData(url)
     }
@@ -106,12 +111,12 @@ function AdministratorPage() {
         fetchUserData(url)
     }
 
-    const deleteUserData = id => {
+    const deleteUserData = (id) => {
         const url = `http://13.209.26.226/v1/delete-user?id=${id}`
         fetchUserData(url)
     }
 
-    return(
+    return (
         <AdministratorPageTemplate
             bannerData={bannerData}
             addBannerData={addBannerData}
@@ -124,8 +129,8 @@ function AdministratorPage() {
             userData={userData}
             updateUserData={updateUserData}
             deleteUserData={deleteUserData}
-            manageType={manageType} 
-            changeManageType={changeManageType} 
+            manageType={manageType}
+            changeManageType={changeManageType}
         />
     )
 }

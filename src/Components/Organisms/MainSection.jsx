@@ -76,13 +76,12 @@ function rand(len) {
 
 function MainSection({ data }) {
     const loadingImage = useRef(null)
-    console.log(UserStore.nickname)
     return (
         <MainSectionWrapper className='hcenter'>
             {data.length != 0 ? (
                 <MainSectionImgDiv
                     ref={loadingImage}
-                    src={`https://www.themoviedb.org/t/p/original/${data[rand(data.length)].backdrop_path}`}
+                    src={`https://www.themoviedb.org/t/p/original/${data[0].backdrop_path}`}
                     onLoad={() => (loadingImage.current.style.opacity = 1)}
                 />
             ) : (

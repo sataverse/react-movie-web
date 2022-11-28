@@ -54,7 +54,7 @@ function MoviePageTemplate({ data, changeGenre, sortType, changeSort, loginStatu
 
     useEffect(() => {
         if (location.pathname.replaceAll('/movie', '') == '') {
-            setGenreText('🍿 모든 영화')
+            setGenreText('🍿 인기 영화')
             setGenreType(0)
             changeGenre(0)
         } else {

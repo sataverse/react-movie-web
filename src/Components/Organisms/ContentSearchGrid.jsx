@@ -60,7 +60,6 @@ function ContentSearchGrid({ data, showModal, type }) {
                             />
                         )
                     } else if (type == 'person') {
-                        console.log(data)
                         return (
                             <SearchCard
                                 key={`search-grid-content-${element.id}`}
