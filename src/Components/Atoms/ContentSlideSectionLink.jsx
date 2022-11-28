@@ -8,6 +8,7 @@ const ContentSlideSectionLinkSpan = styled.div`
     margin-right: 50rem;
     margin-top: 30rem;
     color: var(--w-blue);
+    cursor: pointer;
 `
 
 function ContentSlideSectionLink({ page }) {

@@ -6,12 +6,15 @@ let koMovieData = []
 let koTVData = []
 let playlists = []
 let playlistMovieData = []
+let TepmBannerListData = []
 
 function MainPage({ loginStatus }) {
     const [trendMovies, setTrendMovies] = useState([])
     const [trendTvs, setTrendTvs] = useState([])
     const [playlistList, setPlaylistList] = useState([])
     const [playlistMovies, setPlaylistMovies] = useState([])
+    const [bannerList, setBannerList] = useState([]) // 백엔드에서 가져온 리스트
+    const [bannerListData, setBannerListData] = useState([]) // API에서 가져온 리스트
     const [isLoaded, setIsLoaded] = useState(false)
 
     async function isImageLoaded() {
@@ -102,6 +105,15 @@ function MainPage({ loginStatus }) {
             })
     }
 
+    async function getBannerDataFromDB() {
+        await fetch('http://13.209.26.226/v1/banner', { method: 'GET' })
+            .then((response) => response.json())
+            .then((data) => {
+                setBannerList(data)
+                console.log(data)
+            })
+    }
+
     async function getPlaylistMovieData() {
         for (const playlist of playlistList) {
             let resultPlaylistArray = []
@@ -133,15 +145,47 @@ function MainPage({ loginStatus }) {
         setPlaylistMovies(playlistMovieData)
     }
 
-    useEffect(() => {
-        if (trendTvs.length == 0) return
-        getPlaylistFromDB()
-    }, [trendTvs])
+    async function getBannerData() {
+        let resultBannerList = []
+        for (const list of bannerList) {
+            let ifNoOverview = false
+            let elementResult
+            try {
+                await fetch(`https://api.themoviedb.org/3/${list.Type}/${list.MovieId}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=ko`)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        elementResult = data
+                        elementResult.type = list.Type
+                        elementResult.comment = list.Comment
+                        if (data.overview == '') ifNoOverview = true
+                    })
+                if (ifNoOverview == true) {
+                    await fetch(`https://api.themoviedb.org/3/${list.Type}/${list.MovieId}?api_key=6199da9940f55ef72ddc1512ea6eca9a&language=en-US`)
+                        .then((response) => response.json())
+                        .then((data) => {
+                            elementResult.overview = data.overview
+                        })
+                }
+                resultBannerList.push(elementResult)
+            } catch (error) {}
+        }
+        setBannerListData(resultBannerList)
+    }
 
     useEffect(() => {
-        if (playlistList.length == 0) return
+        getPlaylistFromDB()
+        getBannerDataFromDB()
+    }, [])
+
+    useEffect(() => {
+        setPlaylistMovies([])
         getPlaylistMovieData()
     }, [playlistList])
+
+    useEffect(() => {
+        setBannerListData([])
+        getBannerData()
+    }, [bannerList])
 
     return (
         <MainPageTemplate
@@ -152,6 +196,7 @@ function MainPage({ loginStatus }) {
             isImageLoaded={isImageLoaded}
             isLoaded={isLoaded}
             loginStatus={loginStatus}
+            bannerData={bannerListData}
         />
     )
 }

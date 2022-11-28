@@ -3,12 +3,13 @@ import ContentSlideSection from '../Organisms/ContentSlideSection'
 import ModalDetailContent from '../Organisms/ModalDetailContent'
 import Footer from '../Organisms/Footer'
 import { useState, useEffect } from 'react'
+import MainBanner from '../Organisms/MainBanner'
 
 const MainPageTemplateWrapper = styled.div`
     width: 100vw;
 `
 
-function MainPageTemplate({ trendMovies, trendTvs, playlistMovies, playlistList, isImageLoaded, isLoaded, loginStatus }) {
+function MainPageTemplate({ trendMovies, trendTvs, playlistMovies, playlistList, isImageLoaded, isLoaded, loginStatus, bannerData }) {
     const [modal, setModal] = useState(false)
     const [noScroll, setScroll] = useState(false)
     const [id, setId] = useState(null)
@@ -34,6 +35,7 @@ function MainPageTemplate({ trendMovies, trendTvs, playlistMovies, playlistList,
 
     return (
         <>
+            <MainBanner bannerData={bannerData} />
             <MainPageTemplateWrapper className='fc fleft'>
                 <div className='fr fcenter'>
                     <ContentSlideSection
