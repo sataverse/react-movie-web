@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import styled from 'styled-components'
 
 const BannerWrapper = styled.div`
@@ -6,7 +6,7 @@ const BannerWrapper = styled.div`
     height: 550rem;
     overflow-x: scroll;
     overflow-y: hidden;
-    background-color: #ffffff;
+    background-color: #000000;
     &::-webkit-scrollbar {
         display: none;
     }
@@ -21,22 +21,20 @@ const BannerSlider = styled.div`
 
 const BannerItem = styled.div`
     width: 800rem;
-    height: 550rem;
+    height: 500rem;
     background-color: #ffffff;
     border-radius: 6rem;
     filter: ${(props) => (props.test == true ? 'brightness(100%)' : 'brightness(40%)')};
     background-size: cover;
-    background-color: #ffffff;
-
-    &:hover {
-        cursor: pointer;
-    }
+    background-color: #000000;
+    opacity: 0;
+    transition: all 0.3s;
 `
 
 const BlankBannerItem = styled.div`
     width: 800rem;
     height: 550rem;
-    background-color: #ffffff;
+    background-color: #000000;
 `
 
 const BannerComment = styled.span`
@@ -51,8 +49,8 @@ const BannerComment = styled.span`
 `
 
 function MainBanner({ bannerData }) {
-    console.log(bannerData)
     const [slideIndex, setSlideIndex] = useState(1)
+    const loadingImage = useRef(null)
     return (
         <BannerWrapper className='hcenter'>
             <BannerSlider className='fr' style={{ transform: `translateX(-${slideIndex * 840 + 280}rem)` }}>
@@ -61,12 +59,14 @@ function MainBanner({ bannerData }) {
                     bannerData.map((element, index) => {
                         return (
                             <BannerItem
+                                ref={loadingImage}
                                 className='no-drag vcenter'
                                 key={`banner-${index}`}
                                 test={index == slideIndex}
                                 style={{
                                     backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 69.79%, rgba(0, 0, 0, 0.7) 83.33%, rgba(0, 0, 0, 0.9) 100%), url(https://www.themoviedb.org/t/p/original${element.backdrop_path})`,
                                 }}
+                                onLoad={() => (loadingImage.current.style.opacity = 1)}
                                 onClick={() => {
                                     if (index > slideIndex) {
                                         if (slideIndex < bannerData.length - 1) {

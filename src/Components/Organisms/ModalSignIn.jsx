@@ -68,8 +68,8 @@ function ModalSignIn({ hideSigninModal, switchModal, setGlobalLoginStatus }) {
                         setSigninFailedModal(true)
                     } else {
                         UserStore.userId = data.Id
-                        UserStore.nickname = data.Email
-                        UserStore.email = data.Nickname
+                        UserStore.nickname = data.Nickname
+                        UserStore.email = data.Email
                         UserStore.rank = data.Rank
                     }
                 })

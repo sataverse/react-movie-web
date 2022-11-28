@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components'
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import ModalMainLogo from '../Atoms/Modal/ModalMainLogo'
 import ModalHorizontalCloseButton from '../Atoms/Modal/ModalHorizontalCloseButton'
 import ModalAlert from './ModalAlert'
@@ -42,11 +42,9 @@ function ModalSignUp({ hideSignupModal, setGlobalLoginStatus }) {
     const loadJSON = (key) => key && JSON.parse(localStorage.getItem(key))
     const saveJSON = (key, data) => localStorage.setItem(key, JSON.stringify(data))
 
-    const [email, setEmail] = React.useState()
-    const [passwd, setPasswd] = React.useState()
-    const [nickname, setNickname] = React.useState()
-    const [userId, setUserId] = React.useState()
-    const [userFavorite, setUserFavorite] = React.useState(loadJSON('favorite_list'))
+    const [email, setEmail] = useState()
+    const [passwd, setPasswd] = useState()
+    const [nickname, setNickname] = useState()
     const [alertDidNotInputModal, setAlertDidNotInputModal] = useState(false)
     const [alertSignUpFailedModal, setAlertSignUpFailedModal] = useState(false)
     const [confirmSignUpModal, setConfirmSignUpModal] = useState(false)
@@ -84,36 +82,12 @@ function ModalSignUp({ hideSignupModal, setGlobalLoginStatus }) {
             .then((data) => {
                 if (data.Id == -1) return
                 setGlobalLoginStatus(true)
-                saveJSON('user_id', data.Id)
-                saveJSON('user_email', data.Email)
-                saveJSON('user_nickname', data.Nickname)
-                saveJSON('rank', data.Rank)
-                setUserId(data.Id)
+                UserStore.userId = data.Id
+                UserStore.nickname = data.Nickname
+                UserStore.email = data.Email
+                UserStore.rank = data.Rank
             })
     }
-
-    React.useEffect(() => {
-        if (!userId) return
-        const id = loadJSON('user_id')
-        fetch(`http://13.209.26.226/v1/favorite?id=${id}`, { method: 'GET' })
-            .then((response) => response.json())
-            .then((data) => {
-                saveJSON('favorite_list', data)
-                if (!data) setUserFavorite([])
-                else setUserFavorite(data)
-            })
-    }, [userId])
-
-    React.useEffect(() => {
-        if (!userId) return
-        const id = loadJSON('user_id')
-        fetch(`http://13.209.26.226/v1/rating-list?id=${id}`, { method: 'GET' })
-            .then((response) => response.json())
-            .then((data) => {
-                saveJSON('rating_list', data)
-                hideSignupModal()
-            })
-    }, [userFavorite])
 
     return (
         <>

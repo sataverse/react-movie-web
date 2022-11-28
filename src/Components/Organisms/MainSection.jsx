@@ -3,27 +3,21 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import ProfileIcon from '../Atoms/Svg/Profile'
 import MainNavManager from '../Atoms/MainNavManager'
+import UserStore from '../../Modules/UserStore'
 
 const MainSectionWrapper = styled.div`
     width: 100vw;
-    height: 300rem;
+    height: 400rem;
     display: flex;
     flex-direction: row;
     justify-content: right;
     background-color: var(--w-gray);
 `
 
-const MainSectionImgDiv = styled.div`
+const MainSectionImgDiv = styled.img`
     width: 100vw;
-    height: 300rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: right;
-    background-image: url( ${(props) => props.$path} );
-    background-repeat: no-repeat;
-    background-position-x: center;
-    background-position-y: 30%;
-    background-size: 100%;
+    height: 400rem;
+    object-fit: cover;
     filter: brightness(40%);
 `
 
@@ -37,17 +31,15 @@ const MainSectionManager = styled.div`
 
 const MainSectionUser = styled.div`
     position: absolute;
-    width: 400rem;
-    height: 80rem;
-    left: 200rem;
-    bottom: 20rem;
+    width: 1280rem;
+    bottom: 30rem;
+    left: 50%;
+    transform: translateX(-50%);
 `
 
 const MainSectionUserProfile = styled.div`
-    position: absolute;
-    width: 80rem;
+    width: 1280rem;
     height: 80rem;
-    border-radius: 80rem;
 `
 
 const MainSectionUserEmail = styled.div`
@@ -77,26 +69,26 @@ function MainSection({ data }) {
     const [randomIndex, setRandomIndex] = useState(0)
 
     useEffect(() => {
-        if(data.length == 0) return
+        if (data.length == 0) return
         const rand = Math.floor(Math.random() * data.length)
         setRandomIndex(rand)
     }, [data])
 
     useEffect(() => {
-        if(data.length == 0) return
+        if (data.length == 0) return
         setPath(data[randomIndex].backdrop_path)
     }, [randomIndex])
 
     return (
         <MainSectionWrapper className='hcenter'>
-            <MainSectionImgDiv $path={`https://www.themoviedb.org/t/p/original/${path}`} />
-            <MainSectionManager>
-                { JSON.parse(localStorage.getItem('rank')) != '회원' ? <MainNavManager /> : null }
-            </MainSectionManager>
+            <MainSectionImgDiv src={`https://www.themoviedb.org/t/p/original/${path}`} />
+            <MainSectionManager>{UserStore.rank != '회원' ? <MainNavManager /> : null}</MainSectionManager>
             <MainSectionUser>
-                <MainSectionUserProfile><ProfileIcon width={80} height={80} /></MainSectionUserProfile>
-                <MainSectionUserEmail>{JSON.parse(localStorage.getItem('user_email'))}</MainSectionUserEmail>
-                <MainSectionUserName>{JSON.parse(localStorage.getItem('user_nickname'))}</MainSectionUserName>
+                <MainSectionUserProfile>
+                    <ProfileIcon width={80} height={80} />
+                </MainSectionUserProfile>
+                <MainSectionUserEmail>{UserStore.email}</MainSectionUserEmail>
+                <MainSectionUserName>{UserStore.nickname}</MainSectionUserName>
             </MainSectionUser>
         </MainSectionWrapper>
     )
