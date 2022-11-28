@@ -29,7 +29,6 @@ function UserPageTemplate({ likedListData, ratedListData }) {
     const [noScroll, setScroll] = useState(false)
     const [id, setId] = useState(null)
     const [type, setType] = useState(null)
-    const [userName, setUserName] = useState('홍길동')
     const [tabType, setTabType] = useState(1) // 1 = 좋아요, 2 = 평가함
     const twoGridWrapper = useRef(null)
 

@@ -8,7 +8,7 @@ import UserPage from './Components/Pages/UserPage'
 import SearchPage from './Components/Pages/SearchPage'
 import AdministratorPage from './Components/Pages/AdministratorPage'
 import SubHeader from './Components/Organisms/SubHeader'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import MainHeader from './Components/Organisms/MainHeader'
 
 function App() {
@@ -17,6 +17,21 @@ function App() {
     async function setGlobalLoginStatus(status) {
         setLoginStatus(status)
     }
+
+    const preventClose = (e) => {
+        e.preventDefault()
+        e.returnValue = ''
+    }
+
+    useEffect(() => {
+        ;(() => {
+            window.addEventListener('beforeunload', preventClose)
+        })()
+
+        return () => {
+            window.removeEventListener('beforeunload', preventClose)
+        }
+    }, [])
 
     return (
         <>
