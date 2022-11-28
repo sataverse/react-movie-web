@@ -56,7 +56,7 @@ function ModalSignUp({ hideSignupModal, setGlobalLoginStatus }) {
             setAlertDidNotInputModal(true)
             return
         }
-        await fetch(`http://13.209.26.226/v1/check?email=${email}`, { method: 'POST' })
+        await fetch(`http://13.209.26.226/v1/check?email=${email}`, { method: 'GET' })
             .then((response) => response.json())
             .then((data) => {
                 if (data == -1) setAlertSignUpFailedModal(true)
@@ -65,15 +65,12 @@ function ModalSignUp({ hideSignupModal, setGlobalLoginStatus }) {
     }
 
     function signup() {
-        //fetch(`http://13.209.26.226/v1/sign-up`, {
-        //    method: 'POST',
-        //    headers: {
-        //        'Content-Type': 'application/json',
-        //    },
-        //    body: JSON.stringify({ email: email, password: passwd, nickname: nickname }),
-        //})
-        fetch(`http://13.209.26.226/v1/sign-up?email=${email}&password=${passwd}&nickname=${nickname}`, {
+        fetch(`http://13.209.26.226/v1/sign-up`, {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email: email, password: passwd, nickname: nickname }),
         })
             .then((response) => response.json())
             .then((data) => {
@@ -84,12 +81,12 @@ function ModalSignUp({ hideSignupModal, setGlobalLoginStatus }) {
 
     function signin() {
         setConfirmSignUpModal(false)
-        fetch(`http://13.209.26.226/v1/sign-in?email=${email}&password=${passwd}`, {
+        fetch(`http://13.209.26.226/v1/sign-in`, {
             method: 'POST',
-            //headers: {
-            //    'Content-Type': 'application/json',
-            //},
-            //body: JSON.stringify({ email: email, password: passwd }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email: email, password: passwd }),
         })
             .then((response) => response.json())
             .then((data) => {

@@ -61,15 +61,12 @@ function ModalSignIn({ hideSigninModal, switchModal, setGlobalLoginStatus }) {
     function signin() {
         if (!email || !passwd) return
         async function getUserInfo() {
-            //await fetch(`http://13.209.26.226/v1/sign-in`, {
-            //    method: 'POST',
-            //    headers: {
-            //        'Content-Type': 'application/json',
-            //    },
-            //    body: JSON.stringify({ email: email, password: passwd }),
-            //})
-            await fetch(`http://13.209.26.226/v1/sign-in?email=${email}&password=${passwd}`, {
+            await fetch(`http://13.209.26.226/v1/sign-in`, {
                 method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: email, password: passwd }),
             })
                 .then((response) => response.json())
                 .then((data) => {
