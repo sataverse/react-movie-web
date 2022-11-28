@@ -67,25 +67,27 @@ function ContentCard({ id, title, desc, score, posterUrl, index, type, showModal
                 type != 'credit' ? showModal(id, type) : navigate(`/credit/${id}`)
             }}>
             <CardIndex index={index + 1} />
-            <ContentCardLikeIcon
-                onClick={(event) => {
-                    if (!isFavorite) {
-                        // 좋아요 클릭
-                        UserStore.insertFavorite(id, type)
-                        setFavorite(true)
-                    } else {
-                        // 좋아요 취소
-                        UserStore.deleteFavoriteById(id, type)
-                        setFavorite(false)
-                    }
-                    event.stopPropagation()
-                }}
-                isFavorite={isFavorite}>
-                <svg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                    <path d='M5.5 13.4286L10 18L14.5 13.4286C16 12.1587 19 9.00952 19 6.57143C19 3.52381 17.125 2 14.5 2C11.875 2 10 3.52381 10 5.80952C10 3.52381 8.125 2 5.5 2C2.875 2 1 3.52381 1 6.57143C1 9.00952 4 12.1587 5.5 13.4286Z' />
-                    <path d='M5.5 13.4286L10 18L14.5 13.4286C16 12.1587 19 9.00952 19 6.57143C19 3.52381 17.125 2 14.5 2C11.875 2 10 3.52381 10 5.80952C10 3.52381 8.125 2 5.5 2C2.875 2 1 3.52381 1 6.57143C1 9.00952 4 12.1587 5.5 13.4286Z' />
-                </svg>
-            </ContentCardLikeIcon>
+            {type != 'credit' && (
+                <ContentCardLikeIcon
+                    onClick={(event) => {
+                        if (!isFavorite) {
+                            // 좋아요 클릭
+                            UserStore.insertFavorite(id, type)
+                            setFavorite(true)
+                        } else {
+                            // 좋아요 취소
+                            UserStore.deleteFavoriteById(id, type)
+                            setFavorite(false)
+                        }
+                        event.stopPropagation()
+                    }}
+                    isFavorite={isFavorite}>
+                    <svg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                        <path d='M5.5 13.4286L10 18L14.5 13.4286C16 12.1587 19 9.00952 19 6.57143C19 3.52381 17.125 2 14.5 2C11.875 2 10 3.52381 10 5.80952C10 3.52381 8.125 2 5.5 2C2.875 2 1 3.52381 1 6.57143C1 9.00952 4 12.1587 5.5 13.4286Z' />
+                        <path d='M5.5 13.4286L10 18L14.5 13.4286C16 12.1587 19 9.00952 19 6.57143C19 3.52381 17.125 2 14.5 2C11.875 2 10 3.52381 10 5.80952C10 3.52381 8.125 2 5.5 2C2.875 2 1 3.52381 1 6.57143C1 9.00952 4 12.1587 5.5 13.4286Z' />
+                    </svg>
+                </ContentCardLikeIcon>
+            )}
             <CardImage posterUrl={posterUrl} />
             <Wrapper1 className='fc fsevenly'>
                 <CardTextTitle text={title} />
