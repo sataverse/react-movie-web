@@ -52,6 +52,7 @@ const ModalSignUpButton = styled.div`
 `
 
 function ModalSignIn({ hideSigninModal, switchModal, setGlobalLoginStatus }) {
+    const [signStatus, setSignInStatus] = useState(null)
     const [signinFailedModal, setSigninFailedModal] = useState(null)
     const [email, setEmail] = useState()
     const [passwd, setPasswd] = useState()
@@ -60,7 +61,16 @@ function ModalSignIn({ hideSigninModal, switchModal, setGlobalLoginStatus }) {
     function signin() {
         if (!email || !passwd) return
         async function getUserInfo() {
-            await fetch(`http://13.209.26.226/v1/sign-in?email=${email}&password=${passwd}`, { method: 'POST' })
+            //await fetch(`http://13.209.26.226/v1/sign-in`, {
+            //    method: 'POST',
+            //    headers: {
+            //        'Content-Type': 'application/json',
+            //    },
+            //    body: JSON.stringify({ email: email, password: passwd }),
+            //})
+            await fetch(`http://13.209.26.226/v1/sign-in?email=${email}&password=${passwd}`, {
+                method: 'POST',
+            })
                 .then((response) => response.json())
                 .then((data) => {
                     if (data.Id == -1) {
@@ -71,34 +81,37 @@ function ModalSignIn({ hideSigninModal, switchModal, setGlobalLoginStatus }) {
                         UserStore.nickname = data.Nickname
                         UserStore.email = data.Email
                         UserStore.rank = data.Rank
+                        setSignInStatus(true)
                     }
                 })
         }
-        async function getUserFavorite() {
-            await fetch(`http://13.209.26.226/v1/favorite?id=${UserStore.userId}`, { method: 'GET' })
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data != undefined) UserStore.setFavorites(data)
-                })
-        }
-        async function getUserRate() {
-            await fetch(`http://13.209.26.226/v1/rating-list?user_id=${UserStore.userId}`, { method: 'GET' })
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data != undefined) UserStore.setStars(data)
-                    setGlobalLoginStatus(true)
-                })
-        }
 
-        async function getInfo() {
-            await getUserInfo()
-            await getUserFavorite()
-            await getUserRate()
-            hideSigninModal()
-        }
-
-        getInfo()
+        getUserInfo()
     }
+
+    async function getUserFavorite() {
+        await fetch(`http://13.209.26.226/v1/favorite?id=${UserStore.userId}`, { method: 'GET' })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data != undefined) UserStore.setFavorites(data)
+            })
+    }
+    async function getUserRate() {
+        await fetch(`http://13.209.26.226/v1/rating-list?user_id=${UserStore.userId}`, { method: 'GET' })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data != undefined) UserStore.setStars(data)
+                setGlobalLoginStatus(true)
+                hideSigninModal()
+            })
+    }
+
+    useEffect(() => {
+        if (signStatus) {
+            getUserFavorite()
+            getUserRate()
+        }
+    })
 
     return (
         <>

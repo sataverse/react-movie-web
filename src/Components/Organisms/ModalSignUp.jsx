@@ -6,6 +6,7 @@ import ModalAlert from './ModalAlert'
 import ModalConfirm from './ModalConfirm'
 import ModalInput from '../Atoms/Modal/ModalInput'
 import ModalSignButton from '../Atoms/Modal/ModalSignButton'
+import UserStore from '../../Modules/UserStore'
 
 const ModalSignInBackground = styled.div`
     position: fixed;
@@ -39,9 +40,6 @@ const ModalSignUpDiv = styled.div`
 `
 
 function ModalSignUp({ hideSignupModal, setGlobalLoginStatus }) {
-    const loadJSON = (key) => key && JSON.parse(localStorage.getItem(key))
-    const saveJSON = (key, data) => localStorage.setItem(key, JSON.stringify(data))
-
     const [email, setEmail] = useState()
     const [passwd, setPasswd] = useState()
     const [nickname, setNickname] = useState()
@@ -67,7 +65,16 @@ function ModalSignUp({ hideSignupModal, setGlobalLoginStatus }) {
     }
 
     function signup() {
-        fetch(`http://13.209.26.226/v1/sign-up?email=${email}&password=${passwd}&nickname=${nickname}`, { method: 'POST' })
+        //fetch(`http://13.209.26.226/v1/sign-up`, {
+        //    method: 'POST',
+        //    headers: {
+        //        'Content-Type': 'application/json',
+        //    },
+        //    body: JSON.stringify({ email: email, password: passwd, nickname: nickname }),
+        //})
+        fetch(`http://13.209.26.226/v1/sign-up?email=${email}&password=${passwd}&nickname=${nickname}`, {
+            method: 'POST',
+        })
             .then((response) => response.json())
             .then((data) => {
                 if (data == 1) signin()
@@ -77,11 +84,18 @@ function ModalSignUp({ hideSignupModal, setGlobalLoginStatus }) {
 
     function signin() {
         setConfirmSignUpModal(false)
-        fetch(`http://13.209.26.226/v1/sign-in?email=${email}&password=${passwd}`, { method: 'POST' })
+        fetch(`http://13.209.26.226/v1/sign-in?email=${email}&password=${passwd}`, {
+            method: 'POST',
+            //headers: {
+            //    'Content-Type': 'application/json',
+            //},
+            //body: JSON.stringify({ email: email, password: passwd }),
+        })
             .then((response) => response.json())
             .then((data) => {
                 if (data.Id == -1) return
                 setGlobalLoginStatus(true)
+                hideSignupModal()
                 UserStore.userId = data.Id
                 UserStore.nickname = data.Nickname
                 UserStore.email = data.Email

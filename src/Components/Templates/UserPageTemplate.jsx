@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import Tab from '../Molecules/Tab'
 import MainSection from '../Organisms/MainSection'
-import MainSectionEmpty from '../Organisms/MainSectionEmpty'
 import ContentGrid from '../Organisms/ContentGrid'
 import ModalDetailContent from '../Organisms/ModalDetailContent'
 import Footer from '../Organisms/Footer'
@@ -32,10 +31,6 @@ function UserPageTemplate({ likedListData, ratedListData }) {
     const [tabType, setTabType] = useState(1) // 1 = 좋아요, 2 = 평가함
     const twoGridWrapper = useRef(null)
 
-    useEffect(() => {
-        document.querySelector('html').style.overflowY = noScroll ? 'hidden' : 'auto'
-    })
-
     const showModal = async (id, type) => {
         setId(id)
         setType(type)
@@ -60,7 +55,7 @@ function UserPageTemplate({ likedListData, ratedListData }) {
 
     return (
         <>
-            {likedListData.length == 0 ? <MainSectionEmpty /> : <MainSection data={likedListData} />}
+            {likedListData.length != 0 && <MainSection data={likedListData} />}
             <UserPageTemplateWrapper className='fc fleft'>
                 <Tab tabType={tabType} changeTab={changeTab} />
                 <TwoGrid ref={twoGridWrapper} className='fr'>

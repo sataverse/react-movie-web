@@ -129,7 +129,6 @@ function MainPage({ loginStatus }) {
             .then((response) => response.json())
             .then((data) => {
                 setBannerList(data)
-                console.log(data)
             })
     }
 

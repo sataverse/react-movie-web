@@ -51,6 +51,8 @@ function UserPage() {
         getRatedListData()
     }, [ratedList])
 
+    console.log('userpage')
+
     return <UserPageTemplate likedListData={likedListData} ratedListData={ratedListData} />
 }
 

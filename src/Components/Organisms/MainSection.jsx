@@ -1,9 +1,9 @@
-import { useEffect } from 'react'
-import { useState } from 'react'
+import React, { useRef } from 'react'
 import styled from 'styled-components'
 import ProfileIcon from '../Atoms/Svg/Profile'
 import MainNavManager from '../Atoms/MainNavManager'
 import UserStore from '../../Modules/UserStore'
+import { useEffect } from 'react'
 
 const MainSectionWrapper = styled.div`
     width: 100vw;
@@ -19,6 +19,14 @@ const MainSectionImgDiv = styled.img`
     height: 400rem;
     object-fit: cover;
     filter: brightness(40%);
+    transition: all 0.3s;
+    opacity: 0;
+`
+
+const MainSectionBlank = styled.div`
+    width: 100vw;
+    height: 400rem;
+    background-color: var(--w-black);
 `
 
 const MainSectionManager = styled.div`
@@ -63,26 +71,26 @@ const MainSectionUserName = styled.div`
     font-size: 30rem;
     user-select: none;
 `
+function rand(len) {
+    return Math.floor(Math.random() * len)
+}
 
 function MainSection({ data }) {
-    const [path, setPath] = useState()
-    const [randomIndex, setRandomIndex] = useState(0)
-
-    useEffect(() => {
-        if (data.length == 0) return
-        const rand = Math.floor(Math.random() * data.length)
-        setRandomIndex(rand)
-    }, [data])
-
-    useEffect(() => {
-        if (data.length == 0) return
-        setPath(data[randomIndex].backdrop_path)
-    }, [randomIndex])
-
+    console.log('MainSection')
+    const loadingImage = useRef(null)
+    useEffect(() => {}, [])
     return (
         <MainSectionWrapper className='hcenter'>
-            <MainSectionImgDiv src={`https://www.themoviedb.org/t/p/original/${path}`} />
-            <MainSectionManager>{UserStore.rank != '회원' ? <MainNavManager /> : null}</MainSectionManager>
+            {data && data.length != 0 ? (
+                <MainSectionImgDiv
+                    ref={loadingImage}
+                    src={`https://www.themoviedb.org/t/p/original/${data[rand(data.length)].backdrop_path}`}
+                    onLoad={() => (loadingImage.current.style.opacity = 1)}
+                />
+            ) : (
+                <MainSectionBlank />
+            )}
+            <MainSectionManager>{UserStore.rank == '매니저' ? <MainNavManager /> : null}</MainSectionManager>
             <MainSectionUser>
                 <MainSectionUserProfile>
                     <ProfileIcon width={80} height={80} />
@@ -94,4 +102,4 @@ function MainSection({ data }) {
     )
 }
 
-export default MainSection
+export default React.memo(MainSection)

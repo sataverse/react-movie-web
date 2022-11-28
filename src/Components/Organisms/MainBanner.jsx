@@ -48,7 +48,7 @@ const BannerCommentWrapper = styled.div`
     position: absolute;
     left: 0;
     top: 0;
-    width: 100%;
+    width: 100vw;
     height: 100%;
     background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 70%, rgba(0, 0, 0, 0.8) 90%, rgba(0, 0, 0, 0.9) 100%);
 `
