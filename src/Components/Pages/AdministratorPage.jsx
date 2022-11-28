@@ -2,10 +2,27 @@ import AdministratorPageTemplate from '../Templates/AdministratorPageTemplate'
 import { useState, useEffect } from 'react'
 
 function AdministratorPage() {
+    const [bannerData, setBannerData] = useState([])
     const [playlistData, setPlaylistData] = useState([])
     const [userData, setUserData] = useState([])
-    const [manageType, setManageType] = useState(1)
+    const [manageType, setManageType] = useState(0)
     const changeManageType = num => setManageType(num)
+
+    const fetchBannerData = url => {
+        fetch(url, { method: 'GET' })
+        .then((response) => response.json())
+        .then((data) => {
+            if(!data) {
+                setBannerData([])
+                return
+            }
+            const temp = []
+            data.forEach(element => 
+                temp.push({id: element.Id, movieId: element.MovieId, title: element.Title, type: element.Type, comment: element.Comment})
+            )
+            setBannerData(temp)
+        })
+    }
 
     const fetchPlaylistData = url => {
         fetch(url, { method: 'GET' })
@@ -39,7 +56,11 @@ function AdministratorPage() {
     }
 
     useEffect(() => {
-        if(manageType == 1) {
+        if(manageType == 0) {
+            const url = 'http://13.209.26.226/v1/banner'
+            fetchBannerData(url)  
+        }
+        else if(manageType == 1) {
             const url = 'http://13.209.26.226/v1/playlist'
             fetchPlaylistData(url)  
         }
@@ -48,6 +69,21 @@ function AdministratorPage() {
             fetchUserData(url) 
         }
     }, [manageType])
+
+    const addBannerData = (movieId, title, type, comment) => {
+        const url = `http://13.209.26.226/v1/add-banner?movie_id=${movieId}&title=${title}&type=${type}&comment=${comment}`
+        fetchBannerData(url)
+    }
+
+    const modifyBannerData = (id, movieId, title, type, comment) => {
+        const url = `http://13.209.26.226/v1/change-banner?id=${id}&movie_id=${movieId}&title=${title}&type=${type}&comment=${comment}`
+        fetchBannerData(url)
+    }
+
+    const deleteBannerData = id => {
+        const url = `http://13.209.26.226/v1/delete-banner?id=${id}`
+        fetchBannerData(url)
+    }
 
     const addPlaylistData = (title, listString, type) => {
         const url = `http://13.209.26.226/v1/add-playlist?name=${title}&playlist=${listString}&type=${type}`
@@ -77,6 +113,10 @@ function AdministratorPage() {
 
     return(
         <AdministratorPageTemplate
+            bannerData={bannerData}
+            addBannerData={addBannerData}
+            modifyBannerData={modifyBannerData}
+            deleteBannerData={deleteBannerData}
             playlistData={playlistData}
             deletePlaylistData={deletePlaylistData}
             modifyPlaylistData={modifyPlaylistData}

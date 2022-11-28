@@ -74,6 +74,25 @@ function MainPage({ loginStatus }) {
             setTrendTvs(koTVData)
         }
 
+        async function getPlaylistFromDB() {
+            await fetch('http://13.209.26.226/v1/playlist', { method: 'GET' })
+                .then((response) => response.json())
+                .then((data) => {
+                    playlists = []
+                    if (!data) {
+                        setPlaylistList(playlists)
+                        return
+                    }
+                    data.forEach((element) => {
+                        if (element.Playlist.length != 0) {
+                            const arr = element.Playlist.split(',')
+                            playlists.push({ id: element.Id, title: element.Name, playlist: arr, type: element.Type })
+                            setPlaylistList(playlists)
+                        }
+                    })
+                })
+        }
+
         async function clearArray() {
             koMovieData = []
             koTVData = []
@@ -84,6 +103,7 @@ function MainPage({ loginStatus }) {
         clearArray()
         getMovieData()
         getTVData()
+        getPlaylistFromDB()
     }, [])
 
     async function getPlaylistFromDB() {

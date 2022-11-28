@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import Logo from './Svg/Logo'
 import { Link } from 'react-router-dom'
 
 const MainNavLogoWrapper = styled.span`
@@ -12,7 +13,9 @@ const MainNavLogoWrapper = styled.span`
 function MainNavLogo() {
     return (
         <Link to={'/'} className='no-underline'>
-            <MainNavLogoWrapper>MOVIE</MainNavLogoWrapper>
+            <MainNavLogoWrapper>
+                <Logo width={120} height={48} />
+            </MainNavLogoWrapper>
         </Link>
     )
 }

@@ -17,6 +17,8 @@ const AdminMenuVerticalHR = styled.div`
 function AdminMenu({manageType, changeManageType}) {
     return(
         <AdminMenuWrapper className='fr hcenter'>
+            <AdminNavElement text={'메인배너 관리'} index={0} current={manageType} changeManageType={changeManageType}/>
+            <AdminMenuVerticalHR />
             <AdminNavElement text={'플레이리스트 관리'} index={1} current={manageType} changeManageType={changeManageType}/>
             <AdminMenuVerticalHR />
             <AdminNavElement text={'회원 관리'} index={2} current={manageType} changeManageType={changeManageType}/>
