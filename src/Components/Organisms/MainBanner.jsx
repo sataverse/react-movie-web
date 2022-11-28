@@ -10,6 +10,7 @@ const BannerWrapper = styled.div`
     &::-webkit-scrollbar {
         display: none;
     }
+    margin-top: 20rem;
 `
 const BannerSlider = styled.div`
     width: max-content;
@@ -26,6 +27,10 @@ const BannerItem = styled.div`
     filter: ${(props) => (props.test == true ? 'brightness(100%)' : 'brightness(40%)')};
     background-size: cover;
     background-color: #ffffff;
+
+    &:hover {
+        cursor: pointer;
+    }
 `
 
 const BlankBannerItem = styled.div`

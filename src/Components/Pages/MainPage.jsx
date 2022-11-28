@@ -103,7 +103,6 @@ function MainPage({ loginStatus }) {
         clearArray()
         getMovieData()
         getTVData()
-        getPlaylistFromDB()
     }, [])
 
     async function getPlaylistFromDB() {
