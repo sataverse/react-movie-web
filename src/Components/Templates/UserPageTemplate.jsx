@@ -4,8 +4,7 @@ import MainSection from '../Organisms/MainSection'
 import ContentGrid from '../Organisms/ContentGrid'
 import ModalDetailContent from '../Organisms/ModalDetailContent'
 import Footer from '../Organisms/Footer'
-import { useState, useRef } from 'react'
-import { useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
 const UserPageTemplateWrapper = styled.div`
     position: relative;
@@ -55,7 +54,7 @@ function UserPageTemplate({ likedListData, ratedListData }) {
 
     return (
         <>
-            {likedListData.length != 0 && <MainSection data={likedListData} />}
+            <MainSection data={likedListData} />
             <UserPageTemplateWrapper className='fc fleft'>
                 <Tab tabType={tabType} changeTab={changeTab} />
                 <TwoGrid ref={twoGridWrapper} className='fr'>

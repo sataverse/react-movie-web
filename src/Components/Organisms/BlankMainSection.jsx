@@ -1,8 +1,9 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef } from 'react'
 import styled from 'styled-components'
 import ProfileIcon from '../Atoms/Svg/Profile'
 import MainNavManager from '../Atoms/MainNavManager'
 import UserStore from '../../Modules/UserStore'
+import { useEffect } from 'react'
 
 const MainSectionWrapper = styled.div`
     width: 100vw;
@@ -66,7 +67,7 @@ const MainSectionUserName = styled.div`
     height: 40rem;
     left: 100rem;
     top: 30rem;
-    color: var(--w-white);
+    color: var(--w-background);
     font-size: 30rem;
     user-select: none;
 `
@@ -74,20 +75,12 @@ function rand(len) {
     return Math.floor(Math.random() * len)
 }
 
-function MainSection({ data }) {
+function MainSection() {
     const loadingImage = useRef(null)
-    console.log(UserStore.nickname)
+    useEffect(() => {}, [])
     return (
         <MainSectionWrapper className='hcenter'>
-            {data.length != 0 ? (
-                <MainSectionImgDiv
-                    ref={loadingImage}
-                    src={`https://www.themoviedb.org/t/p/original/${data[rand(data.length)].backdrop_path}`}
-                    onLoad={() => (loadingImage.current.style.opacity = 1)}
-                />
-            ) : (
-                <MainSectionBlank />
-            )}
+            <MainSectionBlank />
             <MainSectionManager>{UserStore.rank == '매니저' ? <MainNavManager /> : null}</MainSectionManager>
             <MainSectionUser>
                 <MainSectionUserProfile>
@@ -100,4 +93,4 @@ function MainSection({ data }) {
     )
 }
 
-export default MainSection
+export default React.memo(MainSection)
