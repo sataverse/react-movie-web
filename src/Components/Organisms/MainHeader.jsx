@@ -166,17 +166,6 @@ function MainHeader({ backgroundColor = 'auto', loginStatus, setGlobalLoginStatu
                             <MainHeaderNav backgroundColor={backgroundColor} />
                         </div>
                     </MainNavWrapper>
-                    <button
-                        onClick={() => {
-                            console.log(UserStore.userId)
-                            console.log(UserStore.nickname)
-                            console.log(UserStore.email)
-                            console.log(UserStore.rank)
-                            console.log(UserStore.getFavorites())
-                            console.log(UserStore.getStars())
-                        }}>
-                        테스트
-                    </button>
                     <div className='fr fsbetween'>
                         <Link to={`/search`}>
                             <svg

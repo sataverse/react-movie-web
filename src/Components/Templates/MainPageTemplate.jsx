@@ -35,7 +35,7 @@ function MainPageTemplate({ trendMovies, trendTvs, playlistMovies, playlistList,
 
     return (
         <>
-            <MainBanner bannerData={bannerData} />
+            <MainBanner bannerData={bannerData} showModal={showModal} />
             <MainPageTemplateWrapper className='fc fleft'>
                 <div className='fr fcenter'>
                     <ContentSlideSection

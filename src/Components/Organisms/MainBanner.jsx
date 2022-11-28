@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import styled from 'styled-components'
+import BannerImage from '../Atoms/BannerImage'
 
 const BannerWrapper = styled.div`
     width: 100vw;
@@ -21,18 +22,14 @@ const BannerSlider = styled.div`
 const BannerItem = styled.div`
     width: 800rem;
     height: 500rem;
-    background-color: #ffffff;
     border-radius: 6rem;
-    filter: ${(props) => (props.test == true ? 'brightness(100%)' : 'brightness(40%)')};
-    background-size: cover;
-    background-color: #000000;
-    opacity: 0;
-    transition: all 0.3s;
+    cursor: pointer;
+    filter: ${(props) => (props.indexBool == true ? 'brightness(100%)' : 'brightness(40%)')};
 `
 
 const BlankBannerItem = styled.div`
     width: 800rem;
-    height: 550rem;
+    height: 500rem;
     background-color: #000000;
 `
 
@@ -47,9 +44,17 @@ const BannerComment = styled.span`
     color: var(--w-graywhite);
 `
 
-function MainBanner({ bannerData }) {
+const BannerCommentWrapper = styled.div`
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 70%, rgba(0, 0, 0, 0.8) 90%, rgba(0, 0, 0, 0.9) 100%);
+`
+
+function MainBanner({ bannerData, showModal }) {
     const [slideIndex, setSlideIndex] = useState(1)
-    const loadingImage = useRef(null)
     return (
         <BannerWrapper className='hcenter'>
             <BannerSlider className='fr' style={{ transform: `translateX(-${slideIndex * 840 + 280}rem)` }}>
@@ -58,14 +63,9 @@ function MainBanner({ bannerData }) {
                     bannerData.map((element, index) => {
                         return (
                             <BannerItem
-                                ref={loadingImage}
                                 className='no-drag vcenter'
                                 key={`banner-${index}`}
-                                test={index == slideIndex}
-                                style={{
-                                    backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 69.79%, rgba(0, 0, 0, 0.7) 83.33%, rgba(0, 0, 0, 0.9) 100%), url(https://www.themoviedb.org/t/p/original${element.backdrop_path})`,
-                                }}
-                                onLoad={() => (loadingImage.current.style.opacity = 1)}
+                                indexBool={index == slideIndex}
                                 onClick={() => {
                                     if (index > slideIndex) {
                                         if (slideIndex < bannerData.length - 1) {
@@ -75,9 +75,14 @@ function MainBanner({ bannerData }) {
                                         if (slideIndex > 0) {
                                             setSlideIndex(slideIndex - 1)
                                         }
+                                    } else {
+                                        showModal(element.id, element.type)
                                     }
                                 }}>
-                                <BannerComment>"{element.comment}"</BannerComment>
+                                <BannerImage url={element.backdrop_path} />
+                                <BannerCommentWrapper>
+                                    <BannerComment>"{element.comment}"</BannerComment>
+                                </BannerCommentWrapper>
                             </BannerItem>
                         )
                     })}

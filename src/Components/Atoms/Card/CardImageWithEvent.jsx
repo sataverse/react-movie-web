@@ -1,12 +1,14 @@
 import styled from 'styled-components'
 import CardStory from './CardStory'
 import CardStore from '../../../Modules/CardStore'
+import { useRef } from 'react'
 
 const CardImageImg1 = styled.img`
     width: 180rem;
     height: 270rem;
     transition: all 0.3s;
     border-radius: 6rem;
+    opacity: 0;
     &:hover {
         transform: scale(1.05);
     }
@@ -91,6 +93,7 @@ function CardImageWithEvent({
     overview,
     isImageLoaded,
 }) {
+    const loadingImage = useRef(null)
     return (
         <CardImageWrapper className='no-drag'>
             <CardImageImg1Wrapper
@@ -122,11 +125,13 @@ function CardImageWithEvent({
                     } catch (error) {}
                 }}>
                 <CardImageImg1
+                    ref={loadingImage}
                     className='no-drag'
                     src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${posterUrl}`}
                     onLoad={() => {
                         CardStore.increaseLoadingCount()
                         isImageLoaded()
+                        loadingImage.current.style.opacity = 1
                     }}
                 />
             </CardImageImg1Wrapper>
