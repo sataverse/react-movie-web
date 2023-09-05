@@ -1,6 +1,6 @@
-### AWS 호스팅
+### API 서버 Github 링크
 
-http://gbs-react-movie-app.s3-website.ap-northeast-2.amazonaws.com
+[http://gbs-react-movie-app.s3-website.ap-northeast-2.amazonaws.com](https://github.com/sataverse/movie-user-api)
 
 
 
